@@ -20,6 +20,9 @@ export async function GET() {
       payload: process.env.FARCASTER_PAYLOAD,
       signature: process.env.FARCASTER_SIGNATURE,
     },
+    baseBuilder: {
+      allowedAddresses: ["0x323591710D7Aa601aEAF33D0B91D348c2F66b5cc"]
+    },
     frame: withValidProperties({
       version: "1",
       name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
@@ -41,3 +44,5 @@ export async function GET() {
     }),
   });
 }
+
+// FID 854428
