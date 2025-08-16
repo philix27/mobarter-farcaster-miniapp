@@ -1,115 +1,89 @@
 "use client";
 
-import {
-  useMiniKit,
-  useAddFrame,
-  useOpenUrl,
-} from "@coinbase/onchainkit/minikit";
-import {
-  Name,
-  Identity,
-  Address,
-  Avatar,
-  EthBalance,
-} from "@coinbase/onchainkit/identity";
-import {
-  ConnectWallet,
-  Wallet,
-  WalletDropdown,
-  WalletDropdownDisconnect,
-} from "@coinbase/onchainkit/wallet";
-import { useEffect, useMemo, useState, useCallback } from "react";
-import { Button } from "./components/DemoComponents";
-import { Icon } from "./components/DemoComponents";
-import { Home } from "./components/DemoComponents";
-import { Features } from "./components/DemoComponents";
+import { useMiniKit } from "@coinbase/onchainkit/minikit";
+import { IconType } from 'react-icons';
+import { PiTelevisionThin } from "react-icons/pi";
+import { PiGameController } from "react-icons/pi";
+import { MdElectricalServices } from "react-icons/md";
+import { CiPhone } from "react-icons/ci";
+import { TbMobiledata } from "react-icons/tb";
+import { MdOutlinePermDataSetting } from "react-icons/md";
+
+import { useEffect, } from "react";
+import { cn } from "../lib/utils";
 
 export default function App() {
-  const { setFrameReady, isFrameReady, context } = useMiniKit();
-  const [frameAdded, setFrameAdded] = useState(false);
-  const [activeTab, setActiveTab] = useState("home");
+  const { setFrameReady, isFrameReady, } = useMiniKit();
 
-  const addFrame = useAddFrame();
-  const openUrl = useOpenUrl();
-
+  const dashboardItems: {
+    title: string;
+    subtitle?: string;
+    icon: IconType;
+    color: string;
+    href: string;
+  }[] = [
+      {
+        title: "Airtime",
+        icon: CiPhone,
+        color: "#000343",
+        href: "/airtime"
+      },
+      {
+        title: "Data Bundle",
+        icon: TbMobiledata,
+        color: "#0CB906FF",
+        href: "/data-bundle"
+      },
+      {
+        title: "Data Plan",
+        icon: MdOutlinePermDataSetting,
+        color: "#9CBE04FF",
+        href: "/data-plan"
+      },
+      {
+        title: "TV",
+        icon: PiTelevisionThin,
+        color: "#DB15DBFF",
+        href: "/tv"
+      },
+      {
+        title: "Electricity",
+        icon: MdElectricalServices,
+        color: "#09A9D1FF",
+        href: "/electricity"
+      },
+      {
+        title: "Betting",
+        icon: PiGameController,
+        color: "#AD7F3AFF",
+        href: "/betting"
+      },
+    ]
   useEffect(() => {
     if (!isFrameReady) {
       setFrameReady();
     }
   }, [setFrameReady, isFrameReady]);
 
-  const handleAddFrame = useCallback(async () => {
-    const frameAdded = await addFrame();
-    setFrameAdded(Boolean(frameAdded));
-  }, [addFrame]);
-
-  const saveFrameButton = useMemo(() => {
-    if (context && !context.client.added) {
-      return (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleAddFrame}
-          className="text-[var(--app-accent)] p-4"
-          icon={<Icon name="plus" size="sm" />}
-        >
-          Save Frame
-        </Button>
-      );
-    }
-
-    if (frameAdded) {
-      return (
-        <div className="flex items-center space-x-1 text-sm font-medium text-[#0052FF] animate-fade-out">
-          <Icon name="check" size="sm" className="text-[#0052FF]" />
-          <span>Saved</span>
-        </div>
-      );
-    }
-
-    return null;
-  }, [context, frameAdded, handleAddFrame]);
 
   return (
-    <div className="flex flex-col min-h-screen font-sans text-[var(--app-foreground)] mini-app-theme from-[var(--app-background)] to-[var(--app-gray)]">
-      <div className="w-full max-w-md mx-auto px-4 py-3">
-        <header className="flex justify-between items-center mb-3 h-11">
-          <div>
-            <div className="flex items-center space-x-2">
-              <Wallet className="z-10">
-                <ConnectWallet>
-                  <Name className="text-inherit" />
-                </ConnectWallet>
-                <WalletDropdown>
-                  <Identity className="px-4 pt-3 pb-2" hasCopyAddressOnClick>
-                    <Avatar />
-                    <Name />
-                    <Address />
-                    <EthBalance />
-                  </Identity>
-                  <WalletDropdownDisconnect />
-                </WalletDropdown>
-              </Wallet>
-            </div>
-          </div>
-          <div>{saveFrameButton}</div>
-        </header>
-
-        <main className="flex-1">
-          {activeTab === "home" && <Home setActiveTab={setActiveTab} />}
-          {activeTab === "features" && <Features setActiveTab={setActiveTab} />}
-        </main>
-
-        <footer className="mt-2 pt-4 flex justify-center">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-[var(--ock-text-foreground-muted)] text-xs"
-            onClick={() => openUrl("https://base.org/builders/minikit")}
-          >
-            Built on Base with MiniKit
-          </Button>
-        </footer>
+    <div className="flex flex-col min-h-screen w-screen bg-white" >
+      <div className="w-full max-w-md mx-auto px-4 py-3 grid grid-cols-2   "
+        style={{ columnGap: 20, rowGap: 20 }}>
+        {dashboardItems.map((item, i) => {
+          const Icon = item.icon;
+          return (
+            <a key={i} href={item.href}
+              className={cn("p-3 flex flex-col items-center rounded-[15px]")}
+              style={{
+                backgroundColor: item.color
+              }}>
+              <Icon size={25} className="text-white mb-4 bg-secondary" />
+              <p className="text-[14px] text-white">{item.title}</p>
+            </a>
+          )
+        }
+        )}
       </div>
     </div>
   );
