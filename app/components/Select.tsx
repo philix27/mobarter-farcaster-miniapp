@@ -2,11 +2,10 @@
 
 import { ComponentType } from 'react'
 import Select, { GroupBase, OptionProps, PlaceholderProps } from 'react-select'
-
-
 import { BottomNote, Label } from './comps'
 import { useThemeColor } from '@/lib/const/Color'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomOption: ComponentType<OptionProps<any, false, GroupBase<any>>> = (props) =>
   !props.isDisabled ? (
     <div {...props.innerProps}>
@@ -16,10 +15,13 @@ const CustomOption: ComponentType<OptionProps<any, false, GroupBase<any>>> = (pr
     </div>
   ) : null
 
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CustomPlaceholder: ComponentType<PlaceholderProps<any, false, GroupBase<any>>> = (props) =>
   !props.isDisabled ? (
     <p {...props.innerProps} className="w-full bg-card shadow-md px-3 text-muted" />
   ) : null
+
 
 export const AppSelect = (props: {
   label?: string
@@ -46,10 +48,12 @@ export const AppSelect = (props: {
         options={props.data}
         value={props.value}
         className="w-full m-0"
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChange={(newValue: any) => {
           props.onChange(newValue!.value!)
         }}
         styles={{
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           menu: (base: any) => ({
             ...base,
             color: textColor,
@@ -59,11 +63,13 @@ export const AppSelect = (props: {
             marginTop: 0,
             borderRadius: 5,
           }),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           option: (base: any) => ({
             ...base,
             color: textColor,
             background: bgCard,
           }),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           indicatorsContainer: (base: any) => ({
             ...base,
             color: textColor,
@@ -72,11 +78,13 @@ export const AppSelect = (props: {
             outlineStyle: 'none',
             borderRadius: 5,
           }),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           singleValue: (base: any) => ({
             ...base,
             color: textColor,
             background: bgCard,
           }),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           container: (base: any) => ({
             ...base,
             background: bgCard,
@@ -86,6 +94,7 @@ export const AppSelect = (props: {
             margin: 0,
             borderRadius: 5,
           }),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           valueContainer: (base: any) => ({
             ...base,
             background: bgCard,
@@ -94,6 +103,7 @@ export const AppSelect = (props: {
             borderStyle: 'none',
             outlineStyle: 'none',
           }),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           control: (baseStyles: any) => ({
             ...baseStyles,
             color: textColor,

@@ -98,7 +98,11 @@ function AirtimeComps(props: {
   }
 
   return (
-    <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1">
+    <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1 space-y-5"
+      style={{
+        // columnGap: 30,
+        rowGap: 12,
+      }}>
       <BalCard />
       <Input
         label={`${mapCountryToIso[store.countryIso]} Phone number`}

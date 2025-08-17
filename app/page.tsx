@@ -1,9 +1,8 @@
-"use client";
+"use client"
 
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import { IconType } from 'react-icons';
-import { PiTelevisionThin } from "react-icons/pi";
-import { PiGameController } from "react-icons/pi";
+import { PiGameController, PiTelevisionThin } from "react-icons/pi";
 import { MdElectricalServices } from "react-icons/md";
 import { CiPhone } from "react-icons/ci";
 import { TbMobiledata } from "react-icons/tb";
@@ -12,6 +11,7 @@ import { MdOutlinePermDataSetting } from "react-icons/md";
 import { useEffect, } from "react";
 import { cn } from "../lib/utils/utils";
 import AppLayout from "./components/Layout";
+import { styles } from "./styles/style";
 
 export default function App() {
   const { setFrameReady, isFrameReady, } = useMiniKit();
@@ -60,6 +60,7 @@ export default function App() {
         href: "/betting"
       },
     ]
+
   useEffect(() => {
     if (!isFrameReady) {
       setFrameReady();
@@ -69,21 +70,23 @@ export default function App() {
 
   return (
     <AppLayout title="Home" hideBack>
-      <div className="w-full max-w-md mx-auto px-4 py-3 grid grid-cols-2    "
-        style={{ columnGap: 20, rowGap: 20 }}>
+      <div className="w-full max-w-md mx-auto px-4 py-3 grid grid-cols-2"
+        style={{ columnGap: 50, rowGap: 20 }}>
+
         {dashboardItems.map((item, i) => {
           const Icon = item.icon;
           return (
             <a key={i} href={item.href}
-              className={cn("p-3 flex flex-col items-center rounded-[10px] bg-primary")}
-              style={{ backgroundColor: "#29678BFF" }}
+              className={cn("p-2 flex flex-col items-center rounded-[10px] bg-primary")}
+              style={{ backgroundColor: styles.cardColor }}
             >
-              <Icon size={25} className="text-white mb-4 bg-secondary" />
-              <p className="text-[14px] text-white">{item.title}</p>
+              <Icon size={25} className="mb-4" />
+              <p className="text-[13px] font-normal" >{item.title}</p>
             </a>
           )
         }
         )}
+
       </div>
     </AppLayout>
   );

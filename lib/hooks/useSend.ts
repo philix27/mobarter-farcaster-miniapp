@@ -52,6 +52,7 @@ export function useSendToken() {
       })
 
       toast.success(`Send Native Success! Hash: ${shortString(result)}`)
+       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       logger.error('sendNative error', error)
     }

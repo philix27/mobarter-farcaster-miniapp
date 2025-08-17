@@ -14,6 +14,7 @@ export const truncateTextByLength = (length: number, text: string): string => {
   return text.length > length ? text.slice(0, length) + '...' : text
 }
 
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function shortString(str: any, len = 5): string {
   if (Array.isArray(str)) {
     str = '[' + str.toString() + ']'

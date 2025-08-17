@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 import { BottomNote, Label } from './comps'
 import { cn } from '@/lib/utils/utils'
+import { styles } from '../styles/style'
 
 export function Input(
   props: {
@@ -22,12 +23,13 @@ export function Input(
       {label && <Label>{label}</Label>}
       <div
         className={cn(
-          'rounded-md px-3 py-[5px] bg-card flex items-center justify-center',
+          'rounded-md px-3 py-[5px] flex items-center justify-center',
           focus && 'border-primary border-[0.5px]',
           props.error && 'border-destructive',
-          props.useBg ? 'bg-background' : 'bg-card',
+          props.useBg ? styles.bgColor : styles.cardColor,
           className
         )}
+        style={{ color: styles.color, }}
       >
         {props.preText && (
           <div className="h-full pr-1">
@@ -44,7 +46,7 @@ export function Input(
             text-[16px] font-normal placeholder:font-light placeholder:text-sm
             py-[2px]
           `,
-            props.useBg ? 'bg-background' : 'bg-card'
+            props.useBg ? styles.bgColor : styles.cardColor
           )}
           autoComplete={isNum ? 'off' : undefined}
           onFocus={() => {
@@ -57,6 +59,7 @@ export function Input(
           pattern={isNum ? '[0-9]*' : undefined}
           inputMode={isNum ? 'decimal' : undefined}
           min={isNum ? 0 : undefined}
+          style={{ backgroundColor: styles.bgColor }}
         />
         {trailingIcon && trailingIcon}
       </div>
