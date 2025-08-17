@@ -13,7 +13,7 @@ function Tg() {
   return (
     <div className="w-full">
       <Label>Balance</Label>
-      <Card className="bg-primary text-primary-foreground">{tokenBalance}</Card>
+      <Card className="bg-primary text-primary-foreground" >{tokenBalance}</Card>
     </div>
   )
 }

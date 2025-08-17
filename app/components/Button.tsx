@@ -13,6 +13,10 @@ export function Button(
         props.className
       )}
       onClick={props.onClick}
+      style={{
+        padding: "5px 12px",
+        backgroundColor: "orange"
+      }}
     >
       {props.children}
     </button>

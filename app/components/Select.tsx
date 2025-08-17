@@ -16,10 +16,12 @@ const CustomOption: ComponentType<OptionProps<any, false, GroupBase<any>>> = (pr
     </div>
   ) : null
 
+  
 const CustomPlaceholder: ComponentType<PlaceholderProps<any, false, GroupBase<any>>> = (props) =>
   !props.isDisabled ? (
     <p {...props.innerProps} className="w-full bg-card shadow-md px-3 text-muted" />
   ) : null
+
 
 export const AppSelect = (props: {
   label?: string

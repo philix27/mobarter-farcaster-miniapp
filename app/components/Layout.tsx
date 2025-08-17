@@ -2,10 +2,12 @@
 import { useRouter } from 'next/navigation';
 import React, { ReactNode } from 'react'
 import { BiArrowBack } from 'react-icons/bi';
+import { styles } from '../styles/style';
 
 export default function AppLayout(props: { children: ReactNode; title: string; subtitle?: string; hideBack?: boolean }) {
     return (
-        <div className="flex flex-col min-h-screen w-screen bg-background" >
+        <div className="flex flex-col min-h-screen w-screen"
+            style={{ backgroundColor: styles.bgColor }}>
             <div className='p-10'>
                 <Navbar title={props.title} hideBack={props.hideBack} />
                 {props.children}
@@ -23,6 +25,7 @@ export function Navbar(props: { title: string; hideBack?: boolean }) {
                 console.log("Closer")
             }}>
             {props.hideBack || <BiArrowBack
+                color={styles.color}
                 size={20}
                 onClick={() => {
                     console.log("Closer")
@@ -30,7 +33,7 @@ export function Navbar(props: { title: string; hideBack?: boolean }) {
                 }}
                 className='mr-5' />}
             <div className='w-full flex items-center justify-center'>
-                <p style={{ marginLeft: 20 }} className='font-bold'>{props.title} </p>
+                <p style={{ marginLeft: 20, color: styles.color }} className='font-bold'>{props.title} </p>
             </div>
         </div>
     )
