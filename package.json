@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.9",
     "@coinbase/onchainkit": "latest",
     "@farcaster/frame-sdk": "^0.1.8",
     "@tanstack/react-query": "^5",
@@ -19,6 +20,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.5.0",
+    "react-select": "^5.10.2",
+    "sonner": "^2.0.7",
     "tailwind-merge": "^2.6.0",
     "viem": "^2.27.2",
     "wagmi": "^2.16.0",

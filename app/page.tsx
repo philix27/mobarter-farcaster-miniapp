@@ -10,7 +10,7 @@ import { TbMobiledata } from "react-icons/tb";
 import { MdOutlinePermDataSetting } from "react-icons/md";
 
 import { useEffect, } from "react";
-import { cn } from "../lib/utils";
+import { cn } from "../lib/utils/utils";
 import AppLayout from "./components/Layout";
 
 export default function App() {
@@ -76,8 +76,8 @@ export default function App() {
           return (
             <a key={i} href={item.href}
               className={cn("p-3 flex flex-col items-center rounded-[10px] bg-primary")}
-              style={{backgroundColor: "#29678BFF"}}
-             >
+              style={{ backgroundColor: "#29678BFF" }}
+            >
               <Icon size={25} className="text-white mb-4 bg-secondary" />
               <p className="text-[14px] text-white">{item.title}</p>
             </a>
