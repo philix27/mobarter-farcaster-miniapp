@@ -1,9 +1,7 @@
-import React from 'react'
+'use client'
 
-export default function AirtimePage() {
-    return (
-        <div>
-            <h3>Airtime Page</h3>
-        </div>
-    )
+import AirtimePage from "./view"
+
+export default function Page() {
+    return <AirtimePage />
 }

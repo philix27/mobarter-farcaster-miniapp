@@ -10,7 +10,8 @@ import { TbMobiledata } from "react-icons/tb";
 import { MdOutlinePermDataSetting } from "react-icons/md";
 
 import { useEffect, } from "react";
-import { cn } from "../lib/utils";
+import { cn } from "../lib/utils/utils";
+import AppLayout from "./components/Layout";
 
 export default function App() {
   const { setFrameReady, isFrameReady, } = useMiniKit();
@@ -67,17 +68,16 @@ export default function App() {
 
 
   return (
-    <div className="flex flex-col min-h-screen w-screen bg-white" >
-      <div className="w-full max-w-md mx-auto px-4 py-3 grid grid-cols-2   "
+    <AppLayout title="Home" hideBack>
+      <div className="w-full max-w-md mx-auto px-4 py-3 grid grid-cols-2    "
         style={{ columnGap: 20, rowGap: 20 }}>
         {dashboardItems.map((item, i) => {
           const Icon = item.icon;
           return (
             <a key={i} href={item.href}
-              className={cn("p-3 flex flex-col items-center rounded-[15px]")}
-              style={{
-                backgroundColor: item.color
-              }}>
+              className={cn("p-3 flex flex-col items-center rounded-[10px] bg-primary")}
+              style={{ backgroundColor: "#29678BFF" }}
+            >
               <Icon size={25} className="text-white mb-4 bg-secondary" />
               <p className="text-[14px] text-white">{item.title}</p>
             </a>
@@ -85,6 +85,6 @@ export default function App() {
         }
         )}
       </div>
-    </div>
+    </AppLayout>
   );
 }
