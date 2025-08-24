@@ -365,12 +365,32 @@
     ox "^0.4.4"
     zod "^3.25.0"
 
+"@farcaster/miniapp-core@0.3.8":
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/@farcaster/miniapp-core/-/miniapp-core-0.3.8.tgz#753aa7dc08b40573914367d4d07550c534c452c3"
+  integrity sha512-LaRG1L3lxHqo5pP/E2CX9hNqusR0C8hX3QTV2+hzmQJz6IGvmSpH6Q9ivlLyDfbdqokiMFo5Y3Z1EX1zBHMEQQ==
+  dependencies:
+    "@solana/web3.js" "^1.98.2"
+    ox "^0.4.4"
+    zod "^3.25.0"
+
 "@farcaster/miniapp-sdk@0.1.8":
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/@farcaster/miniapp-sdk/-/miniapp-sdk-0.1.8.tgz#3536dda2cb5915dc734a09e067477d7b33809797"
   integrity sha512-izvv3k8FdDZM0pl2lGDzr9WWuiakmjhO5h9Jz+gJ7nXsHs5JmQXBnyE9XnCpNMCifk/bVxwsN3G/XpxWMyyJzA==
   dependencies:
     "@farcaster/miniapp-core" "0.3.7"
+    "@farcaster/quick-auth" "^0.0.6"
+    comlink "^4.4.2"
+    eventemitter3 "^5.0.1"
+    ox "^0.4.4"
+
+"@farcaster/miniapp-sdk@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@farcaster/miniapp-sdk/-/miniapp-sdk-0.1.9.tgz#b6b1999c3fedbe8a1f2b02e6b3a92bdb2818ecb2"
+  integrity sha512-hn0dlIy0JP2Hx6PgKcn9bjYwyPS/SQgYJ/a0qjzG8ZsDfUdjsMPf3yI/jicBipTml/UUoKcbqXM68fsrsbNMKA==
+  dependencies:
+    "@farcaster/miniapp-core" "0.3.8"
     "@farcaster/quick-auth" "^0.0.6"
     comlink "^4.4.2"
     eventemitter3 "^5.0.1"

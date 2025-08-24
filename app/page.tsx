@@ -10,7 +10,7 @@ import { MdOutlinePermDataSetting } from "react-icons/md";
 
 import { useEffect, } from "react";
 import { cn } from "../lib/utils/utils";
-import AppLayout from "./components/Layout";
+import AppLayout from "../components/Layout";
 import { styles } from "./styles/style";
 
 export default function App() {
@@ -27,19 +27,19 @@ export default function App() {
         title: "Airtime",
         icon: CiPhone,
         color: "#000343",
-        href: "/airtime"
+        href: "/topup/airtime"
       },
       {
         title: "Data Bundle",
         icon: TbMobiledata,
         color: "#0CB906FF",
-        href: "/data-bundle"
+        href: "/topup/data-bundle"
       },
       {
         title: "Data Plan",
         icon: MdOutlinePermDataSetting,
         color: "#9CBE04FF",
-        href: "/data-plan"
+        href: "/topup/data-plan"
       },
       {
         title: "TV",
@@ -78,7 +78,7 @@ export default function App() {
           return (
             <a key={i} href={item.href}
               className={cn("p-2 flex flex-col items-center rounded-[10px] bg-primary")}
-              style={{ backgroundColor: styles.cardColor }}
+              style={{ backgroundColor: styles.primaryColor, color: styles.bgColor }}
             >
               <Icon size={25} className="mb-4" />
               <p className="text-[13px] font-normal" >{item.title}</p>

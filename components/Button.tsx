@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils/utils'
 import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react'
+import { styles } from '../app/styles/style'
 
 export function Button(
   props: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
@@ -9,13 +10,13 @@ export function Button(
   return (
     <button
       className={cn(
-        'bg-primary px-6 py-[5px] rounded-md my-2 border-none outline-none hover:bg-primary/50',
+        'bg-primary rounded-md my-2 border-none outline-none hover:bg-primary/50',
         props.className
       )}
       onClick={props.onClick}
       style={{
-        padding: "5px 12px",
-        backgroundColor: "orange"
+        padding: "8px 10px",
+        backgroundColor: styles.primaryColor
       }}
     >
       {props.children}

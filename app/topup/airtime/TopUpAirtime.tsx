@@ -10,8 +10,8 @@ import { useState } from 'react'
 import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
 import { countryCode, mapCountryToData, mapCountryToIso } from '@/lib/const/countries'
-import { Card, Label, AppSelect, Input, Button } from '../components'
-import { BalCard } from './BalCard'
+import { Card, Label, AppSelect, Input, Button } from '../../../components'
+import { BalCard } from '../utils/BalCard'
 import { AppStores } from '@/lib/zustand'
 import { COLLECTOR } from '@/lib/const/consts'
 import { usePrice, useSendToken } from '@/lib/hooks'
@@ -20,7 +20,7 @@ import { TokenId } from '@/lib/const'
 enum Operator {
   Mtn, Airtel, Etisalat, Glo,
 }
-export default function Airtime() {
+export default function AirtimePage() {
   return <Tg />
 }
 
@@ -163,7 +163,7 @@ function AirtimeComps(props: {
         <Label>You Pay:</Label>
         <Card>{amountToPay}</Card>
       </div>
-      <Button className="mt-5 w-[70%]" onClick={handleSend}>
+      <Button className="mt-10 w-[70%]" onClick={handleSend}>
         Send
       </Button>
     </div>

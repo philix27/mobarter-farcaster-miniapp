@@ -2,15 +2,17 @@
 import { useRouter } from 'next/navigation';
 import React, { ReactNode } from 'react'
 import { BiArrowBack } from 'react-icons/bi';
-import { styles } from '../styles/style';
+import { styles } from '../app/styles/style';
 
 export default function AppLayout(props: { children: ReactNode; title: string; subtitle?: string; hideBack?: boolean }) {
     return (
         <div className="flex flex-col min-h-screen w-screen"
             style={{ backgroundColor: styles.bgColor }}>
-            <div className='p-10'>
+            <div className=''>
                 <Navbar title={props.title} hideBack={props.hideBack} />
-                {props.children}
+                <div style={{ padding: "0 14px" }}>
+                    {props.children}
+                </div>
             </div>
         </div>
     )
