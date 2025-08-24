@@ -1,26 +1,19 @@
 // import { CurrencyFiat } from '@repo/api'
 
-export enum CurrencyFiat {
-  Ng,
-  Gh,
-  Ke,
-  Mw,
-  Rw,
-  Tz,
-  Ug,
-  Za,
-}
+import { Country } from "@/zapi"
+
+
 export type CountriesIso = 'NG' | 'GH' | 'KE' | 'MW' | 'RW' | 'TZ' | 'UG' | 'ZA'
 
-export const mapCountryToIso: Record<CountriesIso, CurrencyFiat> = {
-  NG: CurrencyFiat.Ng,
-  GH: CurrencyFiat.Gh,
-  KE: CurrencyFiat.Ke,
-  MW: CurrencyFiat.Mw,
-  RW: CurrencyFiat.Rw,
-  TZ: CurrencyFiat.Tz,
-  UG: CurrencyFiat.Ug,
-  ZA: CurrencyFiat.Za,
+export const mapCountryToIso: Record<CountriesIso, Country> = {
+  NG: Country.Ng,
+  GH: Country.Gh,
+  KE: Country.Ke,
+  MW: Country.Mw,
+  RW: Country.Rw,
+  TZ: Country.Tz,
+  UG: Country.Ug,
+  ZA: Country.Za,
 }
 
 export type IData = {

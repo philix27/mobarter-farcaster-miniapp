@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
-import { CountriesIso } from '../const/countries'
+import { Country } from '@/zapi'
 
 
 export type IHomeTab = 'BALANCE' | 'TX_HISTORY'
@@ -32,7 +32,7 @@ export interface ISlice {
   homeBtmSheet?: IHomeBottomSheet
   historyTab?: IHistoryTabs
   token?: boolean
-  countryIso?: CountriesIso
+  countryIso?: Country
   chainIcon?: string
 }
 
@@ -53,7 +53,7 @@ export const defaultValues: Required<ISlice> = {
   historyTab: 'ALL',
   showSupportModal: false,
   token: false,
-  countryIso: 'NG',
+  countryIso: Country.Ng,
   chainIcon: '',
 }
 

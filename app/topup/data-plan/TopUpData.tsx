@@ -1,47 +1,19 @@
-import { useMutation } from '@apollo/client'
-import {
-  MutationResponse,
-  MutationUtility_PurchaseDataBundleArgs,
-  Utility_PurchaseDataBundleDocument,
-} from '@/zapi'
-import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
-import {TileSimple,  AppSelect, Card, Label, Button, Input } from '@/components'
-// import { } from 'src/components/Select'
-// import { } from 'src/components/comps'
-import { useSendToken } from 'src/hooks/useSend'
-import { TokenId } from 'src/lib/config/tokens'
+import { TileSimple, AppSelect, Card, Label, Button, Input, BottomModal } from '@/components'
 import { cn, pasteTextFromClipboard } from '@/lib/utils'
-// import { AppStores } from 'src/lib/zustand'
-
-import BottomModal from '@/src/components/BottomModal'
-import {  } from '@/src/components/TileSimple'
-import { usePrice } from '@/src/hooks/usePrice'
-import { mapCountryToData, mapCountryToIso } from '@/src/lib'
-import { COLLECTOR } from '@/src/lib/config'
-import { getBundlesOperator, getDataOperator } from '@/lib/server'
 import { AppStores } from '@/lib/zustand'
 import { BalCard } from '../utils/BalCard'
 import { IconType } from 'react-icons'
+import { COLLECTOR, TokenId } from '@/lib/const'
+import { usePrice, useSendToken } from '@/lib/hooks'
+import { mapCountryToData, mapCountryToIso } from '@/lib/const/countries'
+import { RequestFrom, useGetTopUpOperators, useUtility_purchaseDataBundle } from '@/zapi'
 
-export default function TopUpData(props: { isData?: boolean }) {
-  return <TgTopUp {...props} />
-}
 
-export function TgTopUp(props: { isData?: boolean }) {
+export default function TopUpData() {
   const { sendErc20 } = useSendToken()
-  return <TopUpDataComps sendErc20={sendErc20} isData={props.isData} />
-}
-
-export function TopUpDataComps({
-  sendErc20,
-  ...props
-}: {
-  isData?: boolean
-  sendErc20: (props: { recipient: string; amount: string; token: TokenId }) => Promise<string>
-}) {
   const [phoneNo, setPhoneNo] = useState<string>('')
   const [showBtm, setShowBtmSheet] = useState<boolean>(false)
   const [operatorId, setOperatorId] = useState('')
@@ -53,40 +25,29 @@ export function TopUpDataComps({
   // const { sendErc20 } = useSendToken()
   const { amountToPay, handleOnChange } = usePrice()
 
-  const { data } = useQuery({
-    queryKey: [`getDataOperator-${props.isData ? 'isData' : 'isBundle'}`],
-    queryFn: async () => {
-      let res
-      if (props.isData) {
-        res = await getDataOperator(store.countryIso)
-      } else {
-        res = await getBundlesOperator(store.countryIso)
-      }
-      return res
-    },
-  })
+  const { data, } = useGetTopUpOperators();
+
 
   const plansList = () => {
     if (!data) return undefined
 
-    const op = data.filter((v) => `${v.id}` === operatorId)[0]
+    const op = data.utility_getTopUpOperators.dataPlan.filter((v) => `${v.operatorId}` === operatorId)[0];
 
     if (!op) return undefined
 
-    const amountDesc = Object.keys(op.fixedAmountsDescriptions).map((key) => {
+    const plans = op.plans;
+
+    const amountDesc = plans?.map((p) => {
       return {
-        label: op.fixedAmountsDescriptions[key],
-        amount: key,
-        symbol: op.destinationCurrencySymbol,
+        label: p.desc,
+        amount: p.amount,
+        symbol: "Blank",
       }
     })
 
     return amountDesc
   }
-  const [mutate] = useMutation<
-    MutationResponse<'utility_purchaseDataBundle'>,
-    MutationUtility_PurchaseDataBundleArgs
-  >(Utility_PurchaseDataBundleDocument)
+  const [mutate] = useUtility_purchaseDataBundle();
 
   const handleSend = async () => {
     if (operatorPlan === undefined) {
@@ -112,9 +73,19 @@ export function TopUpDataComps({
             input: {
               amount: parseInt(operatorPlan.amount),
               countryCode: mapCountryToIso[store.countryIso],
-              operator: parseInt(operatorId),
-              transaction_hash: txHash || `${Date.now()}`,
+              operatorId: parseInt(operatorId),
               phoneNo: `${countryCode.slice(1)}${phoneNo}`,
+              payment: {
+                amountCrypto: 0,
+                amountFiat: 0,
+                fiatCurrency: mapCountryToIso[store.countryIso],
+                tokenAddress: '',
+                tokenChain: '',
+                transaction_pin: '',
+                user_uid: '',
+                txHash: txHash || `${Date.now()}`,
+                from: RequestFrom.Farcaster,
+              }
             },
           },
           onCompleted() {
@@ -166,10 +137,10 @@ export function TopUpDataComps({
                 setOperatorPlan({ amount: '', desc: '' })
               }
             }}
-            data={data.map((val) => {
+            data={data.utility_getTopUpOperators.dataPlan.map((val) => {
               return {
                 label: val.name,
-                value: `${val.id}`,
+                value: `${val.operatorId}`,
               }
             })}
           />
@@ -211,7 +182,7 @@ export function TopUpDataComps({
         <div className="w-full items-center justify-center flex flex-col">
           {plansList() &&
             plansList()!.map((val, i) => {
-              const isActive = operatorPlan && operatorPlan.amount === val.amount
+              const isActive = operatorPlan && parseFloat(operatorPlan.amount) === parseFloat(val.amount.toString())
               return (
                 <TileSimple
                   key={i}
@@ -219,10 +190,9 @@ export function TopUpDataComps({
                   desc={val.label}
                   className={cn(isActive && 'border-primary border')}
                   onClick={() => {
-                    // setAmountVal(parseFloat(val.amount))
-                    handleOnChange(parseFloat(val.amount))
+                    handleOnChange(val.amount)
                     setOperatorPlan({
-                      amount: val.amount,
+                      amount: val.amount.toString(),
                       desc: val.label,
                     })
                     setShowBtmSheet(false)

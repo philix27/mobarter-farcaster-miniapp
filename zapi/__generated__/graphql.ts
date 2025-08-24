@@ -780,10 +780,12 @@ export type PaymentInput = {
   amountCrypto: Scalars['Float']['input'];
   amountFiat: Scalars['Float']['input'];
   fiatCurrency: Country;
+  from?: InputMaybe<RequestFrom>;
   isNative?: InputMaybe<Scalars['Boolean']['input']>;
   tokenAddress: Scalars['String']['input'];
   tokenChain: Scalars['String']['input'];
   transaction_pin: Scalars['String']['input'];
+  txHash?: InputMaybe<Scalars['String']['input']>;
   user_uid: Scalars['String']['input'];
 };
 
@@ -880,6 +882,11 @@ export type QueryTvBills_GetProvidersArgs = {
 export type QueryUtility_GetTopUpOperatorsArgs = {
   input: Utilities_GetOperatorsInput;
 };
+
+export enum RequestFrom {
+  Farcaster = 'Farcaster',
+  Minipay = 'Minipay'
+}
 
 export enum StaticLinkGroup {
   Docs = 'Docs',
