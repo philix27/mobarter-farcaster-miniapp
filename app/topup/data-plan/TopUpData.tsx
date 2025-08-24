@@ -3,7 +3,7 @@ import {
   MutationResponse,
   MutationUtility_PurchaseDataBundleArgs,
   Utility_PurchaseDataBundleDocument,
-} from '@repo/api'
+} from '@/zapi'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { FaCopy } from 'react-icons/fa6'
@@ -21,7 +21,7 @@ import {  } from '@/src/components/TileSimple'
 import { usePrice } from '@/src/hooks/usePrice'
 import { mapCountryToData, mapCountryToIso } from '@/src/lib'
 import { COLLECTOR } from '@/src/lib/config'
-import { getBundlesOperator, getDataOperator } from '@/src/lib/server'
+import { getBundlesOperator, getDataOperator } from '@/lib/server'
 import { AppStores } from '@/lib/zustand'
 import { BalCard } from '../utils/BalCard'
 import { IconType } from 'react-icons'

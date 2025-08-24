@@ -5,7 +5,7 @@
 //   MutationUtility_PurchaseAirtimeArgs,
 //   Operator,
 //   Utility_PurchaseAirtimeDocument,
-// } from '@repo/api'
+// } from '@/zapi'
 import { useState } from 'react'
 import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
