@@ -3,7 +3,7 @@ import { styles } from '../styles/style'
 
 export default function ProfileCard() {
     return (
-        <div className="w-full h-20 bg-red-500 bg-card"
+        <div className="w-full h-20 bg-red-500 bg-card border-b-1"
         >
             <p style={{ color: styles.textColor }}>name</p>
             <p>@userName</p>

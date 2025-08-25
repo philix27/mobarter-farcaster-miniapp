@@ -11,6 +11,7 @@ import AppLayout from "../components/Layout";
 import ProfileCard from "./home/ProfileCard";
 import { AppStores } from "@/lib/zustand";
 import { IHomeTab } from "@/lib/zustand/settings";
+import AirtimeSection from "./topup/airtime/TopUpAirtime";
 
 export default function App() {
   const { setFrameReady, isFrameReady, } = useMiniKit();
@@ -80,23 +81,24 @@ export default function App() {
     <AppLayout title="Home" hideBack>
       <ProfileCard />
       {/* <div className="w-full max-w-md mx-auto px-4 py-3 grid grid-cols-2" */}
-      <div className="w-full max-w-md mx-auto py-3 flex items-center justify-between flex-wrap"
+      <div className="w-full max-w-md mx-auto flex items-center justify-between flex-wrap border-b-1"
       >
         {dashboardItems.map((item, i) => {
           const isActive = settingsStore.homeTab === item.name;
           return (
             <div key={i}
               onClick={item.onClick}
-              className={cn("p-2 bg-card",
-                isActive ? "border-b-2 border-primary text-primary" : "border-b-2 border-background")}
+              className={cn("p-2 bg-card border-b-2",
+                isActive ? "border-primary-500 text-primary" : "border-background")}
             >
-              <p className={cn("text-[11px] font-normal")} >{item.title}</p>
+              <p className={cn("text-[11px] font-semibold")} >{item.title}</p>
             </div>
           )
         }
         )}
       </div>
-      
+      {settingsStore.homeTab === "TopUp" && <AirtimeSection />}
+      {/* {settingsStore.homeTab === "TopUp" && <TopUpData />} */}
     </AppLayout>
   );
 }

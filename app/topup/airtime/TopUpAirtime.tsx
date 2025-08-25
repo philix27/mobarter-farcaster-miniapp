@@ -20,7 +20,7 @@ import { TokenId } from '@/lib/const'
 enum Operator {
   Mtn, Airtel, Etisalat, Glo,
 }
-export default function AirtimePage() {
+export default function AirtimeSection() {
   return <Tg />
 }
 
