@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { Country } from '@/zapi'
 
-export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting'
+export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting' | "DataPlan" | "DataBundle"
 export type IHistoryTabs = 'ALL' | 'AIRTIME'
 
 export interface ISlice {

@@ -10,7 +10,7 @@ export default function AppLayout(props: { children: ReactNode; title: string; s
         >
             <div className=''>
                 {/* <Navbar title={props.title} hideBack={props.hideBack} /> */}
-                <div>
+                <div style={{ padding: "0 14px" }}>
                     {props.children}
                 </div>
             </div>
