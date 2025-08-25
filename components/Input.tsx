@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { BottomNote, Label } from './comps'
 import { cn } from '@/lib/utils/utils'
-import { styles } from '../styles/style'
+import { styles } from '../app/styles/style'
 
 export function Input(
   props: {
@@ -23,8 +23,8 @@ export function Input(
       {label && <Label>{label}</Label>}
       <div
         className={cn(
-          'rounded-md px-3 py-[5px] flex items-center justify-center',
-          focus && 'border-primary border-[0.5px]',
+          'rounded-md px-3 py-[5px] flex items-center justify-center border-[0.5px]',
+          focus && 'border-primary',
           props.error && 'border-destructive',
           props.useBg ? styles.bgColor : styles.cardColor,
           className

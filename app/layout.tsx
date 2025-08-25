@@ -1,6 +1,6 @@
-import "./styles/theme.css";
+// import "./styles/theme.css";
 import "./styles/index.css";
-import "@coinbase/onchainkit/styles.css";
+// import "@coinbase/onchainkit/styles.css";
 import type { Metadata, Viewport } from "next";
 // import "./styles/globals.css";
 import { Providers } from "./providers";
@@ -43,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="">
+      <body className="dark bg-background" >
         <Providers>{children}</Providers>
       </body>
     </html>

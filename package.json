@@ -6,16 +6,22 @@
     "dev": "next dev -p 4444",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "#graphql": "Graphql scripts",
+    "gqlgen": "graphql-codegen",
+    "gen": "graphql-codegen --config codegen.ts",
+    "genY": "graphql-codegen --config codegen.yml",
+    "gql watch": "graphql-codegen -w"
   },
   "dependencies": {
     "@apollo/client": "^3.13.9",
     "@coinbase/onchainkit": "latest",
-    "@farcaster/frame-sdk": "^0.1.8",
+    "@farcaster/miniapp-sdk": "^0.1.9",
     "@tanstack/react-query": "^5",
-    "@upstash/redis": "^1.34.4",
+    "axios": "^1.8.4",
     "clsx": "^2.0.0",
     "ethers": "^6.15.0",
+    "graphql": "^16.10.0",
     "next": "^15.3.3",
     "react": "^18",
     "react-dom": "^18",
@@ -23,12 +29,23 @@
     "react-select": "^5.10.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^2.6.0",
+    "vaul": "^1.1.2",
     "viem": "^2.27.2",
     "wagmi": "^2.16.0",
     "zod": "^3.24.1",
     "zustand": "^5.0.7"
   },
   "devDependencies": {
+    "@apollo/client": "^3.13.4",
+    "@graphql-codegen/cli": "^5.0.5",
+    "@graphql-codegen/introspection": "^4.0.3",
+    "@graphql-codegen/typed-document-node": "^5.1.0",
+    "@graphql-codegen/typescript": "^4.1.5",
+    "@graphql-codegen/typescript-document-nodes": "^4.0.15",
+    "@graphql-codegen/typescript-operations": "^4.5.1",
+    "@graphql-codegen/typescript-react-apollo": "^4.3.2",
+    "@graphql-codegen/typescript-resolvers": "^4.4.4",
+    "@graphql-codegen/typescript-urql": "^4.0.0",
     "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^22",
     "@types/react": "^18",
@@ -43,7 +60,7 @@
     "postcss": "^8.5.1",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.14",
-    "tailwindcss": "^4.1.11",
+    "tailwindcss": "^3.3.2",
     "typescript": "^5"
   }
 }

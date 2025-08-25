@@ -1,5 +1,6 @@
+'use client'
 import React from 'react'
-import AppLayout from '../components/Layout'
+import AppLayout from '../../../components/Layout'
 import Airtime from './TopUpAirtime'
 
 export default function AirtimePage() {

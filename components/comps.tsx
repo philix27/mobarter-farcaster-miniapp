@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils/utils';
 import { ReactNode } from 'react';
-import { styles } from '../styles/style';
+import { styles } from '../app/styles/style';
 
 
 export function Label(params: { children: ReactNode; className?: string }) {
