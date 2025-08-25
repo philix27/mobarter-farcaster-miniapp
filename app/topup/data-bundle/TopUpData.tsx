@@ -10,20 +10,19 @@ import { RequestFrom, useGetTopUpOperators, useUtility_purchaseDataBundle } from
 import { BalCard } from '../utils/BalCard'
 import { cn, pasteTextFromClipboard } from '@/lib/utils'
 
+
 export default function TopUpData() {
   const [phoneNo, setPhoneNo] = useState<string>('')
   const [showBtm, setShowBtmSheet] = useState<boolean>(false)
   const [operatorId, setOperatorId] = useState('')
   const [operatorPlan, setOperatorPlan] = useState<{ amount: string; desc: string }>()
   const { sendErc20 } = useSendToken()
-  
-  const Copy = FaCopy
+
   const store = AppStores.useSettings()
   const countryCode = mapCountryToData[store.countryIso].callingCodes[0]
   const { amountToPay, handleOnChange } = usePrice()
 
   const { data } = useGetTopUpOperators();
-
 
   const plansList = () => {
     if (!data) return undefined
@@ -117,7 +116,7 @@ export default function TopUpData() {
             setPhoneNo(num.toString())
           }}
           trailingIcon={
-            <Copy
+            <FaCopy
               className="text-muted"
               onClick={async () => {
                 const text = await pasteTextFromClipboard()
