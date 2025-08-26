@@ -10,13 +10,12 @@ export function Button(
   return (
     <button
       className={cn(
-        'bg-primary rounded-md my-2 border-none outline-none hover:bg-primary/50 bg-primary  p-2',
+        'bg-primary rounded-lg my-2 border-none outline-none hover:bg-primary/50 bg-primary ',
         props.className
       )}
       onClick={props.onClick}
-
     >
-      <p className='text-[12px] font-semibold py-2'>{props.children}</p>
+      <p className='text-[12px] font-semibold py-2 text-[#fff]'>{props.children}</p>
     </button>
   )
 }

@@ -5,7 +5,7 @@ import { cn } from '@/src/lib/utils';
 export function Label(params: { children: ReactNode; className?: string }) {
   return (
     <div className={cn('flex items-center justify-start mb-[2px] mt-1', params.className)}>
-      <p className="text-muted text-[10px] uppercase ml-1 font-semibold"
+      <p className="text-muted text-[12px] uppercase ml-1 font-light"
       >{params.children}</p>
     </div>
   )
@@ -50,7 +50,7 @@ export const Instructions = (props: { children: ReactNode }) => (
 
 export const Card = (props: { children: ReactNode; onClick?: VoidFunction; className?: string }) => (
   <div
-    className={cn('bg-card rounded-md p-2  w-full hover:disabled text-muted', props.className)}
+    className={cn('bg-card rounded-lg p-2  w-full hover:disabled text-muted', props.className)}
     onClick={props.onClick}
   >
     {props.children}

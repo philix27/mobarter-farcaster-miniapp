@@ -37,7 +37,7 @@ export default function HomePage() {
       }
     },
     {
-      title: "Electric", name: "Electricity",
+      title: "Electricity", name: "Electricity",
       isActive: settingsStore.homeTab === "Electricity",
       onClick: () => {
         settingsStore.update({ homeTab: "Electricity" });
@@ -88,10 +88,10 @@ export default function HomePage() {
         <meta property="og:description" content={metadata.description} />
       </Head>
       <div className="w-full h-screen flex flex-col gap-4 bg-background">
-        <ProfileCard />
+        {/* <ProfileCard /> */}
         <Tabs tabs={dashboardItems} />
 
-        <div className="bg-card mx-auto rounded-lg px-2 py-4 w-[90%]">
+        <div className="bg-card mx-auto rounded-lg px-3 w-[94%]">
           {settingsStore.homeTab === "TopUp" && <TopUpSection />}
           {settingsStore.homeTab === "TV" && <ComingSoon />}
           {settingsStore.homeTab === "Electricity" && <ComingSoon />}
@@ -111,8 +111,8 @@ function Tabs({ tabs }: { tabs: ITab[]; }) {
         return (
           <div key={i}
             onClick={item.onClick}
-            className={cn("p-2 border-b-2 px-4",
-              item.isActive ? "border-primary-500 text-primary" : "border-card")}
+            className={cn("p-2 border-b-2 px-4 flex-1 items-center justify-center flex cursor-pointer",
+              item.isActive ? "border-primary-500 text-primary" : "border-card text-muted")}
           >
             <p className={cn("text-[11px] font-semibold")} >{item.title}</p>
           </div>
@@ -149,7 +149,7 @@ function TopUpSection() {
       }
     },
     {
-      title: "D. Bundle",
+      title: "Bundle",
       name: "DataBundle",
       isActive: store.topUpTab === "DataBundle",
       onClick: () => {
@@ -157,7 +157,7 @@ function TopUpSection() {
       }
     },
     {
-      title: "D. Plan",
+      title: "Plan",
       name: "DataPlan",
       isActive: store.topUpTab === "DataPlan",
       onClick: () => {
@@ -168,9 +168,11 @@ function TopUpSection() {
 
   return (<>
     <Tabs tabs={tabItems} />
-    {store.topUpTab === "Airtime" && <AirtimeSection />}
+    <div className="w-full py-3">
+      {store.topUpTab === "Airtime" && <AirtimeSection />}
     {store.topUpTab === "DataBundle" && <TopUpDataPlan />}
     {store.topUpTab === "DataPlan" && <TopUpDataBundle />}
+    </div>
   </>)
 }
 
