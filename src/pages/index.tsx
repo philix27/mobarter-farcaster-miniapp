@@ -6,6 +6,7 @@ import { AirtimeSection } from "../features/topup/TopUpAirtime";
 import TopUpDataPlan from "../features/topup/TopUpData";
 import TopUpDataBundle from "../features/topup/TopUpDataBundle";
 import ComingSoon from "@/components/ComingSoon";
+import Head from "next/head";
 
 type ITab = {
   title: string;
@@ -62,20 +63,55 @@ export default function HomePage() {
       }
     },
   ]
-  return (
-    <div className="w-full h-screen flex flex-col gap-4 bg-background">
-      <ProfileCard />
-      <Tabs tabs={dashboardItems} />
 
-      <div className="bg-card mx-auto rounded-lg px-2 py-4 w-[90%]">
-        {settingsStore.homeTab === "TopUp" && <AirtimeSection />}
-        {settingsStore.homeTab === "DataBundle" && <TopUpDataPlan />}
-        {settingsStore.homeTab === "DataPlan" && <TopUpDataBundle />}
-        {settingsStore.homeTab === "TV" && <ComingSoon />}
-        {settingsStore.homeTab === "Electricity" && <ComingSoon />}
-        {settingsStore.homeTab === "Betting" && <ComingSoon />}
+  const metadata = {
+    title: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
+    description: "Mobarter Mini App",
+    other: {
+      "fc:frame": JSON.stringify({
+        version: "next",
+        imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE,
+        button: {
+          title: `Launch ${process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME}`,
+          action: {
+            type: "launch_frame",
+            name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
+            url: URL,
+            splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE,
+            splashBackgroundColor:
+              process.env.NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR,
+          },
+        },
+      }),
+    },
+  }
+
+  return (
+    <>
+      <Head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="other" content={metadata.other["fc:frame"]} />
+        <meta name="fc:frame" content={metadata.other["fc:frame"]} />
+
+        {/* Dynamic Open Graph tags based on post data */}
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.description} />
+      </Head>
+      <div className="w-full h-screen flex flex-col gap-4 bg-background">
+        <ProfileCard />
+        <Tabs tabs={dashboardItems} />
+
+        <div className="bg-card mx-auto rounded-lg px-2 py-4 w-[90%]">
+          {settingsStore.homeTab === "TopUp" && <AirtimeSection />}
+          {settingsStore.homeTab === "DataBundle" && <TopUpDataPlan />}
+          {settingsStore.homeTab === "DataPlan" && <TopUpDataBundle />}
+          {settingsStore.homeTab === "TV" && <ComingSoon />}
+          {settingsStore.homeTab === "Electricity" && <ComingSoon />}
+          {settingsStore.homeTab === "Betting" && <ComingSoon />}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

@@ -5,7 +5,7 @@ import { Toaster } from 'sonner'
 // import { base, celo, celoAlfajores } from 'wagmi/chains'
 import { base } from "wagmi/chains";
 import { useDidMount } from '../hooks/useDidMount'
-import { AppStores } from '../lib/zustand'
+import { AppStores } from './zustand'
 import { MiniKitProvider } from '@coinbase/onchainkit/minikit'
 import { Spinner } from '@/components/Spinner';
 
