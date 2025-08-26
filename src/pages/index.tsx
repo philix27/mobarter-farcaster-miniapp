@@ -44,7 +44,7 @@ export default function HomePage() {
       }
     },
     {
-      title: "Bet",
+      title: "Betting",
       name: "Betting",
       isActive: settingsStore.homeTab === "Betting",
       onClick: () => {

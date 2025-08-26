@@ -1,31 +1,31 @@
  {
     "accountAssociation": {
-      "header": "process.env.FARCASTER_HEADER",
-      "payload": "process.env.FARCASTER_PAYLOAD",
-      "signature": "process.env.FARCASTER_SIGNATURE"
+      "header": "eyJmaWQiOjg1NDQyOCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweEU2OTIwNDdEZWRjMjkyMzFFOGYzODJmZUQ2RWU3MEVmMjY5Nzg3ODgifQ",
+      "payload": "eyJkb21haW4iOiJhcHAubW9iYXJ0ZXIuY29tIn0",
+      "signature": "MHg3Yjg4ZjBiM2JmODVjYTkzMjU5MjFjZTVkNDlhYjU5MjU4ZDIxYTI2ZjZhYjEyN2E2MzYyNmJmNTE0ZjYxY2E1NzkzMzNmMWEwODRlOWE0OGIwZmE4Y2ZjZjg1MTUzMTFjYjA0YzcxYzc3NTZkZmJmZWI2MGM0YjY5ZGJhYTUwOTFj"
     },
     "baseBuilder": {
       "allowedAddresses": ["0x323591710D7Aa601aEAF33D0B91D348c2F66b5cc"]
     },
     "frame": {
       " version": "1",
-      " name": "process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME",
-      " subtitle": "process.env.NEXT_PUBLIC_APP_SUBTITLE",
-      " description": "process.env.NEXT_PUBLIC_APP_DESCRIPTION",
+      " name": "Mobarter",
+      " subtitle": "Pay bills using stablecoins",
+      " description": "Settle and purchase airtime, data bundle, electiricity andd tv subscriptions using stablecoins",
       " screenshotUrls": [
         "https://app.mobarter.com/screenshot.png"
       ],
-      "iconUrl": "process.env.NEXT_PUBLIC_APP_ICON",
-      "splashImageUrl": "process.env.NEXT_PUBLIC_APP_SPLASH_IMAGE",
-      "splashBackgroundColor": "process.env.NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR",
+      "iconUrl": "https://app.mobarter.com/icon.png",
+      "splashImageUrl": "https://app.mobarter.com/splash.png",
+      "splashBackgroundColor": "#FF5E00",
       "homeUrl": "URL",
       "webhookUrl": "`${URL}/api/webhook`",
-      "primaryCategory": "process.env.NEXT_PUBLIC_APP_PRIMARY_CATEGORY",
+      "primaryCategory": "Payments, Finance",
       "tags": "[]",
-      "heroImageUrl": "process.env.NEXT_PUBLIC_APP_HERO_IMAGE",
-      "tagline": "process.env.NEXT_PUBLIC_APP_TAGLINE",
-      "ogTitle": "process.env.NEXT_PUBLIC_APP_OG_TITLE",
-      "ogDescription": "process.env.NEXT_PUBLIC_APP_OG_DESCRIPTION",
-      "ogImageUrl": "process.env.NEXT_PUBLIC_APP_OG_IMAGE"
+      "heroImageUrl": "https://app.mobarter.com/hero.png",
+      "tagline": "Payments, Finance",
+      "ogTitle": "Mobarter",
+      "ogDescription": "Pay bills using stablecoins",
+      "ogImageUrl": "https://app.mobarter.com/hero.png"
     }
 }
