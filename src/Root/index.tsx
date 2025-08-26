@@ -3,10 +3,11 @@ import { type PropsWithChildren } from 'react'
 import { Toaster } from 'sonner'
 // import { WagmiProvider, createConfig, http } from 'wagmi'
 // import { base, celo, celoAlfajores } from 'wagmi/chains'
-
+import { base } from "wagmi/chains";
 import { Spinner } from '../components/Spinner'
 import { useDidMount } from '../hooks/useDidMount'
 import { AppStores } from '../lib/zustand'
+import { MiniKitProvider } from '@coinbase/onchainkit/minikit'
 
 
 const apollo = (token: string) => {
@@ -44,7 +45,20 @@ export function Root(props: PropsWithChildren) {
   return (
     // <WagmiProvider config={config}>
     <ApolloProvider client={apollo(store.token)!}>
-      {props.children}
+      <MiniKitProvider
+        apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
+        chain={base}
+        config={{
+          appearance: {
+            mode: "auto",
+            theme: "mini-app-theme",
+            name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
+            logo: process.env.NEXT_PUBLIC_ICON_URL,
+          },
+        }}
+      >
+        {props.children}
+      </MiniKitProvider>
       <Toaster richColors position="bottom-center" expand={false} closeButton duration={2000} />
     </ApolloProvider>
     // </WagmiProvider>

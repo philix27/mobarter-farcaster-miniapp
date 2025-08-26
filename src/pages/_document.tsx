@@ -4,8 +4,10 @@ import { getDarkMode } from 'src/styles/mediaQueries'
 export default class MyDocument extends Document {
   render() {
     const isDarkMode = getDarkMode()
+    // todo: use this for dark
+    // <Html className={isDarkMode ? 'dark' : ''}>
     return (
-      <Html className={isDarkMode ? 'dark' : ''}>
+      <Html className={isDarkMode ? 'dark' : 'dark'}>
         <Head>
           <meta charSet="utf-8" />
 

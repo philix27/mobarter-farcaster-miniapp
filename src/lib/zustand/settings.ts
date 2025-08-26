@@ -3,7 +3,9 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { CountriesIso } from '../countries'
 
-export type IHomeTab = 'BALANCE' | 'TX_HISTORY'
+export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting' | "DataPlan" | "DataBundle"
+
+// export type IHomeTab = 'BALANCE' | 'TX_HISTORY'
 export type IManageAdsTab = 'OPEN' | 'CLOSED' | 'ADD'
 export type IOrdersTabs = 'PENDING' | 'COMPLETED' | 'CANCELED' | 'APPEAL'
 export type IHomeBottomSheet =
@@ -48,7 +50,7 @@ export const defaultValues: Required<ISlice> = {
   searchValue: '',
   manageAdsTab: 'OPEN',
   ordersTab: 'PENDING',
-  homeTab: 'BALANCE',
+  homeTab: "TopUp",
   homeBtmSheet: 'NULL',
   historyTab: 'ALL',
   showSupportModal: false,

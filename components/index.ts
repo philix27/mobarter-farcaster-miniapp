@@ -1,0 +1,6 @@
+export * from "./Input"
+export * from "./comps"
+export * from "./Select"
+export * from "./Button"
+export * from "./TileSimple"
+export * from "./BottomModal"

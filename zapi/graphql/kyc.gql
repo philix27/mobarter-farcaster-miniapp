@@ -1,0 +1,68 @@
+mutation Kyc_addAddressInfo($input: Kyc_AddAddressInfoInput!) {
+  kyc_addAddressInfo(input:$input) {
+   message
+  }
+}
+
+mutation kyc_addAddressProof($input: Kyc_AddAddressProofInput!) {
+  kyc_addAddressProof(input:$input) {
+     message
+  }
+}
+
+mutation kyc_addBvnNin($input: Kyc_AddBvnNinInput!) {
+  kyc_addBvnNin(input:$input) {
+     message
+  }
+}
+
+
+
+mutation kyc_addNames($input: Kyc_AddNamesInput!) {
+  kyc_addNames(input:$input) {
+     message
+  }
+}
+
+
+
+
+mutation kyc_createTransactionPin($input: Kyc_CreateTransactionPinInput!) {
+  kyc_createTransactionPin(input:$input) {
+     message
+  }
+}
+
+
+mutation kyc_sendPhoneOtp($input: Kyc_SendPhoneOtpInput!) {
+  kyc_sendPhoneOtp(input: $input) {
+    message
+    otpToken
+  }
+}
+
+
+mutation Kyc_verifyPhoneOtp($input: Kyc_verifyPhoneOtpAndInput!) {
+  Kyc_verifyPhoneOtp(input: $input) {
+    message
+  }
+}
+
+query kyc_profile {
+  kyc_profile {
+    bvn
+    bvn_status
+    nin
+    nin_status
+    middlename
+    gender
+    lastname
+    firstname
+    country_code
+    dob
+    email
+    phone
+    role
+    state
+  }
+}

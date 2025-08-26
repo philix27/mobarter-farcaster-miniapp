@@ -6,12 +6,8 @@
 
 @layer base {
   :root {
-    /* Telegram */
     --safe-area-inset-bottom: calc(100vh - var(--tg-viewport-stable-height, 100vh));
-    .safemybottomelement {
-      padding-bottom: calc(1rem + var(--safe-area-inset-bottom));
-    }
-    /* Tailwind */
+   
     --background: #cbe2e5;
     --foreground: #494a4a;
 
