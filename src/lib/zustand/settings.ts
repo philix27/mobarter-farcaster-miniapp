@@ -3,7 +3,8 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { CountriesIso } from '../const/countries'
 
-export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting' | "DataPlan" | "DataBundle"
+export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting'
+export type ITopUpTabs = 'Airtime' | "DataPlan" | "DataBundle"
 
 // export type IHomeTab = 'BALANCE' | 'TX_HISTORY'
 export type IManageAdsTab = 'OPEN' | 'CLOSED' | 'ADD'
@@ -30,12 +31,13 @@ export interface ISlice {
   searchValue?: string
   manageAdsTab?: IManageAdsTab
   ordersTab?: IOrdersTabs
-  homeTab?: IHomeTab
   homeBtmSheet?: IHomeBottomSheet
   historyTab?: IHistoryTabs
   token?: boolean
   countryIso?: CountriesIso
   chainIcon?: string
+  homeTab?: IHomeTab
+  topUpTab?: ITopUpTabs
 }
 
 export interface ISliceUpdate extends Required<ISlice> {
@@ -57,6 +59,7 @@ export const defaultValues: Required<ISlice> = {
   token: false,
   countryIso: 'NG',
   chainIcon: '',
+  topUpTab: 'DataPlan'
 }
 
 export const useSettings = create(

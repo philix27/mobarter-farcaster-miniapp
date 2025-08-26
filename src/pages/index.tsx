@@ -1,7 +1,7 @@
 // import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import { AppStores } from "../lib/zustand";
 import { cn } from "../lib/utils";
-import { IHomeTab } from "../lib/zustand/settings";
+import { IHomeTab, ITopUpTabs } from "../lib/zustand/settings";
 import { AirtimeSection } from "../features/topup/TopUpAirtime";
 import TopUpDataPlan from "../features/topup/TopUpData";
 import TopUpDataBundle from "../features/topup/TopUpDataBundle";
@@ -10,8 +10,8 @@ import Head from "next/head";
 
 type ITab = {
   title: string;
-  name: IHomeTab;
-  href: string;
+  isActive: boolean;
+  name: IHomeTab | ITopUpTabs;
   onClick: VoidFunction;
 }
 
@@ -21,44 +21,33 @@ export default function HomePage() {
 
   const dashboardItems: ITab[] = [
     {
-      title: "Airtime",
-      href: "/topup/airtime",
+      title: "TopUp",
       name: 'TopUp',
+      isActive: settingsStore.homeTab === 'TopUp',
       onClick: () => {
         settingsStore.update({ homeTab: 'TopUp' });
       }
     },
     {
-      title: "D. Bundle",
-      name: "DataBundle",
-      href: "/topup/data-bundle", onClick: () => {
-        settingsStore.update({ homeTab: "DataBundle" });
-      }
-    },
-    {
-      title: "D. Plan",
-      name: "DataPlan",
-      href: "/topup/data-plan", onClick: () => {
-        settingsStore.update({ homeTab: "DataPlan" });
-      }
-    },
-    {
       title: "TV",
       name: "TV",
-      href: "/tv", onClick: () => {
+      isActive: settingsStore.homeTab === "TV",
+      onClick: () => {
         settingsStore.update({ homeTab: "TV" });
       }
     },
     {
       title: "Electric", name: "Electricity",
-      href: "/electricity", onClick: () => {
+      isActive: settingsStore.homeTab === "Electricity",
+      onClick: () => {
         settingsStore.update({ homeTab: "Electricity" });
       }
     },
     {
       title: "Bet",
       name: "Betting",
-      href: "/betting", onClick: () => {
+      isActive: settingsStore.homeTab === "Betting",
+      onClick: () => {
         settingsStore.update({ homeTab: "Betting" });
       }
     },
@@ -103,9 +92,7 @@ export default function HomePage() {
         <Tabs tabs={dashboardItems} />
 
         <div className="bg-card mx-auto rounded-lg px-2 py-4 w-[90%]">
-          {settingsStore.homeTab === "TopUp" && <AirtimeSection />}
-          {settingsStore.homeTab === "DataBundle" && <TopUpDataPlan />}
-          {settingsStore.homeTab === "DataPlan" && <TopUpDataBundle />}
+          {settingsStore.homeTab === "TopUp" && <TopUpSection />}
           {settingsStore.homeTab === "TV" && <ComingSoon />}
           {settingsStore.homeTab === "Electricity" && <ComingSoon />}
           {settingsStore.homeTab === "Betting" && <ComingSoon />}
@@ -115,22 +102,17 @@ export default function HomePage() {
   )
 }
 
-// function ComingSoon() {}
 
-
-
-function Tabs({ tabs }: { tabs: ITab[] }) {
-  const settingsStore = AppStores.useSettings();
+function Tabs({ tabs }: { tabs: ITab[]; }) {
   return (
     <div className="w-full flex items-center justify-between border-b-1 bg-card"
     >
       {tabs.map((item, i) => {
-        const isActive = settingsStore.homeTab === item.name;
         return (
           <div key={i}
             onClick={item.onClick}
             className={cn("p-2 border-b-2 px-4",
-              isActive ? "border-primary-500 text-primary" : "border-card")}
+              item.isActive ? "border-primary-500 text-primary" : "border-card")}
           >
             <p className={cn("text-[11px] font-semibold")} >{item.title}</p>
           </div>
@@ -154,3 +136,41 @@ export function ProfileCard() {
     </div>
   )
 }
+
+function TopUpSection() {
+  const store = AppStores.useSettings();
+  const tabItems: ITab[] = [
+    {
+      title: "Airtime",
+      name: 'TopUp',
+      isActive: store.topUpTab === "Airtime",
+      onClick: () => {
+        store.update({ topUpTab: "Airtime" });
+      }
+    },
+    {
+      title: "D. Bundle",
+      name: "DataBundle",
+      isActive: store.topUpTab === "DataBundle",
+      onClick: () => {
+        store.update({ topUpTab: "DataBundle" });
+      }
+    },
+    {
+      title: "D. Plan",
+      name: "DataPlan",
+      isActive: store.topUpTab === "DataPlan",
+      onClick: () => {
+        store.update({ topUpTab: "DataPlan" });
+      }
+    },
+  ]
+
+  return (<>
+    <Tabs tabs={tabItems} />
+    {store.topUpTab === "Airtime" && <AirtimeSection />}
+    {store.topUpTab === "DataBundle" && <TopUpDataPlan />}
+    {store.topUpTab === "DataPlan" && <TopUpDataBundle />}
+  </>)
+}
+
