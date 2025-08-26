@@ -1,5 +1,5 @@
+import { Card, Label } from '@/components/comps'
 import React from 'react'
-import { Card, Label } from '@/components'
 
 export function BalCard() {
   const tokenBalance = 0.00

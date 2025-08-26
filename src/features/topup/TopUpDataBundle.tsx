@@ -2,14 +2,18 @@
 import { useState } from 'react'
 import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
-import { AppSelect, BottomModal, Button, Card, Input, Label, TileSimple } from '@/components'
-import { AppStores } from '@/lib/zustand'
-import { COLLECTOR, mapCountryToData, mapCountryToIso, TokenId } from '@/lib/const'
-import { usePrice, useSendToken, } from '@/lib/hooks'
+import { AppStores } from '@/src/lib/zustand'
+import { COLLECTOR, mapCountryToData, mapCountryToIso, TokenId } from '@/src/lib/const'
+import { usePrice, useSendToken, } from '@/src/hooks'
 import { RequestFrom, useGetTopUpOperators, useUtility_purchaseDataBundle } from '@/zapi'
-import { BalCard } from '../utils/BalCard'
-import { cn, pasteTextFromClipboard } from '@/lib/utils'
-
+import { BalCard } from './utils/BalCard'
+import { cn, pasteTextFromClipboard } from '@/src/lib/utils'
+import { Card, Label } from '@/components/comps'
+import { Button } from '@/components/Button'
+import { AppSelect } from '@/components/Select'
+import { TileSimple } from '@/components/TileSimple'
+import { Input } from '@/components/Input'
+import { BottomModal } from '@/components/BottomModal'
 
 export default function TopUpDataBundle() {
   const [phoneNo, setPhoneNo] = useState<string>('')

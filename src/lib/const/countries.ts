@@ -1,7 +1,4 @@
-// import { CurrencyFiat } from '@repo/api'
-
 import { Country } from "@/zapi"
-
 
 export type CountriesIso = 'NG' | 'GH' | 'KE' | 'MW' | 'RW' | 'TZ' | 'UG' | 'ZA'
 

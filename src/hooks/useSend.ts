@@ -1,13 +1,11 @@
-import { useEthereum } from '@particle-network/auth-core-modal'
-import { ethers } from 'ethers'
+'use client'
+import { ethers, JsonRpcProvider } from 'ethers'
 import { toast } from 'sonner'
-import { TokenId, getTokenAddress } from 'src/lib/config/tokens'
+import { ChainId } from '../lib/const/chains'
+import { logger } from '../lib/utils/logger'
+import { getTokenAddress, TokenId } from '../lib/const/tokens'
+import { shortString } from '../lib/utils'
 
-import { useAppContext } from '../Root/TgContext'
-import { ChainId } from '../lib/config'
-import { logger, shortString } from '../lib/utils'
-
-import { useProvider } from './useProvider'
 
 // const w = window as any
 
@@ -15,10 +13,16 @@ import { useProvider } from './useProvider'
 // ABI for the `transfer` function (simplified)
 const ERC20_ABI = ['function transfer(address recipient, uint256 amount) public returns (bool)']
 
+const sendTransaction = async (params: {
+  to: string
+  value: string,
+}) => {
+  console.log(params)
+}
+
 export function useSendToken() {
-  const provider = useProvider()
-  const { sendTransaction } = useEthereum()
-  const { handleError } = useAppContext()
+  const provider = new JsonRpcProvider()
+
 
   const sendErc20 = async (props: { recipient: string; amount: string; token: TokenId }) => {
     const signer = await provider.getSigner()
@@ -48,9 +52,9 @@ export function useSendToken() {
       })
 
       toast.success(`Send Native Success! Hash: ${shortString(result)}`)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       logger.error('sendNative error', error)
-      handleError(error)
     }
   }
 

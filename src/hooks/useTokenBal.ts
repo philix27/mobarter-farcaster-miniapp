@@ -1,13 +1,12 @@
-import { ChainId } from 'src/lib/config/chains'
-import { TokenId, getTokenAddress } from 'src/lib/config/tokens'
+
+'use client'
 import { useAccount, useBalance } from 'wagmi'
-
-import { getBal } from '../features/utilities/getBalance'
-
-import { useAppContext } from '@/src/Root/TgContext'
+import { ChainId } from '../lib/const/chains'
+import { getTokenAddress, TokenId } from '../lib/const/tokens'
+import { getBal } from '../lib/utils/getBalance'
 
 export const useTokenBalance = (id: TokenId) => {
-  const { evmAddress } = useAppContext()
+  const evmAddress = ""
 
   const addr = evmAddress
   const { data, isLoading } = useBalance({

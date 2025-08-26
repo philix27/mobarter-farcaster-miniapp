@@ -3,24 +3,14 @@ import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
 import { countryCode, mapCountryToData, mapCountryToIso, COLLECTOR, TokenId } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
-import { usePrice, useSendToken } from '@/src/lib/hooks'
+import { usePrice, useSendToken } from '@/src/hooks'
 import { Card, Label } from '@/components/comps'
 import { Button } from '@/components/Button'
-import { Input } from '@/components/Input'
 import { AppSelect } from '@/components/Select'
+import { Input } from '@/components/Input'
+import { BalCard } from './utils/BalCard'
 
 
-export function BalCard() {
-  const tokenBalance = 0.00
-  // const tokenBalance = useTokenBalance(TokenId.cUSD)
-
-  return (
-    <div className="w-full">
-      <Label>Balance</Label>
-      <Card className="bg-primary text-primary-foreground" >{tokenBalance}</Card>
-    </div>
-  )
-}
 
 enum Operator {
   Mtn, Airtel, Etisalat, Glo,
@@ -94,10 +84,7 @@ export function AirtimeSection() {
         // columnGap: 30,
         rowGap: 12,
       }}>
-
       <BalCard />
-
-
       <Input
         label={`${mapCountryToIso[store.countryIso]} Phone number`}
         placeholder={`8101234567`}

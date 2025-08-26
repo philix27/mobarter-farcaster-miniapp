@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { cn } from 'src/lib/utils'
 
-import BottomModal from '../BottomModal'
 
 import { navLinks } from './links'
+import { BottomModal } from '../BottomModal'
 
 const iconStyle = 'w-full flex flex-col items-center justify-start h-full pt-2'
 

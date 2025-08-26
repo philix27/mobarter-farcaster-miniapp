@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-import { CountriesIso } from '../countries'
+import { CountriesIso } from '../const/countries'
 
 export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting' | "DataPlan" | "DataBundle"
 

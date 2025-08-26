@@ -1,14 +1,14 @@
+import { cn } from '@/src/lib/utils'
 import { clsx } from 'clsx'
 import { ReactNode, useState } from 'react'
 import { Content, Handle, Overlay, Portal, Root } from 'vaul'
 
-import { cn } from '@/src/lib/utils'
 
-const DContent = Content
-const DHandle = Handle
-const DOverlay = Overlay
-const DPortal = Portal
-const DRoot = Root
+const DContent = Content as any
+const DHandle = Handle as any
+const DOverlay = Overlay as any
+const DPortal = Portal as any
+const DRoot = Root as any
 const snapPoints = ['148px', '355px', 1]
 
 export  function BottomModal({
@@ -37,7 +37,7 @@ export  function BottomModal({
         onClick={() => {
           return
         }}
-      // onDoubleClick={props.onClose}
+        // onDoubleClick={props.onClose}
       />
       <DPortal>
         <DContent

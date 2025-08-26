@@ -4,10 +4,10 @@ import { Toaster } from 'sonner'
 // import { WagmiProvider, createConfig, http } from 'wagmi'
 // import { base, celo, celoAlfajores } from 'wagmi/chains'
 import { base } from "wagmi/chains";
-import { Spinner } from '../components/Spinner'
 import { useDidMount } from '../hooks/useDidMount'
 import { AppStores } from '../lib/zustand'
 import { MiniKitProvider } from '@coinbase/onchainkit/minikit'
+import { Spinner } from '@/components/Spinner';
 
 
 const apollo = (token: string) => {

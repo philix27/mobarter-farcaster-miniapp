@@ -1,16 +1,20 @@
 import { useState } from 'react'
 import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
-import { TileSimple, AppSelect, Card, Label, Button, Input, BottomModal } from '@/components'
-import { cn, pasteTextFromClipboard } from '@/lib/utils'
-import { AppStores } from '@/lib/zustand'
-import { BalCard } from '../utils/BalCard'
+import { cn, pasteTextFromClipboard } from '@/src/lib/utils'
+import { AppStores } from '@/src/lib/zustand'
+import { BalCard } from './utils/BalCard'
 import { IconType } from 'react-icons'
-import { COLLECTOR, TokenId } from '@/lib/const'
-import { usePrice, useSendToken } from '@/lib/hooks'
-import { mapCountryToData, mapCountryToIso } from '@/lib/const/countries'
+import { COLLECTOR, TokenId } from '@/src/lib/const'
+import { usePrice, useSendToken } from '@/src/hooks'
+import { mapCountryToData, mapCountryToIso } from '@/src/lib/const/countries'
 import { RequestFrom, useGetTopUpOperators, useUtility_purchaseDataBundle } from '@/zapi'
-
+import { Card, Label } from '@/components/comps'
+import { Button } from '@/components/Button'
+import { AppSelect } from '@/components/Select'
+import { TileSimple } from '@/components/TileSimple'
+import { BottomModal } from '@/components/BottomModal'
+import { Input } from '@/components/Input'
 
 export default function TopUpDataPlan() {
   const { sendErc20 } = useSendToken()

@@ -1,8 +1,11 @@
-import { useMiniKit } from "@coinbase/onchainkit/minikit";
+// import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import { AppStores } from "../lib/zustand";
 import { cn } from "../lib/utils";
 import { IHomeTab } from "../lib/zustand/settings";
 import { AirtimeSection } from "../features/topup/TopUpAirtime";
+import TopUpDataPlan from "../features/topup/TopUpData";
+import TopUpDataBundle from "../features/topup/TopUpDataBundle";
+import ComingSoon from "@/components/ComingSoon";
 
 type ITab = {
   title: string;
@@ -17,7 +20,7 @@ export default function HomePage() {
 
   const dashboardItems: ITab[] = [
     {
-      title: "Top Up",
+      title: "Airtime",
       href: "/topup/airtime",
       name: 'TopUp',
       onClick: () => {
@@ -25,39 +28,39 @@ export default function HomePage() {
       }
     },
     {
-      title: "Data Bundle",
+      title: "D. Bundle",
       name: "DataBundle",
       href: "/topup/data-bundle", onClick: () => {
         settingsStore.update({ homeTab: "DataBundle" });
       }
     },
     {
-      title: "Data Plan",
+      title: "D. Plan",
       name: "DataPlan",
       href: "/topup/data-plan", onClick: () => {
         settingsStore.update({ homeTab: "DataPlan" });
       }
     },
-    // {
-    //   title: "TV",
-    //   name: "TV",
-    //   href: "/tv", onClick: () => {
-    //     settingsStore.update({ homeTab: "TV" });
-    //   }
-    // },
-    // {
-    //   title: "Electricity", name: "Electricity",
-    //   href: "/electricity", onClick: () => {
-    //     settingsStore.update({ homeTab: "Electricity" });
-    //   }
-    // },
-    // {
-    //   name: "Betting",
-    //   title: "Betting",
-    //   href: "/betting", onClick: () => {
-    //     settingsStore.update({ homeTab: "Betting" });
-    //   }
-    // },
+    {
+      title: "TV",
+      name: "TV",
+      href: "/tv", onClick: () => {
+        settingsStore.update({ homeTab: "TV" });
+      }
+    },
+    {
+      title: "Electric", name: "Electricity",
+      href: "/electricity", onClick: () => {
+        settingsStore.update({ homeTab: "Electricity" });
+      }
+    },
+    {
+      title: "Bet",
+      name: "Betting",
+      href: "/betting", onClick: () => {
+        settingsStore.update({ homeTab: "Betting" });
+      }
+    },
   ]
   return (
     <div className="w-full h-screen flex flex-col gap-4 bg-background">
@@ -66,24 +69,31 @@ export default function HomePage() {
 
       <div className="bg-card mx-auto rounded-lg px-2 py-4 w-[90%]">
         {settingsStore.homeTab === "TopUp" && <AirtimeSection />}
+        {settingsStore.homeTab === "DataBundle" && <TopUpDataPlan />}
+        {settingsStore.homeTab === "DataPlan" && <TopUpDataBundle />}
+        {settingsStore.homeTab === "TV" && <ComingSoon />}
+        {settingsStore.homeTab === "Electricity" && <ComingSoon />}
+        {settingsStore.homeTab === "Betting" && <ComingSoon />}
       </div>
     </div>
   )
 }
+
+// function ComingSoon() {}
 
 
 
 function Tabs({ tabs }: { tabs: ITab[] }) {
   const settingsStore = AppStores.useSettings();
   return (
-    <div className="w-full flex items-center justify-between border-b-1 bg-card px-4"
+    <div className="w-full flex items-center justify-between border-b-1 bg-card"
     >
       {tabs.map((item, i) => {
         const isActive = settingsStore.homeTab === item.name;
         return (
           <div key={i}
             onClick={item.onClick}
-            className={cn("p-2 border-b-2",
+            className={cn("p-2 border-b-2 px-4",
               isActive ? "border-primary-500 text-primary" : "border-card")}
           >
             <p className={cn("text-[11px] font-semibold")} >{item.title}</p>
@@ -97,7 +107,7 @@ function Tabs({ tabs }: { tabs: ITab[] }) {
 
 
 export function ProfileCard() {
-  const { setFrameReady, isFrameReady, } = useMiniKit();
+  // const { setFrameReady, isFrameReady, } = useMiniKit();
   return (
     <div className="w-full border-b-1 bg-background border-muted flex flex-col justify-center p-4 "
     >
