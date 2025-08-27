@@ -1,4 +1,4 @@
-// import { useMiniKit } from "@coinbase/onchainkit/minikit";
+import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import { AppStores } from "../lib/zustand";
 import { cn } from "../lib/utils";
 import { IHomeTab, ITopUpTabs } from "../lib/zustand/settings";
@@ -7,6 +7,8 @@ import TopUpDataPlan from "../features/topup/TopUpData";
 import TopUpDataBundle from "../features/topup/TopUpDataBundle";
 import ComingSoon from "@/components/ComingSoon";
 import Head from "next/head";
+import { Spinner } from "@/components/Spinner";
+import { useEffect } from "react";
 
 type ITab = {
   title: string;
@@ -14,9 +16,37 @@ type ITab = {
   name: IHomeTab | ITopUpTabs;
   onClick: VoidFunction;
 }
+const metadata = {
+  title: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
+  description: "Mobarter Mini App",
+  other: {
+    "fc:frame": JSON.stringify({
+      version: "next",
+      imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE,
+      button: {
+        title: `Launch ${process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME}`,
+        action: {
+          type: "launch_frame",
+          name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
+          url: URL,
+          splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE,
+          splashBackgroundColor:
+            process.env.NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR,
+        },
+      },
+    }),
+  },
+}
 
 export default function HomePage() {
   const settingsStore = AppStores.useSettings();
+  const { isFrameReady, setFrameReady} = useMiniKit();
+
+  useEffect(() => {
+    if (!isFrameReady) {
+      void setFrameReady();
+    }
+  }, [setFrameReady, isFrameReady]);
 
 
   const dashboardItems: ITab[] = [
@@ -53,28 +83,10 @@ export default function HomePage() {
     },
   ]
 
-  const metadata = {
-    title: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
-    description: "Mobarter Mini App",
-    other: {
-      "fc:frame": JSON.stringify({
-        version: "next",
-        imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE,
-        button: {
-          title: `Launch ${process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME}`,
-          action: {
-            type: "launch_frame",
-            name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
-            url: URL,
-            splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE,
-            splashBackgroundColor:
-              process.env.NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR,
-          },
-        },
-      }),
-    },
-  }
 
+  if (!isFrameReady) {
+    return <Spinner />
+  }
   return (
     <>
       <Head>
@@ -170,8 +182,8 @@ function TopUpSection() {
     <Tabs tabs={tabItems} />
     <div className="w-full py-3">
       {store.topUpTab === "Airtime" && <AirtimeSection />}
-    {store.topUpTab === "DataBundle" && <TopUpDataPlan />}
-    {store.topUpTab === "DataPlan" && <TopUpDataBundle />}
+      {store.topUpTab === "DataBundle" && <TopUpDataPlan />}
+      {store.topUpTab === "DataPlan" && <TopUpDataBundle />}
     </div>
   </>)
 }
