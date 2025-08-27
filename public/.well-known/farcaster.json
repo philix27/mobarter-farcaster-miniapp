@@ -21,14 +21,7 @@
       "homeUrl": "https://app.mobarter.com",
       "webhookUrl": "https://app.mobarter.com/api/webhook",
       "primaryCategory": "finance",
-      "tags": [
-         "crypto",
-            "topup",
-            "mobile",
-            "payments",
-            "utilities",
-            "data"
-      ],
+      "tags": ["crypto", "topup", "mobile", "data"],
       "heroImageUrl": "https://app.mobarter.com/hero.png",
       "tagline": "Payments, Finance",
       "ogTitle": "Mobarter",
