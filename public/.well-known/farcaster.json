@@ -8,20 +8,20 @@
       "allowedAddresses": ["0x323591710D7Aa601aEAF33D0B91D348c2F66b5cc"]
     },
     "frame": {
-      " version": "1",
-      " name": "Mobarter",
-      " subtitle": "Pay bills using stablecoins",
-      " description": "Settle and purchase airtime, data bundle, electiricity andd tv subscriptions using stablecoins",
-      " screenshotUrls": [
+      "version": 1,
+      "name": "Mobarter",
+      "subtitle": "Pay bills using stablecoins",
+      "description": "Settle and purchase airtime, data bundle, electiricity and tv subscriptions using stablecoins",
+      "screenshotUrls": [
         "https://app.mobarter.com/screenshot.png"
       ],
       "iconUrl": "https://app.mobarter.com/icon.png",
       "splashImageUrl": "https://app.mobarter.com/splash.png",
       "splashBackgroundColor": "#FF5E00",
-      "homeUrl": "URL",
-      "webhookUrl": "`${URL}/api/webhook`",
-      "primaryCategory": "Payments, Finance",
-      "tags": "[]",
+      "homeUrl": "https://app.mobarter.com",
+      "webhookUrl": "`https://app.mobarter.com/api/webhook`",
+      "primaryCategory": "finance",
+      "tags": [],
       "heroImageUrl": "https://app.mobarter.com/hero.png",
       "tagline": "Payments, Finance",
       "ogTitle": "Mobarter",
