@@ -64,11 +64,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return;
     }
 
-
-    // const requestJson = await req.body;
-
-    // const { header: encodedHeader, payload: encodedPayload } = requestJson;
-
     const encodedHeader = req.headers
     const encodedPayload = req.body
     const headerData = decode(encodedHeader['x-webhook-header'] as string);

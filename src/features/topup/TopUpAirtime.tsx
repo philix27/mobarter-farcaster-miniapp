@@ -9,6 +9,7 @@ import { Button } from '@/components/Button'
 import { AppSelect } from '@/components/Select'
 import { Input } from '@/components/Input'
 import { BalCard } from './utils/BalCard'
+import { triggerEvent } from '@/src/providers/PostHogProvider'
 
 
 
@@ -26,6 +27,7 @@ export function AirtimeSection() {
 
 
   const handleSend = async () => {
+    triggerEvent('top_up_airtime_initiated', { country: store.countryIso, operator: selectedOperator, amount: amtValue });
     const leastAmount = 50
 
     if (phoneNo.length < 9) {

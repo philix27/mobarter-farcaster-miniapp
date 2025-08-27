@@ -5,7 +5,7 @@ import { ErrorBoundary } from '@/components/Errors'
 import { useIsSsr } from 'src/lib/utils/ssr'
 import 'src/styles/globals.css'
 import { PreventZoom } from '../lib/DissableZoom'
-import { Root } from '../lib/root'
+import { Root } from '../providers/root'
 
 
 function SafeHydrate({ children }: PropsWithChildren<any>) {
