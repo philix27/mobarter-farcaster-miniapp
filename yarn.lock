@@ -1116,15 +1116,6 @@
     neverthrow "^6.1.0"
     viem "^2.29.2"
 
-"@farcaster/frame-core@0.0.35":
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/@farcaster/frame-core/-/frame-core-0.0.35.tgz#62e546edc1f34ce77f1ccfa81a16fdad180cd5da"
-  integrity sha512-wJN3ShVx4lC4/1QeEJuzZDXZ39+1Oempfbv9AOxwCafU6Mhp5ATGvlAQrz69INa4pNnENqhocH0E6dywrTZFCQ==
-  dependencies:
-    "@solana/web3.js" "^1.98.2"
-    ox "^0.4.4"
-    zod "^3.24.1"
-
 "@farcaster/frame-core@^0.0.19":
   version "0.0.19"
   resolved "https://registry.yarnpkg.com/@farcaster/frame-core/-/frame-core-0.0.19.tgz#76621fe6e207c3a5c78a22aa679bbbd7beafdd11"
@@ -1141,16 +1132,6 @@
     "@farcaster/frame-core" "^0.0.19"
     ox "^0.4.0"
 
-"@farcaster/frame-sdk@^0.0.39":
-  version "0.0.39"
-  resolved "https://registry.yarnpkg.com/@farcaster/frame-sdk/-/frame-sdk-0.0.39.tgz#201ca2f8973b19c8bd686f1273176a2c0842b4ff"
-  integrity sha512-v3cdsjM7J0DlqZiSuBaJ1dQSdUHH8co7DXx0JEPVP9IuD/1x4E8nitNYk/k9uHPxOx/WNoRbEnB9chLQVMDvcA==
-  dependencies:
-    "@farcaster/frame-core" "0.0.35"
-    comlink "^4.4.2"
-    eventemitter3 "^5.0.1"
-    ox "^0.4.4"
-
 "@farcaster/frame-sdk@^0.1.8":
   version "0.1.9"
   resolved "https://registry.yarnpkg.com/@farcaster/frame-sdk/-/frame-sdk-0.1.9.tgz#2b45d675e5d6e0a031b5f0e64981deb4c3c55428"
@@ -1162,10 +1143,10 @@
     eventemitter3 "^5.0.1"
     ox "^0.4.4"
 
-"@farcaster/frame-wagmi-connector@^0.0.27":
-  version "0.0.27"
-  resolved "https://registry.yarnpkg.com/@farcaster/frame-wagmi-connector/-/frame-wagmi-connector-0.0.27.tgz#430f53073f055a5f94db97d76c49d0ef4e7b140a"
-  integrity sha512-eck3ysY5FL0Kd418cQzxgOTcISCcOQa3flMOcFWdGESnulnlIlNGuysLrJynXb1dTNsz0oVnh6lTW8NNb6z7pw==
+"@farcaster/frame-wagmi-connector@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@farcaster/frame-wagmi-connector/-/frame-wagmi-connector-1.0.0.tgz#59d6b3bf685de2d6a87157de306a3cef1b10adc9"
+  integrity sha512-65zmI54PrJO88CYM3QrEXKgQIb+DD/h/U32tAaSRx+dT/AIG5w0tSQgON1zfLinNK8NYeBVRD40DBbR2vly3AQ==
 
 "@farcaster/miniapp-core@0.3.8":
   version "0.3.8"
@@ -12573,7 +12554,7 @@ zod@3.22.4:
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.4.tgz#f31c3a9386f61b1f228af56faa9255e845cf3fff"
   integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==
 
-zod@^3.23.8, zod@^3.24.1, zod@^3.24.2, zod@^3.25.0, zod@^3.25.1:
+zod@^3.23.8, zod@^3.24.2, zod@^3.25.0, zod@^3.25.1:
   version "3.25.76"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.25.76.tgz#26841c3f6fd22a6a2760e7ccb719179768471e34"
   integrity sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==

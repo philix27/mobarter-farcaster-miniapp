@@ -2,9 +2,11 @@
 import { useCallback, useEffect, useState } from "react";
 import posthog from "posthog-js";
 import { FrameContext } from "@farcaster/frame-node";
-import sdk, { AddFrame } from "@farcaster/frame-sdk";
+// import sdk, { AddFrame } from "@farcaster/miniapp-sdk";
+import sdk from "@farcaster/miniapp-sdk";
 import { PostHogProvider } from "./PostHogProvider";
 import WagmiiProvider from "./WagmiProvider";
+import { logger } from "../lib/utils";
 
 
 export function WagmiPosthog({
@@ -21,15 +23,9 @@ export function WagmiPosthog({
   const addFrame = useCallback(async () => {
     try {
       await sdk.actions.addFrame();
-    } catch (error) {
-      if (error instanceof AddFrame.RejectedByUser) {
-        setAddFrameResult(`Not added: ${error.message}`);
-      }
-
-      if (error instanceof AddFrame.InvalidDomainManifest) {
-        setAddFrameResult(`Not added: ${error.message}`);
-      }
-      console.log(addFrameResult);
+    } catch (error: any) {
+      setAddFrameResult(`Not added: ${error.message}`);
+      logger.info(addFrameResult);
       setAddFrameResult(`Error: ${error}`);
     }
   }, []);
@@ -45,7 +41,7 @@ export function WagmiPosthog({
         setContext(frameContext as unknown as FrameContext);
         setIsSDKLoaded(true);
       } catch (error) {
-        console.error('Failed to load frame context:', error);
+        logger.error('Failed to load frame context:', error);
       }
     };
 
@@ -55,7 +51,7 @@ export function WagmiPosthog({
           await load();
           await sdk.actions.ready();
         } catch (error) {
-          console.error('Failed to initialize SDK:', error);
+          logger.error('Failed to initialize SDK:', error);
         }
       };
 
@@ -65,6 +61,7 @@ export function WagmiPosthog({
         sdk.removeAllListeners();
       };
     }
+    return undefined;
   }, [isSDKLoaded, addFrame]);
 
   // Separate effect to handle frame adding after context is loaded
