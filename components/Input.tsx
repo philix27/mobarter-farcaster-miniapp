@@ -28,7 +28,7 @@ export function Input(
         )}
       >
         {props.preText && (
-          <div className="h-full mr-2" style={{marginRight: "4px"}}>
+          <div className="h-full mr-2" style={{ marginRight: "4px" }}>
             <p className="font-normal  text-[15px]">{props.preText}</p>
           </div>
         )}
@@ -38,7 +38,7 @@ export function Input(
           className={cn(
             "w-full bg-card border-none outline-none text-[16px] font-normal placeholder:font-light placeholder:text-sm py-[2px]",
           )}
-          style={{outline: "none", border: "none", padding: "2px 0"}}
+          style={{ outline: "none", border: "none", }}
           autoComplete={isNum ? 'off' : undefined}
           onFocus={() => {
             setFocus(true)
