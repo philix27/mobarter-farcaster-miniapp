@@ -14,6 +14,7 @@ export function Button(
         props.className
       )}
       onClick={props.onClick}
+      style={{padding: "5px 16px"}}
     >
       <p className='text-[12px] font-semibold py-2 text-[#fff]'>{props.children}</p>
     </button>

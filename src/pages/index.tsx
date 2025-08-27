@@ -1,21 +1,13 @@
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import { AppStores } from "../lib/zustand";
-import { cn } from "../lib/utils";
-import { IHomeTab, ITopUpTabs } from "../lib/zustand/settings";
-import { AirtimeSection } from "../features/topup/TopUpAirtime";
-import TopUpDataPlan from "../features/topup/TopUpData";
-import TopUpDataBundle from "../features/topup/TopUpDataBundle";
 import ComingSoon from "@/components/ComingSoon";
 import Head from "next/head";
 import { Spinner } from "@/components/Spinner";
 import { useEffect } from "react";
+import { TopUpSection } from "src/features/topup/TopUpSection";
+import { ITab, Tabs } from "@/components/Tabs";
 
-type ITab = {
-  title: string;
-  isActive: boolean;
-  name: IHomeTab | ITopUpTabs;
-  onClick: VoidFunction;
-}
+
 const metadata = {
   title: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
   description: "Mobarter Mini App",
@@ -40,7 +32,7 @@ const metadata = {
 
 export default function HomePage() {
   const settingsStore = AppStores.useSettings();
-  const { isFrameReady, setFrameReady} = useMiniKit();
+  const { isFrameReady, setFrameReady } = useMiniKit();
 
   useEffect(() => {
     if (!isFrameReady) {
@@ -103,7 +95,7 @@ export default function HomePage() {
         {/* <ProfileCard /> */}
         <Tabs tabs={dashboardItems} />
 
-        <div className="bg-card mx-auto rounded-lg px-3 w-[94%]">
+        <div className="mx-auto rounded-lg px-3 w-full">
           {settingsStore.homeTab === "TopUp" && <TopUpSection />}
           {settingsStore.homeTab === "TV" && <ComingSoon />}
           {settingsStore.homeTab === "Electricity" && <ComingSoon />}
@@ -115,25 +107,6 @@ export default function HomePage() {
 }
 
 
-function Tabs({ tabs }: { tabs: ITab[]; }) {
-  return (
-    <div className="w-full flex items-center justify-between border-b-1 bg-card"
-    >
-      {tabs.map((item, i) => {
-        return (
-          <div key={i}
-            onClick={item.onClick}
-            className={cn("p-2 border-b-2 px-4 flex-1 items-center justify-center flex cursor-pointer",
-              item.isActive ? "border-primary-500 text-primary" : "border-card text-muted")}
-          >
-            <p className={cn("text-[11px] font-semibold")} >{item.title}</p>
-          </div>
-        )
-      }
-      )}
-    </div>
-  )
-}
 
 
 export function ProfileCard() {
@@ -147,44 +120,5 @@ export function ProfileCard() {
       <p className="text-[12px]">Select country</p>
     </div>
   )
-}
-
-function TopUpSection() {
-  const store = AppStores.useSettings();
-  const tabItems: ITab[] = [
-    {
-      title: "Airtime",
-      name: 'TopUp',
-      isActive: store.topUpTab === "Airtime",
-      onClick: () => {
-        store.update({ topUpTab: "Airtime" });
-      }
-    },
-    {
-      title: "Bundle",
-      name: "DataBundle",
-      isActive: store.topUpTab === "DataBundle",
-      onClick: () => {
-        store.update({ topUpTab: "DataBundle" });
-      }
-    },
-    {
-      title: "Plan",
-      name: "DataPlan",
-      isActive: store.topUpTab === "DataPlan",
-      onClick: () => {
-        store.update({ topUpTab: "DataPlan" });
-      }
-    },
-  ]
-
-  return (<>
-    <Tabs tabs={tabItems} />
-    <div className="w-full py-3">
-      {store.topUpTab === "Airtime" && <AirtimeSection />}
-      {store.topUpTab === "DataBundle" && <TopUpDataPlan />}
-      {store.topUpTab === "DataPlan" && <TopUpDataBundle />}
-    </div>
-  </>)
 }
 

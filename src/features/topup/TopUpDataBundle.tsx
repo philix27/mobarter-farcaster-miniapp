@@ -1,18 +1,15 @@
 'use client'
 import { useState } from 'react'
-import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
 import { AppStores } from '@/src/lib/zustand'
 import { COLLECTOR, mapCountryToData, mapCountryToIso, TokenId } from '@/src/lib/const'
 import { usePrice, useSendToken, } from '@/src/hooks'
 import { RequestFrom, useGetTopUpOperators, useUtility_purchaseDataBundle } from '@/zapi'
-import { BalCard } from './utils/BalCard'
-import { cn, pasteTextFromClipboard } from '@/src/lib/utils'
+import { cn,  } from '@/src/lib/utils'
 import { Card, Label } from '@/components/comps'
 import { Button } from '@/components/Button'
 import { AppSelect } from '@/components/Select'
 import { TileSimple } from '@/components/TileSimple'
-import { Input } from '@/components/Input'
 import { BottomModal } from '@/components/BottomModal'
 
 export default function TopUpDataBundle() {
@@ -104,31 +101,7 @@ export default function TopUpDataBundle() {
   return (
     <>
       <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1">
-        <BalCard />
-        <Input
-          label={`Phone NO. (${mapCountryToIso[store.countryIso]})*`}
-          placeholder={`8101234567`}
-          preText={countryCode}
-          value={phoneNo}
-          type="number"
-          onChange={(e) => {
-            const num = e.target.value
-            if (num.length > 13) {
-              toast.error('11 characters max')
-              return
-            }
-            setPhoneNo(num.toString())
-          }}
-          trailingIcon={
-            <FaCopy
-              className="text-muted"
-              onClick={async () => {
-                const text = await pasteTextFromClipboard()
-                setPhoneNo(text)
-              }}
-            />
-          }
-        />
+       
         {data && (
           <AppSelect
             label="Network*"

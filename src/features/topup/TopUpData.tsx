@@ -1,10 +1,7 @@
 import { useState } from 'react'
-import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
-import { cn, pasteTextFromClipboard } from '@/src/lib/utils'
+import { cn,  } from '@/src/lib/utils'
 import { AppStores } from '@/src/lib/zustand'
-import { BalCard } from './utils/BalCard'
-import { IconType } from 'react-icons'
 import { COLLECTOR, TokenId } from '@/src/lib/const'
 import { usePrice, useSendToken } from '@/src/hooks'
 import { mapCountryToData, mapCountryToIso } from '@/src/lib/const/countries'
@@ -14,7 +11,6 @@ import { Button } from '@/components/Button'
 import { AppSelect } from '@/components/Select'
 import { TileSimple } from '@/components/TileSimple'
 import { BottomModal } from '@/components/BottomModal'
-import { Input } from '@/components/Input'
 
 export default function TopUpDataPlan() {
   const { sendErc20 } = useSendToken()
@@ -23,7 +19,6 @@ export default function TopUpDataPlan() {
   const [operatorId, setOperatorId] = useState('')
   const [operatorPlan, setOperatorPlan] = useState<{ amount: string; desc: string }>()
 
-  const Copy = FaCopy as unknown as IconType
   const store = AppStores.useSettings()
   const countryCode = mapCountryToData[store.countryIso].callingCodes[0]
   // const { sendErc20 } = useSendToken()
@@ -106,32 +101,7 @@ export default function TopUpDataPlan() {
 
   return (
     <>
-      <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1">
-        <BalCard />
-        <Input
-          label={`Phone NO. (${mapCountryToIso[store.countryIso]})*`}
-          placeholder={`8101234567`}
-          preText={countryCode}
-          value={phoneNo}
-          type="number"
-          onChange={(e) => {
-            const num = e.target.value
-            if (num.length > 13) {
-              toast.error('11 characters max')
-              return
-            }
-            setPhoneNo(num.toString())
-          }}
-          trailingIcon={
-            <Copy
-              className="text-muted"
-              onClick={async () => {
-                const text = await pasteTextFromClipboard()
-                setPhoneNo(text)
-              }}
-            />
-          }
-        />
+      <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1">        
         {data && (
           <AppSelect
             label="Network*"

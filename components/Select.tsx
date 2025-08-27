@@ -34,7 +34,8 @@ export const AppSelect = (props: {
   }[]
 }) => {
   const theme = useThemeColor()
-  const bgCard = props.useBg ? theme.bg : theme.card
+  const bgCard = theme.bg
+  // const bgCard = props.useBg ? theme.bg : theme.card
   const textColor = theme.text
 
   return (

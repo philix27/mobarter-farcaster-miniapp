@@ -1,14 +1,12 @@
 import { useState } from 'react'
-import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
-import { countryCode, mapCountryToData, mapCountryToIso, COLLECTOR, TokenId } from '@/src/lib/const'
+import { mapCountryToData, COLLECTOR, TokenId } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
 import { usePrice, useSendToken } from '@/src/hooks'
 import { Card, Label } from '@/components/comps'
 import { Button } from '@/components/Button'
 import { AppSelect } from '@/components/Select'
 import { Input } from '@/components/Input'
-import { BalCard } from './utils/BalCard'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 
 
@@ -19,7 +17,6 @@ enum Operator {
 export function AirtimeSection() {
   const { sendErc20 } = useSendToken()
   const [amtValue, setAmountVal] = useState<number>()
-  const [phoneNo, setPhoneNo] = useState<string>('')
   const [selectedOperator, setOperator] = useState<Operator>()
   const store = AppStores.useSettings()
 
@@ -30,10 +27,10 @@ export function AirtimeSection() {
     triggerEvent('top_up_airtime_initiated', { country: store.countryIso, operator: selectedOperator, amount: amtValue });
     const leastAmount = 50
 
-    if (phoneNo.length < 9) {
-      toast.error('Enter a valid phone number')
-      return
-    }
+    // if (phoneNo.length < 9) {
+    //   toast.error('Enter a valid phone number')
+    //   return
+    // }
 
     if (selectedOperator === undefined) {
       toast.error('Select an operator')
@@ -70,47 +67,14 @@ export function AirtimeSection() {
         toast.error('Error: ', err.message)
       })
   }
-  async function pasteTextFromClipboard(): Promise<string> {
-    try {
-      return await navigator.clipboard.readText();
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      toast.error('Failed to read from clipboard');
-      return '';
-    }
-  }
+
 
   return (
     <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1 space-y-5"
       style={{
-        // columnGap: 30,
         rowGap: 12,
       }}>
-      <BalCard />
-      <Input
-        label={`${mapCountryToIso[store.countryIso]} Phone number`}
-        placeholder={`8101234567`}
-        preText={countryCode(store.countryIso)}
-        value={phoneNo}
-        type="number"
-        onChange={(e) => {
-          const num = e.target.value
-          if (num.length > 11) {
-            toast.error('11 characters max')
-            return
-          }
-          setPhoneNo(num.toString())
-        }}
-        trailingIcon={
-          <FaCopy
-            className="text-muted"
-            onClick={async () => {
-              const text = await pasteTextFromClipboard()
-              setPhoneNo(text)
-            }}
-          />
-        }
-      />
+
       <AppSelect
         label="Network*"
         onChange={(data) => {

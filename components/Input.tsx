@@ -21,14 +21,14 @@ export function Input(
       {label && <Label>{label}</Label>}
       <div
         className={cn(
-          'rounded-lg px-3 py-2 flex items-center justify-center border-[0.5px] text-muted border-muted border',
+          'rounded-lg px-3 py-2 flex items-center justify-center border-[0.5px] text-muted border-muted border mt-2',
           focus && 'border-primary',
           props.error && 'border-destructive',
           className
         )}
       >
         {props.preText && (
-          <div className="h-full pr-1">
+          <div className="h-full mr-2" style={{marginRight: "4px"}}>
             <p className="font-normal  text-[15px]">{props.preText}</p>
           </div>
         )}
@@ -38,6 +38,7 @@ export function Input(
           className={cn(
             "w-full bg-card border-none outline-none text-[16px] font-normal placeholder:font-light placeholder:text-sm py-[2px]",
           )}
+          style={{outline: "none", border: "none", padding: "2px 0"}}
           autoComplete={isNum ? 'off' : undefined}
           onFocus={() => {
             setFocus(true)
