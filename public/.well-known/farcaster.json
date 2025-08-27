@@ -8,7 +8,7 @@
       "allowedAddresses": ["0x323591710D7Aa601aEAF33D0B91D348c2F66b5cc"]
     },
     "frame": {
-      "version": "1.0.0",
+      "version": "next",
       "name": "Mobarter",
       "subtitle": "Pay bills using stablecoins",
       "description": "Settle and purchase airtime, data bundle, electiricity and tv subscriptions using stablecoins",
@@ -21,7 +21,14 @@
       "homeUrl": "https://app.mobarter.com",
       "webhookUrl": "https://app.mobarter.com/api/webhook",
       "primaryCategory": "finance",
-      "tags": [],
+      "tags": [
+         "crypto",
+            "topup",
+            "mobile",
+            "payments",
+            "utilities",
+            "data"
+      ],
       "heroImageUrl": "https://app.mobarter.com/hero.png",
       "tagline": "Payments, Finance",
       "ogTitle": "Mobarter",
