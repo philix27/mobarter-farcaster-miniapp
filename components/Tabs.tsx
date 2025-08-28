@@ -9,16 +9,16 @@ export type ITab = {
 
 export function Tabs({ tabs }: { tabs: ITab[]; }) {
     return (
-        <div className="w-full flex items-center justify-between border-b-1 bg-card border-muted"
+        <div className="w-full border-b-1 bg-card border-muted flex items-center justify-around"
         >
             {tabs.map((item, i) => {
                 return (
                     <div key={i}
                         onClick={item.onClick}
-                        className={cn("p-2 border-b-2 px-4 flex-1 items-center justify-center flex cursor-pointer",
+                        className={cn("py-2 border-b-2 px-4 w-full text-center",
                             item.isActive ? "border-primary-500 text-primary" : "border-card text-muted")}
                     >
-                        <p className={cn("text-[11px] font-semibold")} >{item.title}</p>
+                        <p className={cn('text-[12px] font-normal', item.isActive ? 'text-primary font-semibold' : 'text-muted')}>{item.title}</p>
                     </div>
                 )
             }
