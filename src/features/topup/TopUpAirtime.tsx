@@ -89,17 +89,22 @@ export function AirtimeSection() {
             if (isNaN(num)) {
               return
             }
-            // if (parseInt(e.target.value) < 0) {
-            //   return
-            // }
-            // setAmountVal(num)
+
             topUp.update({ amountFiat: num })
           }}
         />
 
 
       </div>
-      <PriceDisplay amountToPay={amountToPay.toString()} handleSend={handleSend} />
+      <PriceDisplay
+        handleSend={handleSend}
+        rows={[
+          { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
+          { title: "Phone", subtitle: "0".concat(topUp.phoneNo) },
+          { title: "Amount to buy", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
+        ]}
+
+      />
     </>
   )
 }
