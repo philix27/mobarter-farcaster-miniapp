@@ -1,12 +1,12 @@
-import { AppStores } from "@/src/lib/zustand";
 import { AirtimeSection } from "src/features/topup/TopUpAirtime";
 import TopUpDataPlan from "src/features/topup/TopUpData";
 import TopUpDataBundle from "src/features/topup/TopUpDataBundle";
 import PhoneInput from "src/features/topup/PhoneInput";
 import { ITab, Tabs } from "@/components/Tabs";
+import { useTopUpForm } from "./hook";
 
 export function TopUpSection() {
-    const store = AppStores.useSettings();
+    const store = useTopUpForm();
     const tabItems: ITab[] = [
         {
             title: "Airtime",
@@ -38,7 +38,7 @@ export function TopUpSection() {
         <PhoneInput />
         <div className="w-full py-1 bg-card rounded-lg mb-3">
             <Tabs tabs={tabItems} />
-            <div className="px-3 py-2">
+            <div className="px-2 py-2">
                 {store.topUpTab === "Airtime" && <AirtimeSection />}
                 {store.topUpTab === "DataBundle" && <TopUpDataPlan />}
                 {store.topUpTab === "DataPlan" && <TopUpDataBundle />}

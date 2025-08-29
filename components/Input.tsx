@@ -8,6 +8,7 @@ export function Input(
     preText?: string
     error?: string
     desc?: string
+    helperText?: string
     label?: string
     trailingIcon?: JSX.Element
     control?: unknown
@@ -54,7 +55,9 @@ export function Input(
         />
         {trailingIcon && trailingIcon}
       </div>
-      {desc && <BottomNote>{desc}</BottomNote>}
+      <div className='flex items-center justify-between'>
+        {desc && <BottomNote>{desc}</BottomNote>}
+        {desc && <BottomNote>{props.helperText}</BottomNote>}</div>
       {error && <p className="text-destructive text-[13px] mt-1">{error}</p>}
     </div>
   )

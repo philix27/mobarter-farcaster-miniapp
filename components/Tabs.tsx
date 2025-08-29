@@ -18,7 +18,7 @@ export function Tabs({ tabs }: { tabs: ITab[]; }) {
                         className={cn("py-2 border-b-2 px-4 w-full text-center",
                             item.isActive ? "border-primary-500 text-primary" : "border-card text-muted")}
                     >
-                        <p className={cn('text-[12px] font-normal', item.isActive ? 'text-primary font-semibold' : 'text-muted')}>{item.title}</p>
+                        <p className={"text-[12px] font-normal ".concat(item.isActive ? 'text-primary font-semibold' : 'text-muted')}  >{item.title}</p>
                     </div>
                 )
             }

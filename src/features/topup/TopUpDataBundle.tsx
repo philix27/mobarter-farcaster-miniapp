@@ -5,14 +5,16 @@ import { AppStores } from '@/src/lib/zustand'
 import { COLLECTOR, mapCountryToData, mapCountryToIso, TokenId } from '@/src/lib/const'
 import { usePrice, useSendToken, } from '@/src/hooks'
 import { RequestFrom, useGetTopUpOperators, useUtility_purchaseDataBundle } from '@/zapi'
-import { cn,  } from '@/src/lib/utils'
+import { cn, } from '@/src/lib/utils'
 import { Card, Label } from '@/components/comps'
 import { Button } from '@/components/Button'
 import { AppSelect } from '@/components/Select'
 import { TileSimple } from '@/components/TileSimple'
 import { BottomModal } from '@/components/BottomModal'
+import { useTopUpForm } from './hook'
 
 export default function TopUpDataBundle() {
+  const topUp = useTopUpForm();
   const [phoneNo, setPhoneNo] = useState<string>('')
   const [showBtm, setShowBtmSheet] = useState<boolean>(false)
   const [operatorId, setOperatorId] = useState('')
@@ -21,7 +23,7 @@ export default function TopUpDataBundle() {
 
   const store = AppStores.useSettings()
   const countryCode = mapCountryToData[store.countryIso].callingCodes[0]
-  const { amountToPay, handleOnChange } = usePrice()
+  const { amountToPay, } = usePrice()
 
   const { data } = useGetTopUpOperators();
 
@@ -101,7 +103,7 @@ export default function TopUpDataBundle() {
   return (
     <>
       <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1">
-       
+
         {data && (
           <AppSelect
             label="Network*"
@@ -164,7 +166,8 @@ export default function TopUpDataBundle() {
                   desc={val.label}
                   className={cn(isActive && 'border-primary border')}
                   onClick={() => {
-                    handleOnChange(val.amount)
+
+                    topUp.update({ amountFiat: val.amount })
                     setOperatorPlan({
                       amount: val.amount.toString(),
                       desc: val.label,

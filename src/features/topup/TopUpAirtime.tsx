@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { toast } from 'sonner'
 import { mapCountryToData, COLLECTOR, TokenId } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
@@ -6,38 +5,30 @@ import { usePrice, useSendToken } from '@/src/hooks'
 import { Input } from '@/components/Input'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 import PriceDisplay from './Price'
+import { useTopUpForm } from './hook'
 
 
-
-// enum Operator {
-//   Mtn, Airtel, Etisalat, Glo,
-// }
 export function AirtimeSection() {
   const { sendErc20 } = useSendToken()
-  const [amtValue, setAmountVal] = useState<number>()
-  // const [selectedOperator, setOperator] = useState<Operator>()
   const store = AppStores.useSettings()
 
-  const { amountToPay, handleOnChange } = usePrice()
-
+  const topUp = useTopUpForm();
+  const { amountToPay, } = usePrice({ amountInFiat: topUp.amountFiat })
 
   const handleSend = async () => {
-    triggerEvent('top_up_airtime_initiated', { country: store.countryIso, amount: amtValue });
+    triggerEvent('top_up_airtime_initiated', { country: store.countryIso, amount: topUp.amountFiat });
     const leastAmount = 50
 
-    // if (phoneNo.length < 9) {
-    //   toast.error('Enter a valid phone number')
-    //   return
-    // }
+    if (topUp.phoneNo || topUp.phoneNo.length < 9) {
+      toast.error('Enter a valid phone number')
+      return
+    }
 
-    // if (selectedOperator === undefined) {
-    //   toast.error('Select an operator')
-    //   return
-    // }
-    if (amtValue == undefined || amtValue < leastAmount) {
+    if (topUp.amountFiat == undefined || topUp.amountFiat < leastAmount) {
       toast.error('Minimum of NGN1,000')
       return
     }
+
     await sendErc20({
       recipient: COLLECTOR,
       amount: amountToPay!.toString(),
@@ -92,7 +83,7 @@ export function AirtimeSection() {
           placeholder="Amount to send"
           type="number"
           step=".01"
-          value={amtValue}
+          value={topUp.amountFiat}
           onChange={(e) => {
             const num = parseFloat(e.target.value)
             if (isNaN(num)) {
@@ -101,8 +92,8 @@ export function AirtimeSection() {
             // if (parseInt(e.target.value) < 0) {
             //   return
             // }
-            setAmountVal(num)
-            handleOnChange(num)
+            // setAmountVal(num)
+            topUp.update({ amountFiat: num })
           }}
         />
 

@@ -1,12 +1,11 @@
 // import { useQuery } from '@apollo/client'
 // import { FxRate_GetAllDocument, QueryResponse } from '@repo/api'
-import { useState } from 'react'
 // import { AppStores } from '../zustand'
 
 
-export function usePrice() {
+export function usePrice(props?: { amountInFiat?: number }) {
   // const store = AppStores.useSettings()
-  const [amountToPay, setAmtToPay] = useState(0)
+  // const [amountToPay, setAmtToPay] = useState(0)
   // const { data: fxData, error } = useQuery<QueryResponse<'fxRate_GetAll'>>(FxRate_GetAllDocument)
 
   // if (error) {
@@ -23,12 +22,19 @@ export function usePrice() {
 
   // const rate = fxData!.fxRate_GetAll[store.countryIso]
 
-  const handleOnChange = (amountInFiatCurrency: number) => {
-    const rate = 1
-    const c = amountInFiatCurrency / rate
-    const plusFee = c + 0.1
-    setAmtToPay(plusFee)
-  }
+  // const handleOnChange = () => {
 
-  return { amountToPay, handleOnChange }
+  //   setAmtToPay(plusFee)
+  // }
+
+
+  if (!props || !props.amountInFiat) {
+    return { amountToPay: 0 }
+  }
+  const rate = 1
+  const c = props.amountInFiat / rate
+  const plusFee = c + 0.1
+
+
+  return { amountToPay: plusFee }
 }
