@@ -4,13 +4,14 @@ import { pasteTextFromClipboard } from '@/src/lib/utils'
 import { AppStores } from '@/src/lib/zustand'
 import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
-import { useTopUpForm } from './hook'
+import { Operator, useTopUpForm } from './hook'
+import { AppSelect } from '@/components/Select'
 
 export default function PhoneInput() {
     const store = AppStores.useSettings()
     const topUp = useTopUpForm();
     return (
-        <div className='w-full bg-card rounded-lg mb-3 px-3 py-4'>
+        <div className='w-full bg-card rounded-lg mb-3 px-3  pb-3 pt-1 gap-y-4 flex flex-col'>
             <Input
                 label={`Phone no. (${mapCountryToIso[store.countryIso]})*`}
                 placeholder={`8101234567`}
@@ -35,6 +36,19 @@ export default function PhoneInput() {
                         }}
                     />
                 }
+            />
+
+            <AppSelect
+                label="Network*"
+                onChange={(data) => {
+                    topUp.update({ operator: data as unknown as Operator })
+                }}
+                data={[
+                    { label: 'MTN', value: Operator.MTN.toString() },
+                    { label: 'Airtel', value: Operator.AIRTEL.toString() },
+                    { label: 'Glo', value: Operator.GLO.toString() },
+                    { label: 'Etisalat', value: Operator.ETISALAT.toString() },
+                ]}
             />
         </div>
     )

@@ -22,7 +22,7 @@ export function Input(
       {label && <Label>{label}</Label>}
       <div
         className={cn(
-          'rounded-lg px-3 py-2 flex items-center justify-center border-[0.5px] text-muted border-muted border mt-2',
+          'rounded-lg px-3 py-[6px] flex items-center justify-center border-[0.5px] text-muted border-muted border mt-1',
           focus && 'border-primary',
           props.error && 'border-destructive',
           className
@@ -37,7 +37,7 @@ export function Input(
           {...inputParams}
           {...(typeof props.control === 'object' && props.control !== null ? props.control : {})}
           className={cn(
-            "w-full bg-card border-none outline-none text-[16px] font-normal placeholder:font-light placeholder:text-sm py-[2px]",
+            "w-full bg-card border-none outline-none text-[16px] font-normal placeholder:font-light placeholder:text-sm ",
           )}
           style={{ outline: "none", border: "none", }}
           autoComplete={isNum ? 'off' : undefined}

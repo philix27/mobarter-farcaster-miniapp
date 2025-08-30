@@ -34,7 +34,7 @@ export const AppSelect = (props: {
   }[]
 }) => {
   const theme = useThemeColor()
-  const bgCard = theme.bg
+  const bgCard = theme.card
   // const bgCard = props.useBg ? theme.bg : theme.card
   const textColor = theme.text
 
@@ -99,8 +99,9 @@ export const AppSelect = (props: {
             ...baseStyles,
             color: textColor,
             background: bgCard,
-            borderStyle: 'none',
+            borderStyle: 'solid',
             outlineStyle: 'none',
+            borderColor: theme.muted,
             borderRadius: 5,
           }),
         }}

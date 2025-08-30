@@ -4,7 +4,11 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 
 export type ITopUpTabs = 'Airtime' | "DataPlan" | "DataBundle"
-export enum Operator { MTN, AIRTEL, GLO, ETISALAT, }
+export enum Operator {
+  MTN = "MTN",
+  AIRTEL = "AIRTEL", GLO = "GLO", ETISALAT = "ETISALAT",
+}
+
 export interface ISlice {
   operator?: Operator
   phoneNo?: string

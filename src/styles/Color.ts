@@ -44,15 +44,15 @@ type IThemeColor = {
 }
 export const ThemeColor: IThemeColor = {
   light: {
-    bg: '',
-    text: '',
-    primary: '',
-    card: '',
-    muted: '',
-    secondary: '',
-    accent: '',
-    border: '',
-    destructive: '',
+    bg: '#cbe2e5',
+    text: '#494a4a',
+    primary: '#ff6719',
+    card: '#fefefe',
+    muted: '#8f8f8f',
+    secondary: '#c1d0d5',
+    accent: '#ffffff',
+    border: '#3b3b3b',
+    destructive: '#ff3300',
   },
   dark: {
     bg: '#18222e',
@@ -62,7 +62,7 @@ export const ThemeColor: IThemeColor = {
     card: '#1c2937',
     secondary: '#282828',
     accent: '#222525',
-    border: '#454547',
+    border: '#2a333c',
     destructive: '#d00000',
   },
 }
@@ -70,5 +70,5 @@ export const ThemeColor: IThemeColor = {
 export const useThemeColor = () => {
   const { isDarkMode } = useDarkMode()
   if (isDarkMode) return ThemeColor['dark']
-  return ThemeColor['dark']
+  return ThemeColor['light']
 }

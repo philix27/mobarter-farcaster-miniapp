@@ -60,23 +60,10 @@ export function AirtimeSection() {
 
   return (
     <>
-      <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1 space-y-5 mb-4"
-        style={{
-          rowGap: 12,
-        }}>
+      <div className="w-full px-1 mb-4"
+      >
 
-        {/* <AppSelect
-        label="Network*"
-        onChange={(data) => {
-          setOperator(data as unknown as Operator)
-        }}
-        data={[
-          { label: 'MTN', value: Operator.Mtn.toString() },
-          { label: 'Airtel', value: Operator.Airtel.toString() },
-          { label: 'Glo', value: Operator.Glo.toString() },
-          { label: 'Etisalat', value: Operator.Etisalat.toString() },
-        ]}
-      /> */}
+
         <Input
           label={`Amount*`}
           preText={mapCountryToData[store.countryIso].currencySymbol}
@@ -100,8 +87,9 @@ export function AirtimeSection() {
         handleSend={handleSend}
         rows={[
           { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
-          { title: "Phone", subtitle: "0".concat(topUp.phoneNo) },
           { title: "Amount to buy", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
+          { title: "Phone", subtitle: "0".concat(topUp.phoneNo) },
+          { title: "Operator", subtitle: topUp.operator?.toString() || "" },
         ]}
 
       />

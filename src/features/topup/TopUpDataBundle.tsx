@@ -7,11 +7,11 @@ import { usePrice, useSendToken, } from '@/src/hooks'
 import { RequestFrom, useGetTopUpOperators, useUtility_purchaseDataBundle } from '@/zapi'
 import { cn, } from '@/src/lib/utils'
 import { Card, Label } from '@/components/comps'
-import { Button } from '@/components/Button'
 import { AppSelect } from '@/components/Select'
 import { TileSimple } from '@/components/TileSimple'
 import { BottomModal } from '@/components/BottomModal'
 import { useTopUpForm } from './hook'
+import PriceDisplay from './Price'
 
 export default function TopUpDataBundle() {
   const topUp = useTopUpForm();
@@ -141,13 +141,16 @@ export default function TopUpDataBundle() {
           )}
         </div>
 
-        <div className="w-full ">
-          <Label>You Pay (cUSD)</Label>
-          <Card>{amountToPay} </Card>
-        </div>
-        <Button className="mt-5 w-[70%]" onClick={handleSend}>
-          Confirm
-        </Button>
+        <PriceDisplay
+          handleSend={handleSend}
+          rows={[
+            { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
+            { title: "Phone", subtitle: "0".concat(topUp.phoneNo) },
+            { title: "Amount to buy", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
+          ]}
+
+        />
+
       </div>
       <BottomModal
         showSheet={showBtm}

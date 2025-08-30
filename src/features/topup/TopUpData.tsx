@@ -1,18 +1,20 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { cn,  } from '@/src/lib/utils'
+import { cn, } from '@/src/lib/utils'
 import { AppStores } from '@/src/lib/zustand'
 import { COLLECTOR, TokenId } from '@/src/lib/const'
 import { usePrice, useSendToken } from '@/src/hooks'
 import { mapCountryToData, mapCountryToIso } from '@/src/lib/const/countries'
 import { RequestFrom, useGetTopUpOperators, useUtility_purchaseDataBundle } from '@/zapi'
 import { Card, Label } from '@/components/comps'
-import { Button } from '@/components/Button'
 import { AppSelect } from '@/components/Select'
 import { TileSimple } from '@/components/TileSimple'
 import { BottomModal } from '@/components/BottomModal'
+import PriceDisplay from './Price'
+import { useTopUpForm } from './hook'
 
 export default function TopUpDataPlan() {
+  const topUp = useTopUpForm();
   const { sendErc20 } = useSendToken()
   const [phoneNo, setPhoneNo] = useState<string>('')
   const [showBtm, setShowBtmSheet] = useState<boolean>(false)
@@ -22,7 +24,7 @@ export default function TopUpDataPlan() {
   const store = AppStores.useSettings()
   const countryCode = mapCountryToData[store.countryIso].callingCodes[0]
   // const { sendErc20 } = useSendToken()
-  const { amountToPay, handleOnChange } = usePrice()
+  const { amountToPay } = usePrice()
 
   const { data, } = useGetTopUpOperators();
 
@@ -101,7 +103,7 @@ export default function TopUpDataPlan() {
 
   return (
     <>
-      <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1">        
+      <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1">
         {data && (
           <AppSelect
             label="Network*"
@@ -139,13 +141,15 @@ export default function TopUpDataPlan() {
           )}
         </div>
 
-        <div className="w-full ">
-          <Label>You Pay (cUSD)</Label>
-          <Card>{amountToPay} </Card>
-        </div>
-        <Button className="mt-5 w-[70%]" onClick={handleSend}>
-          Confirm
-        </Button>
+        <PriceDisplay
+          handleSend={handleSend}
+          rows={[
+            { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
+            { title: "Phone", subtitle: "0".concat(topUp.phoneNo) },
+            { title: "Amount to buy", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
+          ]}
+
+        />
       </div>
       <BottomModal
         showSheet={showBtm}
@@ -164,7 +168,7 @@ export default function TopUpDataPlan() {
                   desc={val.label}
                   className={cn(isActive && 'border-primary border')}
                   onClick={() => {
-                    handleOnChange(val.amount)
+                    topUp.update({ amountFiat: val.amount })
                     setOperatorPlan({
                       amount: val.amount.toString(),
                       desc: val.label,
