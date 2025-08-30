@@ -10,7 +10,11 @@ export enum Operator {
 }
 
 export interface ISlice {
-  operator?: Operator
+  dataAmount?: number
+  dataDesc?: string
+  operator?: string
+  operatorId?: number
+  operatorLogo?: string
   phoneNo?: string
   amountFiat?: number
   country?: Country
@@ -22,7 +26,11 @@ const defaultValues: Required<ISlice> = {
   amountFiat: 0,
   country: Country.Gh,
   operator: Operator.MTN,
-  topUpTab: 'Airtime'
+  topUpTab: 'Airtime',
+  operatorId: 0,
+  dataAmount: 0,
+  dataDesc: '',
+  operatorLogo: ''
 }
 
 

@@ -2,7 +2,7 @@
 // import { FxRate_GetAllDocument, QueryResponse } from '@repo/api'
 // import { AppStores } from '../zustand'
 
-
+const rateNGN = 1520;
 export function usePrice(props?: { amountInFiat?: number }) {
   // const store = AppStores.useSettings()
   // const [amountToPay, setAmtToPay] = useState(0)
@@ -31,7 +31,7 @@ export function usePrice(props?: { amountInFiat?: number }) {
   if (!props || !props.amountInFiat) {
     return { amountToPay: 0 }
   }
-  const rate = 1
+  const rate = rateNGN
   const c = props.amountInFiat / rate
   const plusFee = c + 0.1
 

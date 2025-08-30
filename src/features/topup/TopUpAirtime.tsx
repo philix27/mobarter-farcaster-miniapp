@@ -62,8 +62,6 @@ export function AirtimeSection() {
     <>
       <div className="w-full px-1 mb-4"
       >
-
-
         <Input
           label={`Amount*`}
           preText={mapCountryToData[store.countryIso].currencySymbol}
@@ -87,9 +85,7 @@ export function AirtimeSection() {
         handleSend={handleSend}
         rows={[
           { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
-          { title: "Amount to buy", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
-          { title: "Phone", subtitle: "0".concat(topUp.phoneNo) },
-          { title: "Operator", subtitle: topUp.operator?.toString() || "" },
+          { title: "Airtime Amount", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
         ]}
 
       />

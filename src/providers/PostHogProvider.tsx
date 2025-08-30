@@ -23,7 +23,10 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
       persistence: "memory",
       // Enable debug mode in development
       loaded: (posthog) => {
-        if (process.env.NODE_ENV === 'development') posthog.debug()
+        if (process.env.NODE_ENV === 'development') {
+          posthog.debug()
+          return
+        }
         // Generate anonymous session ID without identifying
         const sessionId = posthog.get_distinct_id() || crypto.randomUUID();
         posthog.register({ session_id: sessionId });

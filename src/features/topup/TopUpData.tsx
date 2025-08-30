@@ -1,53 +1,27 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { cn, } from '@/src/lib/utils'
 import { AppStores } from '@/src/lib/zustand'
 import { COLLECTOR, TokenId } from '@/src/lib/const'
 import { usePrice, useSendToken } from '@/src/hooks'
 import { mapCountryToData, mapCountryToIso } from '@/src/lib/const/countries'
-import { RequestFrom, useGetTopUpOperators, useUtility_purchaseDataBundle } from '@/zapi'
-import { Card, Label } from '@/components/comps'
+import { Country, RequestFrom, useUtility_purchaseDataBundle } from '@/zapi'
 import { AppSelect } from '@/components/Select'
-import { TileSimple } from '@/components/TileSimple'
-import { BottomModal } from '@/components/BottomModal'
 import PriceDisplay from './Price'
 import { useTopUpForm } from './hook'
+import { operatorsData } from './operatorData'
 
-export default function TopUpDataPlan() {
+export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
   const topUp = useTopUpForm();
   const { sendErc20 } = useSendToken()
-  const [phoneNo, setPhoneNo] = useState<string>('')
-  const [showBtm, setShowBtmSheet] = useState<boolean>(false)
-  const [operatorId, setOperatorId] = useState('')
   const [operatorPlan, setOperatorPlan] = useState<{ amount: string; desc: string }>()
+  const operaror = operatorsData[Country.Ng];
+  const ops = props?.isDataPlan ? operaror.dataPlan : operaror.dataBundles;
 
   const store = AppStores.useSettings()
   const countryCode = mapCountryToData[store.countryIso].callingCodes[0]
   // const { sendErc20 } = useSendToken()
-  const { amountToPay } = usePrice()
-
-  const { data, } = useGetTopUpOperators();
-
-
-  const plansList = () => {
-    if (!data) return undefined
-
-    const op = data.utility_getTopUpOperators.dataPlan.filter((v) => `${v.operatorId}` === operatorId)[0];
-
-    if (!op) return undefined
-
-    const plans = op.plans;
-
-    const amountDesc = plans?.map((p) => {
-      return {
-        label: p.desc,
-        amount: p.amount,
-        symbol: "Blank",
-      }
-    })
-
-    return amountDesc
-  }
+  const { amountToPay } = usePrice({ amountInFiat: topUp.amountFiat })
+  
   const [mutate] = useUtility_purchaseDataBundle();
 
   const handleSend = async () => {
@@ -74,8 +48,8 @@ export default function TopUpDataPlan() {
             input: {
               amount: parseInt(operatorPlan.amount),
               countryCode: mapCountryToIso[store.countryIso],
-              operatorId: parseInt(operatorId),
-              phoneNo: `${countryCode.slice(1)}${phoneNo}`,
+              operatorId: topUp.operatorId!,
+              phoneNo: `${countryCode.slice(1)}${topUp.phoneNo}`,
               payment: {
                 amountCrypto: 0,
                 amountFiat: 0,
@@ -91,7 +65,6 @@ export default function TopUpDataPlan() {
           },
           onCompleted() {
             toast.success('Sent successfully')
-            setPhoneNo('')
             setOperatorPlan({ amount: '', desc: '' })
           },
         })
@@ -101,85 +74,48 @@ export default function TopUpDataPlan() {
       })
   }
 
+  const getPlans = () => {
+    const v = ops.filter((val) => val.name.toUpperCase() === topUp.operator.toUpperCase())[0]
+
+    if (!v) return []
+    return v.plans
+  }
+
   return (
     <>
       <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1">
-        {data && (
-          <AppSelect
-            label="Network*"
-            onChange={(id) => {
-              setOperatorId(id)
-              if (operatorId !== id) {
-                setOperatorPlan({ amount: '', desc: '' })
-              }
-            }}
-            data={data.utility_getTopUpOperators.dataPlan.map((val) => {
-              return {
-                label: val.name,
-                value: `${val.operatorId}`,
-              }
-            })}
-          />
-        )}
 
-        <div className="w-full ">
-          <Label>Selected Plan*</Label>
-          {operatorPlan && operatorPlan.desc ? (
-            <Card
-              className="text-foreground"
-              onClick={() => {
-                setShowBtmSheet(true)
-              }}
-            >{` ${mapCountryToData[store.countryIso].currencySymbol} ${operatorPlan!.amount} - ${operatorPlan!.desc
-              }`}</Card>
-          ) : (
-            <Card
-              onClick={() => {
-                setShowBtmSheet(true)
-              }}
-            >{`Select a plan`}</Card>
-          )}
-        </div>
+        <AppSelect
+          label="Select a plan*"
+          onChange={(value) => {
+            topUp.update({
+              operatorId: parseInt(value),
+              amountFiat: getPlans().filter((val) => val.amount.toString() === value)[0]?.amount || 0,
+              dataAmount: getPlans().filter((val) => val.amount.toString() === value)[0]?.amount || 0,
+              dataDesc: getPlans().filter((val) => val.amount.toString() === value)[0]?.desc || ''
+            })
+
+          }}
+          data={getPlans().map((val) => {
+            return {
+              label: `${val.desc} | ${mapCountryToData[store.countryIso].currencySymbol}${val.amount}`,
+              value: `${val.amount}`,
+            }
+          })}
+        />
+
 
         <PriceDisplay
           handleSend={handleSend}
           rows={[
             { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
-            { title: "Phone", subtitle: "0".concat(topUp.phoneNo) },
-            { title: "Amount to buy", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
+            { title: "Data Amount", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
+
           ]}
 
         />
       </div>
-      <BottomModal
-        showSheet={showBtm}
-        onClose={() => {
-          setShowBtmSheet(false)
-        }}
-      >
-        <div className="w-full items-center justify-center flex flex-col">
-          {plansList() &&
-            plansList()!.map((val, i) => {
-              const isActive = operatorPlan && parseFloat(operatorPlan.amount) === parseFloat(val.amount.toString())
-              return (
-                <TileSimple
-                  key={i}
-                  title={`${val.symbol} ${val.amount}`}
-                  desc={val.label}
-                  className={cn(isActive && 'border-primary border')}
-                  onClick={() => {
-                    topUp.update({ amountFiat: val.amount })
-                    setOperatorPlan({
-                      amount: val.amount.toString(),
-                      desc: val.label,
-                    })
-                    setShowBtmSheet(false)
-                  }}
-                />
-              )
-            })}
-        </div>
-      </BottomModal>
+
     </>
   )
 }
