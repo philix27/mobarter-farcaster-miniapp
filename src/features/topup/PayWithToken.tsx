@@ -12,10 +12,15 @@ export default function PayWithToken() {
             onChange={(value) => {
                 store.update({ payWith: payTokens.filter((t) => t.token.address === value)[0] })
             }}
-            data={payTokens.map((val) => {
+            data={payTokens.map((val, i) => {
                 return {
-                    label: `${val.token.symbol} (${val.chain.name.toLowerCase()})`,
                     value: val.token.address,
+                    label: (
+                        <div key={i} className='flex items-center'>
+                            <img src={val.token.logo} alt={val.token.symbol} className='w-4 h-4 inline mr-1' />
+                            <p>{val.token.symbol} <span className='text-[10.5px] text-muted'>{val.chain.name.toUpperCase()}</span> </p>
+                        </div>
+                    )
                 }
             })}
         />

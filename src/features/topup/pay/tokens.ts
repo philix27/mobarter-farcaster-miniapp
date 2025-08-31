@@ -20,43 +20,43 @@ export const payTokens: IPayWith[] = [
         token: {
             symbol: "cUSD",
             address: "0x765DE816845861e75A25fCA122bb6898B8B1282a",
-            logo: "https://cryptologos.cc/logos/celo-usd-cusd-logo.png"
+            logo: '/tokens/cUSD.svg',
         }
 
     },
     {
         chain: celoChain,
         token: {
-            symbol:  "USDC",
+            symbol: "USDC",
             address: "0xcebA9300f2b948710d2653dD7B07f33A8B32118C",
-            logo: "https://cryptologos.cc/logos/celo-usd-cusd-logo.png"
+            logo: '/tokens/USDC.svg',
         }
 
     },
     {
         chain: celoChain,
         token: {
-            symbol:  "USDT",
+            symbol: "USDT",
             address: "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
-            logo: "https://cryptologos.cc/logos/celo-usd-cusd-logo.png"
+            logo: '/tokens/USDT.svg',
         }
 
     },
     {
         chain: baseChain,
         token: {
-            symbol:  "USDC",
+            symbol: "USDC",
             address: "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
-            logo: "https://cryptologos.cc/logos/celo-usd-cusd-logo.png"
+            logo: '/tokens/USDC.svg',
         }
 
     },
     {
         chain: baseChain,
         token: {
-            symbol:  "USDT",
+            symbol: "USDT",
             address: "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
-            logo: "https://cryptologos.cc/logos/celo-usd-cusd-logo.png"
+            logo: '/tokens/USDT.svg',
         }
 
     },

@@ -1,20 +1,22 @@
-'use client'
-
 import { ComponentType } from 'react'
 import Select, { GroupBase, OptionProps, PlaceholderProps } from 'react-select'
-
 
 import { BottomNote, Label } from './comps'
 import { useThemeColor } from '@/src/styles/Color'
 
-const CustomOption: ComponentType<OptionProps<any, false, GroupBase<any>>> = (props) =>
-  !props.isDisabled ? (
-    <div {...props.innerProps}>
-      <p className="w-full bg-card shadow-md py-[6px] px-3 text-[13.5px] hover:bg-primary">
+const CustomOption: ComponentType<OptionProps<any, false, GroupBase<any>>> = (props) => {
+  if (props.isDisabled) return null;
+
+  return (
+    <div {...props.innerProps} className="w-full bg-card py-[6px] px-3 text-[13px] hover:bg-primary">
+      {props.children}
+      {/* <p className="w-full bg-card py-[6px] px-3 text-[12px] hover:bg-primary">
         {props.label}
-      </p>
+      </p> */}
     </div>
-  ) : null
+  )
+}
+
 
 const CustomPlaceholder: ComponentType<PlaceholderProps<any, false, GroupBase<any>>> = (props) =>
   !props.isDisabled ? (
@@ -29,8 +31,9 @@ export const AppSelect = (props: {
   useBg?: string
   onChange: (newValue: string) => void
   data: {
-    label: string
+    label: JSX.Element | string
     value: string
+    logo?: string
   }[]
 }) => {
   const theme = useThemeColor()
@@ -43,7 +46,20 @@ export const AppSelect = (props: {
       {props.label && <Label>{props.label}</Label>}
       <Select
         isSearchable
-        components={{ Option: CustomOption, Placeholder: CustomPlaceholder }}
+        components={{
+          Option: CustomOption,
+          // Option: (res) => {
+          //   return <div {...res.innerProps} className='flex items-center'>
+          //     {/* <img src={data.logo} alt={val.token.symbol} className='w-4 h-4 inline mr-1' /> */}
+          //     <p className="w-full bg-card py-[6px] px-3 text-[13px] hover:bg-primary">
+          //       {props.label}
+          //     </p>
+
+          //   </div>
+          // },
+
+          Placeholder: CustomPlaceholder
+        }}
         options={props.data}
         value={props.value}
         className="w-full m-0"

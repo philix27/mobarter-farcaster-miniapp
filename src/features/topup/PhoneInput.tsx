@@ -50,10 +50,16 @@ export default function PhoneInput() {
                         operatorLogo: ops.filter((val) => val.name === data)[0]?.logo || ''
                     })
                 }}
-                data={ops.map((val) => {
+                data={ops.map((val, i) => {
                     return {
-                        label: val.name,
+                        // label: val.name,
                         value: val.name,
+                        label: (
+                            <div key={i} className='flex items-center'>
+                                <img src={val.logo} alt={val.name} className='w-4 h-4 inline mr-1' />
+                                <p>{val.name} </p>
+                            </div>
+                        )
                     }
                 })}
             />
