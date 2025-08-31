@@ -3,7 +3,7 @@ import TopUpDataPlan from "src/features/topup/TopUpData";
 import TopUpDataBundle from "src/features/topup/TopUpDataBundle";
 import PhoneInput from "src/features/topup/PhoneInput";
 import { ITab, Tabs } from "@/components/Tabs";
-import { useTopUpForm } from "./hook";
+import { useTopUpForm } from "./_store";
 
 export function TopUpSection() {
     const store = useTopUpForm();

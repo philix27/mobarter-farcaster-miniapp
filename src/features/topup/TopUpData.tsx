@@ -7,7 +7,7 @@ import { mapCountryToData, mapCountryToIso } from '@/src/lib/const/countries'
 import { Country, RequestFrom, useUtility_purchaseDataBundle } from '@/zapi'
 import { AppSelect } from '@/components/Select'
 import PriceDisplay from './Price'
-import { useTopUpForm } from './hook'
+import { useTopUpForm } from './_store'
 import { operatorsData } from './operatorData'
 
 export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
@@ -21,7 +21,7 @@ export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
   const countryCode = mapCountryToData[store.countryIso].callingCodes[0]
   // const { sendErc20 } = useSendToken()
   const { amountToPay } = usePrice({ amountInFiat: topUp.amountFiat })
-  
+
   const [mutate] = useUtility_purchaseDataBundle();
 
   const handleSend = async () => {

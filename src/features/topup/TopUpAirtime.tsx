@@ -5,7 +5,7 @@ import { usePrice, useSendToken } from '@/src/hooks'
 import { Input } from '@/components/Input'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 import PriceDisplay from './Price'
-import { useTopUpForm } from './hook'
+import { useTopUpForm } from './_store'
 
 
 export function AirtimeSection() {

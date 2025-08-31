@@ -4,7 +4,7 @@ import { pasteTextFromClipboard } from '@/src/lib/utils'
 import { AppStores } from '@/src/lib/zustand'
 import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
-import { Operator, useTopUpForm } from './hook'
+import { Operator, useTopUpForm } from './_store'
 import { AppSelect } from '@/components/Select'
 import { operatorsData } from './operatorData'
 
