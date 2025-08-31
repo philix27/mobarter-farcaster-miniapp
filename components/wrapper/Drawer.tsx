@@ -31,7 +31,10 @@ export default function Drawer() {
           <div
             className="py-3 px-5"
             onClick={() => {
-              store.update({ drawerIsOpen: false })
+              store.update({
+                drawerIsOpen: false,
+                
+              })
             }}
           >
             <DArrowLeftIcon />
