@@ -6,6 +6,8 @@ import { Input } from '@/components/Input'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 import PriceDisplay from './Price'
 import { useTopUpForm } from './_store'
+import { usePurchaseTopUp } from './TopUps/hook'
+import { Country } from '@/zapi'
 
 
 export function AirtimeSection() {
@@ -14,9 +16,8 @@ export function AirtimeSection() {
 
   const topUp = useTopUpForm();
   const { amountToPay, } = usePrice({ amountInFiat: topUp.amountFiat })
-
+  const purchaseTopUp = usePurchaseTopUp()
   const handleSend = async () => {
-    triggerEvent('top_up_airtime_initiated', { country: store.countryIso, amount: topUp.amountFiat });
     const leastAmount = 50
 
     if (topUp.phoneNo || topUp.phoneNo.length < 9) {
@@ -34,23 +35,29 @@ export function AirtimeSection() {
       amount: amountToPay!.toString(),
       token: TokenId.cUSD,
     })
-      .then(() => {
-        // void mutate({
-        //   variables: {
-        //     input: {
-        //       amount: amtValue,
-        //       countryCode: mapCountryToIso[store.countryIso],
-        //       operator: selectedOperator!,
-        //       transaction_hash: txHash || `${Date.now()}`,
-        //       phoneNo: `${countryCode(store.countryIso).slice(1)}${phoneNo}`,
-        //     },
-        //   },
-        //   onCompleted() {
-        //     toast.success('Sent successfully')
-        //     setPhoneNo('')
-        //     setAmountVal(0)
-        //   },
-        // })
+      .then((txHash) => {
+        purchaseTopUp.mutate({
+          phoneNo: `${mapCountryToData[store.countryIso].currencySymbol}${topUp.phoneNo}`,
+          amount: topUp.amountFiat,
+          countryCode: Country.Gh,
+          operatorId: topUp.operatorId!,
+          userId: '',
+          payment: {
+            txHash: txHash,
+            transaction_pin: '',
+            user_uid: '',
+            tokenAddress: '',
+            tokenChain: '',
+            amountCrypto: 0,
+            amountFiat: 0,
+            fiatCurrency: Country.Gh
+          },
+        })
+
+        triggerEvent('top_up_airtime_successful', { userId: "", amount: topUp.amountFiat });
+        toast.success('Airtime sent successfully')
+
+        topUp.clear()
       })
       .catch((err) => {
         toast.error('Error: ', err.message)

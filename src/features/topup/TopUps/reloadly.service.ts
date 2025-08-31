@@ -81,7 +81,7 @@ export class ReloadlyTopUpService {
             body: JSON.stringify(payload),
         };
 
-        let result: ITopUpAirtime;
+        let result: ITopUpAirtime = {} as ITopUpAirtime;
         await fetch(url, options)
             .then((res) => res.json())
             .then((json) => {
