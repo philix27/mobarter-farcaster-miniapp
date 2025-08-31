@@ -56,12 +56,6 @@ export default function PhoneInput() {
                         value: val.name,
                     }
                 })}
-            // data={[
-            //     { label: 'MTN', value: Operator.MTN.toString() },
-            //     { label: 'Airtel', value: Operator.AIRTEL.toString() },
-            //     { label: 'Glo', value: Operator.GLO.toString() },
-            //     { label: 'Etisalat', value: Operator.ETISALAT.toString() },
-            // ]}
             />
         </div>
     )

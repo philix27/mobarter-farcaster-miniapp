@@ -2,6 +2,7 @@ import { Button } from '@/components/Button'
 import { Label } from '@/components/comps'
 import React from 'react'
 import { useTopUpForm } from './_store';
+import PayWithToken from './PayWithToken';
 
 
 type IPriceRow = { title: string; subtitle: string; subImg?: string }
@@ -18,6 +19,7 @@ export default function PriceDisplay(props: { handleSend?: () => Promise<void>; 
                 subtitle={topUp.operator?.toString() || ""}
                 subImg={topUp.operatorLogo} />
 
+            <PayWithToken />
             <Button className="mt-4 mb-3 w-[60%]"
                 onClick={props.handleSend}>
                 Confirm

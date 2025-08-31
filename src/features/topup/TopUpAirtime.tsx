@@ -7,7 +7,7 @@ import { triggerEvent } from '@/src/providers/PostHogProvider'
 import PriceDisplay from './Price'
 import { useTopUpForm } from './_store'
 import { usePurchaseTopUp } from './TopUps/hook'
-import { Country } from '@/zapi'
+import { Country, RequestFrom } from '@/zapi'
 
 
 export function AirtimeSection() {
@@ -50,6 +50,7 @@ export function AirtimeSection() {
             tokenChain: '',
             amountCrypto: 0,
             amountFiat: 0,
+            from: RequestFrom.Farcaster,
             fiatCurrency: Country.Gh
           },
         })

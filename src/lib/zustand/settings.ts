@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { CountriesIso } from '../const/countries'
+import { IPayWith } from '@/src/features/topup/pay/tokens'
 
 export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting'
 export type ITopUpTabs = 'Airtime' | "DataPlan" | "DataBundle"
@@ -38,6 +39,8 @@ export interface ISlice {
   chainIcon?: string
   homeTab?: IHomeTab
   topUpTab?: ITopUpTabs
+  payWith: IPayWith
+
 }
 
 export interface ISliceUpdate extends Required<ISlice> {
@@ -59,7 +62,20 @@ export const defaultValues: Required<ISlice> = {
   token: false,
   countryIso: 'NG',
   chainIcon: '',
-  topUpTab: 'DataPlan'
+  topUpTab: 'DataPlan',
+
+  payWith: {
+    chain: {
+      name: '',
+      logo: '',
+      chainId: ''
+    },
+    token: {
+      address: '',
+      symbol: '',
+      logo: ''
+    }
+  }
 }
 
 export const useSettings = create(
