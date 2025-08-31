@@ -1,5 +1,5 @@
 import { toast } from 'sonner'
-import { mapCountryToData, COLLECTOR, TokenId } from '@/src/lib/const'
+import { mapCountryToData, COLLECTOR,  } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
 import { usePrice, useSendToken } from '@/src/hooks'
 import { Input } from '@/components/Input'
@@ -20,20 +20,20 @@ export function AirtimeSection() {
   const handleSend = async () => {
     const leastAmount = 50
 
-    if (topUp.phoneNo || topUp.phoneNo.length < 9) {
+    if (!topUp.phoneNo || topUp.phoneNo.length < 10) {
       toast.error('Enter a valid phone number')
       return
     }
 
     if (topUp.amountFiat == undefined || topUp.amountFiat < leastAmount) {
-      toast.error('Minimum of NGN1,000')
+      toast.error('Minimum of NGN 50')
       return
     }
 
     await sendErc20({
       recipient: COLLECTOR,
       amount: amountToPay!.toString(),
-      token: TokenId.cUSD,
+      payWith: store.payWith
     })
       .then((txHash) => {
         purchaseTopUp.mutate({
