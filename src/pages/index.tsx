@@ -5,7 +5,7 @@ import Head from "next/head";
 import { Spinner } from "@/components/Spinner";
 import { useEffect } from "react";
 import { TopUpSection } from "src/features/topup/TopUpSection";
-import { ITab, Tabs } from "@/components/Tabs";
+// import { ITab, Tabs } from "@/components/Tabs";
 import { ProfileCard } from "../features/ProfileCard";
 
 
@@ -42,39 +42,39 @@ export default function HomePage() {
   }, [setFrameReady, isFrameReady]);
 
 
-  const dashboardItems: ITab[] = [
-    {
-      title: "TopUp",
-      name: 'TopUp',
-      isActive: settingsStore.homeTab === 'TopUp',
-      onClick: () => {
-        settingsStore.update({ homeTab: 'TopUp' });
-      }
-    },
-    {
-      title: "TV",
-      name: "TV",
-      isActive: settingsStore.homeTab === "TV",
-      onClick: () => {
-        settingsStore.update({ homeTab: "TV" });
-      }
-    },
-    {
-      title: "Electricity", name: "Electricity",
-      isActive: settingsStore.homeTab === "Electricity",
-      onClick: () => {
-        settingsStore.update({ homeTab: "Electricity" });
-      }
-    },
-    {
-      title: "Betting",
-      name: "Betting",
-      isActive: settingsStore.homeTab === "Betting",
-      onClick: () => {
-        settingsStore.update({ homeTab: "Betting" });
-      }
-    },
-  ]
+  // const dashboardItems: ITab[] = [
+  //   {
+  //     title: "TopUp",
+  //     name: 'TopUp',
+  //     isActive: settingsStore.homeTab === 'TopUp',
+  //     onClick: () => {
+  //       settingsStore.update({ homeTab: 'TopUp' });
+  //     }
+  //   },
+  //   {
+  //     title: "TV",
+  //     name: "TV",
+  //     isActive: settingsStore.homeTab === "TV",
+  //     onClick: () => {
+  //       settingsStore.update({ homeTab: "TV" });
+  //     }
+  //   },
+  //   {
+  //     title: "Electricity", name: "Electricity",
+  //     isActive: settingsStore.homeTab === "Electricity",
+  //     onClick: () => {
+  //       settingsStore.update({ homeTab: "Electricity" });
+  //     }
+  //   },
+  //   {
+  //     title: "Betting",
+  //     name: "Betting",
+  //     isActive: settingsStore.homeTab === "Betting",
+  //     onClick: () => {
+  //       settingsStore.update({ homeTab: "Betting" });
+  //     }
+  //   },
+  // ]
 
 
   if (!isFrameReady) {
@@ -94,7 +94,7 @@ export default function HomePage() {
       </Head>
       <div className="w-full h-screen flex flex-col gap-4 bg-background">
         <ProfileCard />
-        <Tabs tabs={dashboardItems} />
+        {/* <Tabs tabs={dashboardItems} /> */}
 
         <div className="mx-auto rounded-lg px-3 w-full">
           {settingsStore.homeTab === "TopUp" && <TopUpSection />}
