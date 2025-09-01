@@ -1,7 +1,7 @@
 import { toast } from 'sonner'
 import { mapCountryToData, COLLECTOR, } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
-import { usePrice, useSendToken } from '@/src/hooks'
+import { ISendTxnError, usePrice, useSendToken } from '@/src/hooks'
 import { Input } from '@/components/Input'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 import PriceDisplay from './Price'
@@ -67,14 +67,10 @@ export function AirtimeSection() {
         // });
         topUp.clear()
       })
-      .catch((err) => {
-        toast.error('Error: ', err.message)
+      .catch((err: ISendTxnError) => {
+        toast.error(err.reason)
         logger.error('Topup error:' + JSON.stringify(err))
-        triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.message });
-        // sendNotification({
-        //   title: "Transaction Failed",
-        //   body: `Airtime top up failed!`,
-        // });
+        triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.reason });
       })
   }
 

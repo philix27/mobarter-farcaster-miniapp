@@ -5,6 +5,7 @@ import { shortenAddress } from "../lib/config";
 import { celo } from "viem/chains";
 import { AppStores } from "../lib/zustand";
 import { useViewProfile } from "@coinbase/onchainkit/minikit";
+import { secrets } from "../lib";
 
 
 export function ProfileCard() {
@@ -16,6 +17,12 @@ export function ProfileCard() {
     const profile = useViewProfile()
 
     const handleConnect = useCallback(() => {
+
+        if (secrets.NODE_ENV === 'development') {
+            const connector = connectors.find((c) => c.id === "injected") || connectors[0];
+            connect({ connector, chainId: celo.id });
+            return;
+        }
         const connector = connectors.find((c) => c.id === "miniAppConnector") || connectors[0];
         connect({ connector, chainId: celo.id });
     }, [connect, connectors]);

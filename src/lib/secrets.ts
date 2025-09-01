@@ -1,5 +1,5 @@
 
-export const secrets: Record<string, string> = {
+export const secrets= {
     NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME!,
     NEXT_PUBLIC_URL: process.env.NEXT_PUBLIC_URL!,
     NEXT_PUBLIC_ICON_URL: process.env.NEXT_PUBLIC_ICON_URL!,

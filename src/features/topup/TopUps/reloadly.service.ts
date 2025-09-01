@@ -104,13 +104,5 @@ export class ReloadlyTopUpService {
 
     }
 
-    async createAccessToken() {
-        const res = await axios.post('https://auth.reloadly.com/oauth/token', {
-            client_id: secrets.RELOADLY_CLIENT_ID,
-            client_secret: secrets.RELOADLY_CLIENT_SECRET,
-            grant_type: 'client_credentials',
-            audience: this.baseURL,
-        });
-        return res.data;
-    }
+
 }
