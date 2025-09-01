@@ -3,13 +3,10 @@ import { AppStores } from "../lib/zustand";
 import ComingSoon from "@/components/ComingSoon";
 import Head from "next/head";
 import { Spinner } from "@/components/Spinner";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { TopUpSection } from "src/features/topup/TopUpSection";
 import { ITab, Tabs } from "@/components/Tabs";
-import { useAccount, useConnect } from "wagmi";
-import { shortenAddress } from "../lib/config";
-import { Button } from "@/components/Button";
-import { celo } from "viem/chains";
+import { ProfileCard } from "../features/ProfileCard";
 
 
 const metadata = {
@@ -113,39 +110,4 @@ export default function HomePage() {
 
 
 
-export function ProfileCard() {
-  // const { setFrameReady, isFrameReady, } = useMiniKit();
-  const { address, isConnected, } = useAccount()
-  const { connect, connectors } = useConnect()
-
-  const handleConnect = useCallback(() => {
-    const connector = connectors.find((c) => c.id === "miniAppConnector") || connectors[0];
-    connect({ connector, chainId: celo.id });
-  }, [connect, connectors]);
-
-  useEffect(() => {
-    if (!isConnected) {
-      handleConnect()
-    }
-  }, [handleConnect, isConnected]);
-
-
-
-  if (!isConnected) {
-    return <div className="w-full border-b-1 bg-background border-muted flex flex-col items-center justify-center p-4 "
-    >
-
-      <Button onClick={handleConnect} className="w-[60%]">Connect</Button>
-    </div>
-  }
-  return (
-    <div className="w-full border-b-1 bg-background border-muted flex flex-col justify-center p-4 "
-    >
-      {address && <p className="text-[12px]"> {shortenAddress(address as string)}</p>}
-      <p className="text-[12px]">@userName</p>
-      <p className="text-[12px]">Avatar</p>
-      <p className="text-[12px]">Select country</p>
-    </div>
-  )
-}
 

@@ -1,4 +1,4 @@
-// import { AirtimeSection } from "src/features/topup/TopUpAirtime";
+import { AirtimeSection } from "src/features/topup/TopUpAirtime";
 import TopUpDataPlan from "src/features/topup/TopUpData";
 import TopUpDataBundle from "src/features/topup/TopUpDataBundle";
 import PhoneInput from "src/features/topup/PhoneInput";
@@ -39,7 +39,7 @@ export function TopUpSection() {
         <div className="w-full py-1 bg-card rounded-lg mb-3">
             <Tabs tabs={tabItems} />
             <div className="px-2 py-2">
-                {/* {store.topUpTab === "Airtime" && <AirtimeSection />} */}
+                {store.topUpTab === "Airtime" && <AirtimeSection />}
                 {store.topUpTab === "DataBundle" && <TopUpDataPlan />}
                 {store.topUpTab === "DataPlan" && <TopUpDataBundle />}
             </div>
