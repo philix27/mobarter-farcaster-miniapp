@@ -28,7 +28,7 @@ export function WagmiPosthog({
       logger.info(addFrameResult);
       setAddFrameResult(`Error: ${error}`);
     }
-  }, []);
+  }, [addFrameResult]);
 
   useEffect(() => {
     const load = async () => {

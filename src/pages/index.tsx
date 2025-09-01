@@ -3,7 +3,7 @@ import { AppStores } from "../lib/zustand";
 import ComingSoon from "@/components/ComingSoon";
 import Head from "next/head";
 import { Spinner } from "@/components/Spinner";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { TopUpSection } from "src/features/topup/TopUpSection";
 import { ITab, Tabs } from "@/components/Tabs";
 import { useAccount, useConnect } from "wagmi";
@@ -118,16 +118,16 @@ export function ProfileCard() {
   const { address, isConnected, } = useAccount()
   const { connect, connectors } = useConnect()
 
-  const handleConnect = () => {
+  const handleConnect = useCallback(() => {
     const connector = connectors.find((c) => c.id === "miniAppConnector") || connectors[0];
     connect({ connector, chainId: celo.id });
-  }
+  }, [connect, connectors]);
 
   useEffect(() => {
     if (!isConnected) {
       handleConnect()
     }
-  }, []);
+  }, [handleConnect, isConnected]);
 
 
 

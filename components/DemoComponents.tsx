@@ -16,6 +16,7 @@ import {
   TransactionStatus,
 } from "@coinbase/onchainkit/transaction";
 import { useNotification } from "@coinbase/onchainkit/minikit";
+import { logger } from "@/src/lib/utils";
 
 type ButtonProps = {
   children: ReactNode;
@@ -406,7 +407,7 @@ function TransactionCard() {
   const handleSuccess = useCallback(async (response: TransactionResponse) => {
     const transactionHash = response.transactionReceipts[0].transactionHash;
 
-    console.log(`Transaction successful: ${transactionHash}`);
+    logger.info(`Transaction successful: ${transactionHash}`);
 
     await sendNotification({
       title: "Congratulations!",
@@ -436,7 +437,7 @@ function TransactionCard() {
               calls={calls}
               onSuccess={handleSuccess}
               onError={(error: TransactionError) =>
-                console.error("Transaction failed:", error)
+                logger.error("Transaction failed:", error)
               }
             >
               <TransactionButton className="text-white text-md" />

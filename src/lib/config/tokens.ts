@@ -1,9 +1,7 @@
-// import { getMentoSdk } from 'src/features/sdk';
 import { Color } from 'src/styles/Color'
 
 import { logger } from '../utils'
 
-import { areAddressesEqual } from './addresses'
 import { ChainId } from './chains'
 
 export const TokenIcons: Record<TokenId, string> = {
@@ -402,15 +400,15 @@ export function getTokenAddress(id: TokenId, chainId: ChainId): Address {
   return addr
 }
 
-export function getTokenByAddress(address: Address): Token {
-  const idAddressTuples = Object.values(TokenAddresses)
-    .map((idToAddress) => Object.entries(idToAddress))
-    .flat()
-  // This assumes no clashes btwn different tokens on diff chains
-  for (const [id, tokenAddr] of idAddressTuples) {
-    if (areAddressesEqual(address, tokenAddr)) {
-      return Tokens[id as TokenId]
-    }
-  }
-  throw new Error(`No token found for address ${address}`)
-}
+// export function getTokenByAddress(address: Address): Token {
+//   const idAddressTuples = Object.values(TokenAddresses)
+//     .map((idToAddress) => Object.entries(idToAddress))
+//     .flat()
+//   // This assumes no clashes btwn different tokens on diff chains
+//   for (const [id, tokenAddr] of idAddressTuples) {
+//     if (areAddressesEqual(address, tokenAddr)) {
+//       return Tokens[id as TokenId]
+//     }
+//   }
+//   throw new Error(`No token found for address ${address}`)
+// }
