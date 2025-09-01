@@ -2,7 +2,7 @@ import { Button } from '@/components/Button'
 import { Label } from '@/components/comps'
 import React from 'react'
 import { useTopUpForm } from './_store';
-import PayWithToken from './PayWithToken';
+import PayWithToken from '../pay/PayWithToken';
 
 
 type IPriceRow = { title: string; subtitle: string; subImg?: string }

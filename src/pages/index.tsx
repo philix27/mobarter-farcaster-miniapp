@@ -6,6 +6,10 @@ import { Spinner } from "@/components/Spinner";
 import { useEffect } from "react";
 import { TopUpSection } from "src/features/topup/TopUpSection";
 import { ITab, Tabs } from "@/components/Tabs";
+import { useAccount, useConnect } from "wagmi";
+import { shortenAddress } from "../lib/config";
+import { Button } from "@/components/Button";
+import { celo } from "viem/chains";
 
 
 const metadata = {
@@ -92,7 +96,7 @@ export default function HomePage() {
         <meta property="og:description" content={metadata.description} />
       </Head>
       <div className="w-full h-screen flex flex-col gap-4 bg-background">
-        {/* <ProfileCard /> */}
+        <ProfileCard />
         <Tabs tabs={dashboardItems} />
 
         <div className="mx-auto rounded-lg px-3 w-full">
@@ -111,10 +115,33 @@ export default function HomePage() {
 
 export function ProfileCard() {
   // const { setFrameReady, isFrameReady, } = useMiniKit();
+  const { address, isConnected, } = useAccount()
+  const { connect, connectors } = useConnect()
+
+  const handleConnect = () => {
+    const connector = connectors.find((c) => c.id === "miniAppConnector") || connectors[0];
+    connect({ connector, chainId: celo.id });
+  }
+
+  useEffect(() => {
+    if (!isConnected) {
+      handleConnect()
+    }
+  }, []);
+
+
+
+  if (!isConnected) {
+    return <div className="w-full border-b-1 bg-background border-muted flex flex-col items-center justify-center p-4 "
+    >
+
+      <Button onClick={handleConnect} className="w-[60%]">Connect</Button>
+    </div>
+  }
   return (
     <div className="w-full border-b-1 bg-background border-muted flex flex-col justify-center p-4 "
     >
-      <p className="text-[12px]">@name</p>
+      {address && <p className="text-[12px]"> {shortenAddress(address as string)}</p>}
       <p className="text-[12px]">@userName</p>
       <p className="text-[12px]">Avatar</p>
       <p className="text-[12px]">Select country</p>

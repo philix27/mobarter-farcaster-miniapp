@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { secrets } from './secrets';
+import { secrets } from '../../../lib/secrets';
 import { logger } from '@/src/lib/utils';
 import { Country } from '@/zapi';
 import { ITopUpAirtime } from './t.topUpAirtime';

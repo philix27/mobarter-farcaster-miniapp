@@ -2,8 +2,8 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { CountriesIso } from '../const/countries'
-import { IPayWith } from '@/src/features/topup/pay/tokens'
-import { ChainName } from '@/src/features/topup/pay/chains'
+import { IPayWith } from '@/src/features/pay/tokens'
+import { ChainName } from '@/src/features/pay/chains'
 
 export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting'
 export type ITopUpTabs = 'Airtime' | "DataPlan" | "DataBundle"

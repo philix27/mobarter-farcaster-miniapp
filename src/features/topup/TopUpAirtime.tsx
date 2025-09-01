@@ -1,5 +1,5 @@
 import { toast } from 'sonner'
-import { mapCountryToData, COLLECTOR,  } from '@/src/lib/const'
+import { mapCountryToData, COLLECTOR, } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
 import { usePrice, useSendToken } from '@/src/hooks'
 import { Input } from '@/components/Input'
@@ -8,11 +8,13 @@ import PriceDisplay from './Price'
 import { useTopUpForm } from './_store'
 import { usePurchaseTopUp } from './TopUps/hook'
 import { Country, RequestFrom } from '@/zapi'
+import { useNotification } from '@coinbase/onchainkit/minikit'
 
 
 export function AirtimeSection() {
   const { sendErc20 } = useSendToken()
   const store = AppStores.useSettings()
+  const sendNotification = useNotification();
 
   const topUp = useTopUpForm();
   const { amountToPay, } = usePrice({ amountInFiat: topUp.amountFiat })
@@ -35,7 +37,7 @@ export function AirtimeSection() {
       amount: amountToPay!.toString(),
       payWith: store.payWith
     })
-      .then((txHash) => {
+      .then(async (txHash) => {
         purchaseTopUp.mutate({
           phoneNo: `${mapCountryToData[store.countryIso].currencySymbol}${topUp.phoneNo}`,
           amount: topUp.amountFiat,
@@ -58,6 +60,10 @@ export function AirtimeSection() {
         triggerEvent('top_up_airtime_successful', { userId: "", amount: topUp.amountFiat });
         toast.success('Airtime sent successfully')
 
+        await sendNotification({
+          title: "Congratulations!",
+          body: `Airtime sent successfully!`,
+        });
         topUp.clear()
       })
       .catch((err) => {

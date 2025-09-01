@@ -13,22 +13,18 @@ export function isValidAddress(address: string) {
   }
 }
 
-export function validateAddress(address: string, context: string) {
-  if (!address || !isAddress(address)) {
-    const errorMsg = `Invalid addresses for ${context}: ${address}`
-    logger.error(errorMsg)
-    throw new Error(errorMsg)
-  }
-}
+// export function validateAddress(address: string, context: string) {
+//   if (!address || !isAddress(address)) {
+//     const errorMsg = `Invalid addresses for ${context}: ${address}`
+//     logger.error(errorMsg)
+//     throw new Error(errorMsg)
+//   }
+// }
 
-export function normalizeAddress(address: string) {
-  validateAddress(address, 'normalize')
-  return getAddress(address)
-}
+
 
 export function shortenAddress(address: string, capitalize = true) {
-  validateAddress(address, 'shorten')
-  const normalizedAddress = normalizeAddress(address)
+  const normalizedAddress =  getAddress(address)
 
   const start = normalizedAddress.substring(0, 6)
   const end = normalizedAddress.substring(address.length - 4)
@@ -41,11 +37,11 @@ export function capitalizeAddress(address: string) {
   return '0x' + address.substring(2).toUpperCase()
 }
 
-export function areAddressesEqual(a1: string, a2: string) {
-  validateAddress(a1, 'compare')
-  validateAddress(a2, 'compare')
-  return getAddress(a1) === getAddress(a2)
-}
+// export function areAddressesEqual(a1: string, a2: string) {
+//   validateAddress(a1, 'compare')
+//   validateAddress(a2, 'compare')
+//   return getAddress(a1) === getAddress(a2)
+// }
 
 export function trimLeading0x(input: string) {
   return input.startsWith('0x') ? input.substring(2) : input

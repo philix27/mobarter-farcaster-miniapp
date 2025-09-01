@@ -1,7 +1,7 @@
 import { AppSelect } from '@/components/Select'
 import { AppStores } from '@/src/lib/zustand'
 import React from 'react'
-import { payTokens } from './pay/tokens'
+import { payTokens } from './tokens'
 
 
 export default function PayWithToken() {

@@ -1,6 +1,6 @@
 import { ethers, } from 'ethers'
 import { toast } from 'sonner'
-import { IPayWith } from '../features/topup/pay/tokens'
+import { IPayWith } from '../features/pay/tokens'
 import { useSwitchChain } from 'wagmi'
 import { useProvider } from './useProvider'
 
