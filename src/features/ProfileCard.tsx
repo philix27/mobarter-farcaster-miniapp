@@ -4,12 +4,16 @@ import { useAccount, useConnect } from "wagmi";
 import { shortenAddress } from "../lib/config";
 import { celo } from "viem/chains";
 import { AppStores } from "../lib/zustand";
+import { useViewProfile } from "@coinbase/onchainkit/minikit";
+
 
 export function ProfileCard() {
     // const { setFrameReady, isFrameReady, } = useMiniKit();
     const { address, isConnected, } = useAccount()
     const { connect, connectors } = useConnect()
     const store = AppStores.useSettings();
+
+    const profile = useViewProfile()
 
     const handleConnect = useCallback(() => {
         const connector = connectors.find((c) => c.id === "miniAppConnector") || connectors[0];
@@ -21,7 +25,6 @@ export function ProfileCard() {
             handleConnect()
         }
     }, [handleConnect, isConnected]);
-
 
 
     if (!isConnected) {
@@ -36,6 +39,9 @@ export function ProfileCard() {
         >
             {address && <p className="text-[12px]"> {shortenAddress(address as string)}</p>}
             <p className="text-[12px]">Country {store.countryIso}</p>
+            <p className="text-[12px]" onClick={() => {
+                profile()
+            }}>Profile</p>
         </div>
     )
 }
