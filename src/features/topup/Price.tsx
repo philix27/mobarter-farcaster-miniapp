@@ -29,7 +29,6 @@ export default function PriceDisplay(props: { handleSend?: () => Promise<void>; 
 }
 
 
-
 function PriceRow(props: IPriceRow) {
     return (
         <div className="w-full flex items-center justify-between">
