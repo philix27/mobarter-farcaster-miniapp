@@ -22,17 +22,15 @@ export function BottomNote(params: { children: ReactNode }) {
 export function AdsRow(params: {
   text: string
   text2: string
-  text2options?: { onClick: VoidFunction; active?: boolean }
+  text2options?: { onClick?: VoidFunction; active?: boolean }
 }) {
   return (
     <div className="mb-1 flex items-center w-full justify-between p-1">
-      <p className="text-[12.5px] uppercase text-muted" >{params.text}</p>
+      <p className="text-[12px] uppercase text-muted" >{params.text}</p>
       <p
-        className={cn('text-xs', params.text2options?.active && 'text-primary')}
+        className={cn('text-[12px]', params.text2options?.active && 'text-primary')}
 
-        onClick={() => {
-          params.text2options?.onClick()
-        }}
+        onClick={params.text2options?.onClick}
       >
         {params.text2}
       </p>

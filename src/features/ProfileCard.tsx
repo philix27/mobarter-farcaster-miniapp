@@ -6,6 +6,7 @@ import { celo } from "viem/chains";
 import { AppStores } from "../lib/zustand";
 import { useViewProfile } from "@coinbase/onchainkit/minikit";
 import { secrets } from "../lib";
+import { AdsRow } from "@/components/comps";
 
 
 export function ProfileCard() {
@@ -42,13 +43,28 @@ export function ProfileCard() {
         </div>
     }
     return (
-        <div className="w-full border-b-1 bg-background border-muted flex flex-col justify-center p-4 "
+        <div className="w-full flex flex-col justify-center px-4 py-3"
         >
-            {address && <p className="text-[12px]"> {shortenAddress(address as string)}</p>}
-            <p className="text-[12px]">Country {store.countryIso}</p>
-            <p className="text-[12px]" onClick={() => {
-                profile()
-            }}>Profile</p>
+            <div className="w-full p-2 border-b-1 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
+                <AdsRow text="Country" text2={store.countryIso} />
+                <AdsRow
+                    text="Wallet Address"
+                    text2={shortenAddress(address as string)}
+                    text2options={{
+                        active: true,
+                    }}
+                />
+                <AdsRow
+                    text="View Profile"
+                    text2={"See More"}
+                    text2options={{
+                        active: true,
+                        onClick: () => {
+                            profile()
+                        }
+                    }}
+                />
+            </div>
         </div>
     )
 }

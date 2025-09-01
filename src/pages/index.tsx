@@ -92,7 +92,7 @@ export default function HomePage() {
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
       </Head>
-      <div className="w-full h-screen flex flex-col gap-4 bg-background">
+      <div className="w-full h-screen flex flex-col bg-background">
         <ProfileCard />
         {/* <Tabs tabs={dashboardItems} /> */}
 
