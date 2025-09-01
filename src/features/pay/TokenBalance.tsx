@@ -17,7 +17,7 @@ function TokenBalanceDisplay(props: { tokenAddress: `0x${string}`; chainId?: num
     }
 
     if (isLoading) {
-        return <div>Loading balance...</div>;
+        return <div className='text-[8px]'>Loading...</div>;
     }
 
     if (isError) {

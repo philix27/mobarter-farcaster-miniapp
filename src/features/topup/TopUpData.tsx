@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { AppStores } from '@/src/lib/zustand'
-import { COLLECTOR,  } from '@/src/lib/const'
+import { appAddresses,  } from '@/src/lib/const'
 import { usePrice, useSendToken } from '@/src/hooks'
 import { mapCountryToData, mapCountryToIso } from '@/src/lib/const/countries'
 import { Country, RequestFrom, useUtility_purchaseDataBundle } from '@/zapi'
@@ -38,7 +38,7 @@ export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
     }
 
     await sendErc20({
-      recipient: COLLECTOR,
+      recipient: appAddresses.topUpCollector,
       amount: amountToPay!.toString(),
       payWith: store.payWith,
     })

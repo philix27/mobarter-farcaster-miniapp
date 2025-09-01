@@ -1,5 +1,5 @@
 import { toast } from 'sonner'
-import { mapCountryToData, COLLECTOR, } from '@/src/lib/const'
+import { mapCountryToData, appAddresses, } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
 import { ISendTxnError, usePrice, useSendToken } from '@/src/hooks'
 import { Input } from '@/components/Input'
@@ -40,7 +40,7 @@ export function AirtimeSection() {
     }
 
     await sendErc20({
-      recipient: COLLECTOR,
+      recipient: appAddresses.topUpCollector,
       amount: amountToPay!.toString(),
       payWith: store.payWith
     })

@@ -713,10 +713,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@divvi/referral-sdk@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@divvi/referral-sdk/-/referral-sdk-1.0.0.tgz#008e0e882003486dae7db12bd7943c382f3c9831"
-  integrity sha512-X1i66AFQMJCu5jdOjg6mruSZ70YXolTNE1VHDr9tSHRnoR3EWki1Wtgb+A5fyE0AVl73uWZClqXlEGivyZbQ1w==
+"@divvi/referral-sdk@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@divvi/referral-sdk/-/referral-sdk-2.3.0.tgz#9c6b04a05d3926e189622856b078f3e119c51b26"
+  integrity sha512-2Fc5rJ4L9Txr6tQ8CQmdM0Jp55YE8Wfd63a97AZtVh/leh2k8WzHsyABP/OHThXZBPTnsdw8V4BH85wYPZwJcQ==
 
 "@ecies/ciphers@^0.2.3":
   version "0.2.4"

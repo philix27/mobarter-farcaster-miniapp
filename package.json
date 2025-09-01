@@ -27,7 +27,7 @@
   "dependencies": {
     "@apollo/client": "^3.13.4",
     "@coinbase/onchainkit": "latest",
-    "@divvi/referral-sdk": "^1.0.0",
+    "@divvi/referral-sdk": "^2.3.0",
     "@farcaster/auth-client": "^0.6.0",
     "@farcaster/auth-kit": "^0.8.1",
     "@farcaster/frame-node": "^0.0.7",

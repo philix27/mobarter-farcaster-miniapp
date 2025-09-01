@@ -7,6 +7,7 @@ import { toast } from 'sonner'
 import { Operator, useTopUpForm } from './_store'
 import { AppSelect } from '@/components/Select'
 import { operatorsData } from './operatorData'
+import PayWithToken from '../pay/PayWithToken'
 
 export default function PhoneInput() {
     const store = AppStores.useSettings()
@@ -63,6 +64,8 @@ export default function PhoneInput() {
                     }
                 })}
             />
+
+            <PayWithToken />
         </div>
     )
 }
