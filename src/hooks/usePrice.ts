@@ -33,7 +33,7 @@ export function usePrice(props?: { amountInFiat?: number }) {
   }
   const rate = rateNGN
   const c = props.amountInFiat / rate
-  const plusFee = c + 0.1
+  const plusFee = c + 0.01
 
 
   return { amountToPay: plusFee.toFixed(4) }

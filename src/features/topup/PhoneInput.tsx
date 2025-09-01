@@ -18,7 +18,7 @@ export default function PhoneInput() {
             <Input
                 label={`Phone no. (${mapCountryToIso[store.countryIso]})*`}
                 placeholder={`8101234567`}
-                preText={countryCode(store.countryIso)}
+                preText={"+" + countryCode(store.countryIso)}
                 value={topUp.phoneNo}
                 type="number"
                 onChange={(e) => {

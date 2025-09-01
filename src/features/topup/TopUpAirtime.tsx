@@ -9,6 +9,7 @@ import { useTopUpForm } from './_store'
 import { usePurchaseTopUp } from './TopUps/hook'
 import { Country, RequestFrom } from '@/zapi'
 import { logger } from '@/src/lib/utils'
+import { useAccount } from 'wagmi'
 // import { useNotification } from '@coinbase/onchainkit/minikit'
 
 
@@ -16,7 +17,7 @@ export function AirtimeSection() {
   const { sendErc20 } = useSendToken()
   const store = AppStores.useSettings()
   // const sendNotification = useNotification();
-
+  const { address } = useAccount()
   const topUp = useTopUpForm();
   const { amountToPay, } = usePrice({ amountInFiat: topUp.amountFiat })
   const purchaseTopUp = usePurchaseTopUp()
@@ -33,6 +34,11 @@ export function AirtimeSection() {
       return
     }
 
+    if (topUp.operatorId == undefined || topUp.operatorId === 0) {
+      toast.error('Please select an operator')
+      return
+    }
+
     await sendErc20({
       recipient: COLLECTOR,
       amount: amountToPay!.toString(),
@@ -40,21 +46,21 @@ export function AirtimeSection() {
     })
       .then(async (txHash) => {
         purchaseTopUp.mutate({
-          phoneNo: `${mapCountryToData[store.countryIso].currencySymbol}${topUp.phoneNo}`,
+          phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
           amount: topUp.amountFiat,
-          countryCode: Country.Gh,
+          countryCode: store.country,
           operatorId: topUp.operatorId!,
-          userId: '',
+          userId: address!,
           payment: {
             txHash: txHash,
+            user_uid: address!,
             transaction_pin: '',
-            user_uid: '',
-            tokenAddress: '',
-            tokenChain: '',
-            amountCrypto: 0,
-            amountFiat: 0,
+            tokenAddress: store.payWith.token.address,
+            tokenChain: store.payWith.chain.name,
+            amountCrypto: amountToPay as number,
+            amountFiat: topUp.amountFiat,
             from: RequestFrom.Farcaster,
-            fiatCurrency: Country.Gh
+            fiatCurrency: Country.Ng
           },
         })
 

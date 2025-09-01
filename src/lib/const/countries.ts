@@ -24,6 +24,7 @@ export type IData = {
   callingCodes: string[]
 }
 
+// export const countryIsoToCountry = (iso: CountriesIso) => Country[iso]
 export const countryCode = (iso: CountriesIso) => mapCountryToData[iso].callingCodes[0]
 export const mapCountryToData: Record<CountriesIso, IData> = {
   NG: {
@@ -34,7 +35,7 @@ export const mapCountryToData: Record<CountriesIso, IData> = {
     currencyName: 'Nigerian Naira',
     currencySymbol: '₦',
     flag: 'https://s3.amazonaws.com/rld-flags/ng.svg',
-    callingCodes: ['+234'],
+    callingCodes: ['234'],
   },
   GH: {
     isoName: 'GH',
@@ -44,7 +45,7 @@ export const mapCountryToData: Record<CountriesIso, IData> = {
     currencyName: 'Ghanaian Cedi',
     currencySymbol: 'GH₵',
     flag: 'https://s3.amazonaws.com/rld-flags/gh.svg',
-    callingCodes: ['+233'],
+    callingCodes: ['233'],
   },
   KE: {
     isoName: 'KE',
@@ -54,7 +55,7 @@ export const mapCountryToData: Record<CountriesIso, IData> = {
     currencyName: 'Kenyan Shilling',
     currencySymbol: 'Ksh',
     flag: 'https://s3.amazonaws.com/rld-flags/ke.svg',
-    callingCodes: ['+254'],
+    callingCodes: ['254'],
   },
   MW: {
     isoName: 'MW',
@@ -64,7 +65,7 @@ export const mapCountryToData: Record<CountriesIso, IData> = {
     currencyName: 'Malawian Kwacha',
     currencySymbol: 'MWK',
     flag: 'https://s3.amazonaws.com/rld-flags/mw.svg',
-    callingCodes: ['+265'],
+    callingCodes: ['265'],
   },
   RW: {
     isoName: 'RW',
@@ -74,7 +75,7 @@ export const mapCountryToData: Record<CountriesIso, IData> = {
     currencyName: 'Rwandan Franc',
     currencySymbol: 'FR',
     flag: 'https://s3.amazonaws.com/rld-flags/rw.svg',
-    callingCodes: ['+250'],
+    callingCodes: ['250'],
   },
   TZ: {
     isoName: 'TZ',
@@ -84,7 +85,7 @@ export const mapCountryToData: Record<CountriesIso, IData> = {
     currencyName: 'Tanzanian Shilling',
     currencySymbol: 'TSh',
     flag: 'https://s3.amazonaws.com/rld-flags/tz.svg',
-    callingCodes: ['+255'],
+    callingCodes: ['255'],
   },
   UG: {
     isoName: 'UG',
@@ -94,7 +95,7 @@ export const mapCountryToData: Record<CountriesIso, IData> = {
     currencyName: 'Ugandan Shilling',
     currencySymbol: 'USh',
     flag: 'https://s3.amazonaws.com/rld-flags/ug.svg',
-    callingCodes: ['+256'],
+    callingCodes: ['256'],
   },
   ZA: {
     isoName: 'ZA',
@@ -104,7 +105,7 @@ export const mapCountryToData: Record<CountriesIso, IData> = {
     currencyName: 'South African Rand',
     currencySymbol: 'R',
     flag: 'https://s3.amazonaws.com/rld-flags/za.svg',
-    callingCodes: ['+27'],
+    callingCodes: ['27'],
   },
 }
 

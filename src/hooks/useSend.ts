@@ -34,10 +34,9 @@ export function useSendToken() {
       signer
     )
 
-    console.log('Sending', props.amount, 'to', props.recipient, 'with token', token.symbol)
     const tx = await contract.transfer(props.recipient, ethers.parseUnits(props.amount, token.decimal)) // cUSD has 18 decimals
     await tx.wait() // Wait for transaction to be mined
-    toast.success(`Transaction successful: ${tx.hash}`)
+    console.log(`Transaction successful: ${tx.hash}`)
     return JSON.stringify(tx.hash)
   }
 

@@ -18,6 +18,9 @@ export default function PriceDisplay(props: { handleSend?: () => Promise<void>; 
             <PriceRow title='Operator'
                 subtitle={topUp.operator?.toString() || ""}
                 subImg={topUp.operatorLogo} />
+            <PriceRow title='Operator ID'
+                subtitle={topUp.operatorId?.toString() || ""}
+                subImg={topUp.operatorLogo} />
 
             <PayWithToken />
             <Button className="mt-4 mb-3 w-[60%]"

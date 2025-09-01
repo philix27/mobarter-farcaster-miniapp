@@ -46,7 +46,7 @@ export function ProfileCard() {
         <div className="w-full flex flex-col justify-center px-4 py-3"
         >
             <div className="w-full p-2 border-b-1 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
-                <AdsRow text="Country" text2={store.countryIso} />
+                <AdsRow text="Country" text2={store.country} />
                 <AdsRow
                     text="Wallet Address"
                     text2={shortenAddress(address as string)}
