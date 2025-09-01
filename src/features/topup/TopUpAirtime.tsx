@@ -8,6 +8,7 @@ import PriceDisplay from './Price'
 import { useTopUpForm } from './_store'
 import { usePurchaseTopUp } from './TopUps/hook'
 import { Country, RequestFrom } from '@/zapi'
+import { logger } from '@/src/lib/utils'
 // import { useNotification } from '@coinbase/onchainkit/minikit'
 
 
@@ -68,6 +69,12 @@ export function AirtimeSection() {
       })
       .catch((err) => {
         toast.error('Error: ', err.message)
+        logger.error('Topup error:' + JSON.stringify(err))
+        triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.message });
+        // sendNotification({
+        //   title: "Transaction Failed",
+        //   body: `Airtime top up failed!`,
+        // });
       })
   }
 

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { PostHogProvider as PHProvider } from "posthog-js/react";
 
 
-export type EventNames = "purchase_airtime" | "top_up_airtime_successful" | "purchase_data" | "purchase_electricity" | "visit_homepage" | "top_up_airtime_initiated" | "visit_faq_page" | "visit_about_page" | "open_app" | "install_app"
+export type EventNames = "top_up_airtime_failed" | "purchase_airtime" | "top_up_airtime_successful" | "purchase_data" | "purchase_electricity" | "visit_homepage" | "top_up_airtime_initiated" | "visit_faq_page" | "visit_about_page" | "open_app" | "install_app"
 
 export const triggerEvent = (eventName: EventNames, properties?: Record<string, any>) => {
   if (!posthog || !eventName) return;
