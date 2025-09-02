@@ -1,6 +1,5 @@
 import { AirtimeSection } from "src/features/topup/TopUpAirtime";
 import TopUpDataPlan from "src/features/topup/TopUpData";
-import TopUpDataBundle from "src/features/topup/TopUpDataBundle";
 import PhoneInput from "src/features/topup/PhoneInput";
 import { ITab, Tabs } from "@/components/Tabs";
 import { useTopUpForm } from "./_store";
@@ -24,14 +23,7 @@ export function TopUpSection() {
                 store.update({ topUpTab: "DataBundle" });
             }
         },
-        {
-            title: "Plan",
-            name: "DataPlan",
-            isActive: store.topUpTab === "DataPlan",
-            onClick: () => {
-                store.update({ topUpTab: "DataPlan" });
-            }
-        },
+
     ]
 
     return (<>
@@ -41,7 +33,7 @@ export function TopUpSection() {
             <div className="px-2 py-2">
                 {store.topUpTab === "Airtime" && <AirtimeSection />}
                 {store.topUpTab === "DataBundle" && <TopUpDataPlan />}
-                {store.topUpTab === "DataPlan" && <TopUpDataBundle />}
+                {/* {store.topUpTab === "DataPlan" && <TopUpDataBundle />} */}
             </div>
         </div>
     </>)

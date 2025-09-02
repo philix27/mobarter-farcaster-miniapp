@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { AppStores } from '@/src/lib/zustand'
-import { appAddresses,  } from '@/src/lib/const'
+import { appAddresses, } from '@/src/lib/const'
 import { usePrice, useSendToken } from '@/src/hooks'
 import { mapCountryToData, mapCountryToIso } from '@/src/lib/const/countries'
 import { Country, RequestFrom, useUtility_purchaseDataBundle } from '@/zapi'
 import { AppSelect } from '@/components/Select'
 import PriceDisplay from './Price'
-import { useTopUpForm } from './_store'
+import { Operator, useTopUpForm } from './_store'
 import { operatorsData } from './operatorData'
 
 export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
@@ -75,7 +75,8 @@ export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
   }
 
   const getPlans = () => {
-    const v = ops.filter((val) => val.name.toUpperCase() === topUp.operator.toUpperCase())[0]
+    // if (blankPlan) return []
+    const v = ops.filter((val) => val.name.toUpperCase() === topUp.dataBundleOperator.toUpperCase())[0]
 
     if (!v) return []
     return v.plans
@@ -84,7 +85,29 @@ export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
   return (
     <>
       <div className="w-full items-center justify-center flex flex-col gap-y-4 px-1">
-
+        <AppSelect
+          label="Network*"
+          onChange={(data) => {
+            topUp.update({
+              dataBundleOperator: data as unknown as Operator,
+              dataBundleOperatorId: ops.filter((val) => val.name === data)[0]?.operatorId || 0,
+              operatorLogo: ops.filter((val) => val.name === data)[0]?.logo || '',
+              dataAmount: undefined
+            })
+          }}
+          defaultInputValue={topUp.dataBundleOperator}
+          data={ops.map((val, i) => {
+            return {
+              value: val.name,
+              label: (
+                <div key={i} className='flex items-center'>
+                  <img src={val.logo} alt={val.name} className='w-4 h-4 inline mr-1' />
+                  <p className='text-[12px]'>{val.name} </p>
+                </div>
+              )
+            }
+          })}
+        />
         <AppSelect
           label="Select a plan*"
           onChange={(value) => {
@@ -94,12 +117,13 @@ export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
               dataAmount: getPlans().filter((val) => val.amount.toString() === value)[0]?.amount || 0,
               dataDesc: getPlans().filter((val) => val.amount.toString() === value)[0]?.desc || ''
             })
-
           }}
-          data={getPlans().map((val) => {
+          data={getPlans().map((val, i) => {
             return {
-              label: `${val.desc} | ${mapCountryToData[store.countryIso].currencySymbol}${val.amount}`,
-              value: `${val.amount}`,
+              label: (
+                <p key={i} className='text-[12px]'>{`${val.desc} | ${mapCountryToData[store.countryIso].currencySymbol}${val.amount}`} </p>
+              ),
+              value: val.amount.toString()
             }
           })}
         />
@@ -109,6 +133,7 @@ export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
           handleSend={handleSend}
           rows={[
             { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
+            { title: "Data Plan", subtitle: topUp.dataDesc },
             { title: "Data Amount", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
 
           ]}

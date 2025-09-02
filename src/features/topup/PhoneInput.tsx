@@ -4,15 +4,13 @@ import { pasteTextFromClipboard } from '@/src/lib/utils'
 import { AppStores } from '@/src/lib/zustand'
 import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
-import { Operator, useTopUpForm } from './_store'
-import { AppSelect } from '@/components/Select'
-import { operatorsData } from './operatorData'
+import {  useTopUpForm } from './_store'
 import PayWithToken from '../pay/PayWithToken'
 
 export default function PhoneInput() {
     const store = AppStores.useSettings()
     const topUp = useTopUpForm();
-    const ops = operatorsData[AppStores.useSettings().countryIso].airtime;
+    // const ops = operatorsData[AppStores.useSettings().countryIso].airtime;
 
     return (
         <div className='w-full bg-card rounded-lg mb-3 px-3  pb-3 pt-1 gap-y-4 flex flex-col'>
@@ -42,29 +40,7 @@ export default function PhoneInput() {
                 }
             />
 
-            <AppSelect
-                label="Network*"
-                onChange={(data) => {
-                    topUp.update({
-                        operator: data as unknown as Operator,
-                        operatorId: ops.filter((val) => val.name === data)[0]?.operatorId || 0,
-                        operatorLogo: ops.filter((val) => val.name === data)[0]?.logo || ''
-                    })
-                }}
-                data={ops.map((val, i) => {
-                    return {
-                        // label: val.name,
-                        value: val.name,
-                        label: (
-                            <div key={i} className='flex items-center'>
-                                <img src={val.logo} alt={val.name} className='w-4 h-4 inline mr-1' />
-                                <p>{val.name} </p>
-                            </div>
-                        )
-                    }
-                })}
-            />
-
+           
             <PayWithToken />
         </div>
     )

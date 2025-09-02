@@ -27,7 +27,9 @@ export const AppSelect = (props: {
   label?: string
   error?: string
   value?: string
+  name?: string
   desc?: string
+  defaultInputValue?: string
   useBg?: string
   onChange: (newValue: string) => void
   data: {
@@ -60,7 +62,9 @@ export const AppSelect = (props: {
 
           Placeholder: CustomPlaceholder
         }}
+        defaultInputValue={props.defaultInputValue}
         options={props.data}
+        name={props.name}
         value={props.value}
         className="w-full m-0"
         onChange={(newValue: any) => {

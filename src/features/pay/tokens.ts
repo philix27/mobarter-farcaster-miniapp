@@ -18,7 +18,7 @@ export const payTokens: IPayWith[] = [
             symbol: "cUSD",
             address: "0x765DE816845861e75A25fCA122bb6898B8B1282a",
             logo: '/tokens/cUSD.svg',
-            decimal: 6
+            decimal: 18
         }
     },
     {

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-import { UtilitiesService } from '@/src/features/topup/TopUps/utilities.service'
+import { UtilitiesService } from '@/src/features/topup/api/utilities.service'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
