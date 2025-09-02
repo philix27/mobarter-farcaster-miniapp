@@ -10,7 +10,6 @@ import { AdsRow } from "@/components/comps";
 
 
 export function ProfileCard() {
-    // const { setFrameReady, isFrameReady, } = useMiniKit();
     const { address, isConnected, } = useAccount()
     const { connect, connectors } = useConnect()
     const store = AppStores.useSettings();

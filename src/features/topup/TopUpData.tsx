@@ -1,86 +1,86 @@
-import { toast } from 'sonner'
+// import { toast } from 'sonner'
 import { AppStores } from '@/src/lib/zustand'
-import { appAddresses, } from '@/src/lib/const'
-import { ISendTxnError, usePrice, useSendToken } from '@/src/hooks'
+// import { appAddresses, } from '@/src/lib/const'
+// import { ISendTxnError, usePrice, useSendToken } from '@/src/hooks'
 import { mapCountryToData, } from '@/src/lib/const/countries'
-import { Country, RequestFrom, } from '@/zapi'
+import { Country, } from '@/zapi'
 import { AppSelect } from '@/components/Select'
-import PriceDisplay from './Price'
+// import PriceDisplay from './Price'
 import { Operator, useTopUpForm } from './_store'
 import { operatorsData } from './operatorData'
-import { usePurchaseTopUp } from './api/hook'
-import { triggerEvent } from '@/src/providers/PostHogProvider'
-import { logger } from '@/src/lib/utils'
-import { useAccount } from 'wagmi'
+// import { usePurchaseTopUp } from './api/hook'
+// import { triggerEvent } from '@/src/providers/PostHogProvider'
+// import { logger } from '@/src/lib/utils'
+// import { useAccount } from 'wagmi'
 
 export default function TopUpDataPlan() {
   const topUp = useTopUpForm();
-  const { sendErc20 } = useSendToken()
+  // const { sendErc20 } = useSendToken()
   const ops = operatorsData[Country.Ng].dataBundles
-  const { address } = useAccount()
   const store = AppStores.useSettings()
-  const purchaseTopUp = usePurchaseTopUp()
-  const { amountToPay } = usePrice({ amountInFiat: topUp.amountFiat })
+  // const { address } = useAccount()  
+  // const purchaseTopUp = usePurchaseTopUp()
+  // const { amountToPay } = usePrice({ amountInFiat: topUp.amountFiat })
 
 
-  const handleSend = async () => {
+  // const handleSend = async () => {
 
-    if (!topUp.phoneNo || topUp.phoneNo.length < 10) {
-      toast.error('Enter a valid phone number')
-      return
-    }
+  //   if (!topUp.phoneNo || topUp.phoneNo.length < 10) {
+  //     toast.error('Enter a valid phone number')
+  //     return
+  //   }
 
-    if (!topUp.dataBundleOperatorId || topUp.dataBundleOperatorId === 0) {
-      toast.error('Select an operator')
-      return
-    }
+  //   if (!topUp.dataBundleOperatorId || topUp.dataBundleOperatorId === 0) {
+  //     toast.error('Select an operator')
+  //     return
+  //   }
 
 
-    if (topUp.amountFiat <= 0) {
-      toast.error('Amount must be above zero')
-      return
-    }
+  //   if (topUp.amountFiat <= 0) {
+  //     toast.error('Amount must be above zero')
+  //     return
+  //   }
 
-    await sendErc20({
-      recipient: appAddresses.topUpCollector,
-      amount: amountToPay!.toString(),
-      payWith: store.payWith,
-    })
-      .then(async (txHash) => {
-        purchaseTopUp.mutate({
-          phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
-          amount: topUp.amountFiat,
-          countryCode: store.country,
-          operatorId: topUp.operatorId!,
-          userId: address!,
-          payment: {
-            txHash: txHash,
-            user_uid: address!,
-            transaction_pin: '',
-            tokenAddress: store.payWith.token.address,
-            tokenChain: store.payWith.chain.name,
-            amountCrypto: amountToPay as number,
-            amountFiat: topUp.amountFiat,
-            from: RequestFrom.Farcaster,
-            fiatCurrency: Country.Ng
-          },
-        })
+  //   await sendErc20({
+  //     recipient: appAddresses.topUpCollector,
+  //     amount: amountToPay!.toString(),
+  //     payWith: store.payWith,
+  //   })
+  //     .then(async (txHash) => {
+  //       purchaseTopUp.mutate({
+  //         phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
+  //         amount: topUp.amountFiat,
+  //         countryCode: store.country,
+  //         operatorId: topUp.operatorId!,
+  //         userId: address!,
+  //         payment: {
+  //           txHash: txHash,
+  //           user_uid: address!,
+  //           transaction_pin: '',
+  //           tokenAddress: store.payWith.token.address,
+  //           tokenChain: store.payWith.chain.name,
+  //           amountCrypto: amountToPay as number,
+  //           amountFiat: topUp.amountFiat,
+  //           from: RequestFrom.Farcaster,
+  //           fiatCurrency: Country.Ng
+  //         },
+  //       })
 
-        triggerEvent('top_up_airtime_successful', { userId: "", amount: topUp.amountFiat });
-        toast.success('Airtime sent successfully')
+  //       triggerEvent('top_up_airtime_successful', { userId: "", amount: topUp.amountFiat });
+  //       toast.success('Airtime sent successfully')
 
-        // await sendNotification({
-        //   title: "Congratulations!",
-        //   body: `Airtime sent successfully!`,
-        // });
-        topUp.clear()
-      })
-      .catch((err: ISendTxnError) => {
-        toast.error(err.reason)
-        logger.error('Topup error:' + JSON.stringify(err))
-        triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.reason });
-      })
-  }
+  //       // await sendNotification({
+  //       //   title: "Congratulations!",
+  //       //   body: `Airtime sent successfully!`,
+  //       // });
+  //       topUp.clear()
+  //     })
+  //     .catch((err: ISendTxnError) => {
+  //       toast.error(err.reason)
+  //       logger.error('Topup error:' + JSON.stringify(err))
+  //       triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.reason });
+  //     })
+  // }
 
   const getPlans = () => {
     const v = ops.filter((val) => val.name.toUpperCase() === topUp.dataBundleOperator.toUpperCase())[0]
@@ -124,7 +124,6 @@ export default function TopUpDataPlan() {
               dataDesc: getPlans().filter((val) => val.amount.toString() === value)[0]?.desc || ''
             })
           }}
-          // defaultInputValue={topUp.amountFiat.toString()}
           data={getPlans().map((val, i) => {
             return {
               label: (
@@ -136,7 +135,7 @@ export default function TopUpDataPlan() {
         />
 
 
-        <PriceDisplay
+        {/* <PriceDisplay
           handleSend={handleSend}
           rows={[
             { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
@@ -144,8 +143,7 @@ export default function TopUpDataPlan() {
             { title: "Data Amount", subtitle: "NGN ".concat(topUp.amountFiat === undefined ? "0" : topUp.amountFiat.toString()) },
 
           ]}
-
-        />
+        /> */}
       </div>
 
     </>
