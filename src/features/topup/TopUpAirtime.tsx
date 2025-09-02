@@ -15,7 +15,7 @@ import { AppSelect } from '@/components/Select'
 // import { useNotification } from '@coinbase/onchainkit/minikit'
 
 
-export function AirtimeSection() {
+export default function AirtimeSection() {
   const { sendErc20 } = useSendToken()
   const store = AppStores.useSettings()
   const ops = operatorsData[AppStores.useSettings().countryIso].airtime;
