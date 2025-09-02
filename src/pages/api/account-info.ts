@@ -2,6 +2,7 @@ import { logger } from '@/src/lib/utils'
 import axios from 'axios'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { account_number, bank_code } = req.query
   const acctNo = account_number as string
@@ -19,6 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
       )
 
+    
       res.status(200).json(response.data)
     } catch (error) {
       logger.error(error)

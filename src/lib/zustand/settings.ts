@@ -6,7 +6,7 @@ import { IPayWith } from '@/src/features/pay/tokens'
 import { ChainName } from '@/src/features/pay/chains'
 import { Country } from '@/zapi'
 
-export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting'
+export type IHomeTab = 'TopUp' | 'TV' | 'Electricity' | 'Betting' | "Profile" | "Orders"
 export type ITopUpTabs = 'Airtime' | "DataPlan" | "DataBundle"
 
 // export type IHomeTab = 'BALANCE' | 'TX_HISTORY'

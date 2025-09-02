@@ -22,7 +22,7 @@ export function Input(
       {label && <Label>{label}</Label>}
       <div
         className={cn(
-          'rounded-lg px-3 py-[6px] flex items-center justify-center border-[0.5px] text-muted border-muted border mt-1',
+          'rounded-lg px-3 py-[6px] flex items-center justify-center border-[0.5px] text-muted border-muted border mt-1 bg-card',
           focus && 'border-primary',
           props.error && 'border-destructive',
           className

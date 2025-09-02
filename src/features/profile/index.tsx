@@ -1,12 +1,13 @@
 import { Button } from "@/components/Button";
 import { useCallback, useEffect } from "react";
 import { useAccount, useConnect } from "wagmi";
-import { shortenAddress } from "../lib/config";
+import { shortenAddress } from "../../lib/config";
 import { celo } from "viem/chains";
-import { AppStores } from "../lib/zustand";
+import { AppStores } from "../../lib/zustand";
 import { useViewProfile } from "@coinbase/onchainkit/minikit";
-import { secrets } from "../lib";
+import { secrets } from "../../lib";
 import { AdsRow } from "@/components/comps";
+import BankAccount from "../bankAccount/BankAccount";
 
 
 export function ProfileCard() {
@@ -42,7 +43,7 @@ export function ProfileCard() {
         </div>
     }
     return (
-        <div className="w-full flex flex-col justify-center px-4 py-3"
+        <div className="w-full flex flex-col justify-center px-2"
         >
             <div className="w-full p-2 border-b-1 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
                 <AdsRow text="Country" text2={store.country} />
@@ -64,6 +65,8 @@ export function ProfileCard() {
                     }}
                 />
             </div>
+
+            <BankAccount />
         </div>
     )
 }
