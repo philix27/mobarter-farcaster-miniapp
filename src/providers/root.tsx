@@ -46,7 +46,7 @@ export function Root(props: PropsWithChildren) {
         >
           {props.children}
         </MiniKitProvider>
-        <Toaster richColors position="bottom-center" expand={false} closeButton duration={2000} />
+        <Toaster richColors position="top-center" expand={false} closeButton duration={2000} />
       </ApolloProvider>
     </WagmiPosthog>
   )

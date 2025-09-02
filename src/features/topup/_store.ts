@@ -10,7 +10,7 @@ export enum Operator {
 }
 
 export interface ISlice {
-  dataAmount?: number
+  // dataAmount?: number
   dataDesc?: string
   operator?: string
   dataBundleOperator?: string
@@ -30,7 +30,7 @@ const defaultValues: Required<ISlice> = {
   operator: Operator.MTN,
   topUpTab: 'Airtime',
   operatorId: 0,
-  dataAmount: 0,
+  // dataAmount: 0,
   dataDesc: '',
   operatorLogo: '',
   dataBundleOperator: '',
