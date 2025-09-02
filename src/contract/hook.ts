@@ -1,4 +1,4 @@
-import { getDataSuffix, submitReferral } from '@divvi/referral-sdk'
+import { submitReferral, getReferralTag } from '@divvi/referral-sdk'
 import { ethers } from 'ethers'
 import { toast } from 'sonner'
 import { TokenAddresses, TokenId } from 'src/lib/config/tokens'
@@ -46,7 +46,8 @@ export function usePay<T>() {
     // await tx.wait() // Wait for transaction to be mined
 
     //! Divi Integrations
-    const dataSuffix = getDataSuffix({
+    const dataSuffix = getReferralTag({
+      "user": "0x20F50b8832f87104853df3FdDA47Dd464f885a49",
       consumer: '0x20F50b8832f87104853df3FdDA47Dd464f885a49',
       providers: [
         "0xE2bEdafB063e0B7f12607ebcf4636e2690A427a3",

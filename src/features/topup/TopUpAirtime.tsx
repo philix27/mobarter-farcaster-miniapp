@@ -98,6 +98,7 @@ export function AirtimeSection() {
               operatorLogo: ops.filter((val) => val.name === data)[0]?.logo || ''
             })
           }}
+          defaultInputValue={topUp.operator}
           data={ops.map((val, i) => {
             return {
               // label: val.name,

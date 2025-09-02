@@ -10,12 +10,12 @@ import PriceDisplay from './Price'
 import { Operator, useTopUpForm } from './_store'
 import { operatorsData } from './operatorData'
 
-export default function TopUpDataPlan(props?: { isDataPlan?: boolean }) {
+export default function TopUpDataPlan() {
   const topUp = useTopUpForm();
   const { sendErc20 } = useSendToken()
   const [operatorPlan, setOperatorPlan] = useState<{ amount: string; desc: string }>()
   const operaror = operatorsData[Country.Ng];
-  const ops = props?.isDataPlan ? operaror.dataPlan : operaror.dataBundles;
+  const ops = operaror.dataBundles
 
   const store = AppStores.useSettings()
   const countryCode = mapCountryToData[store.countryIso].callingCodes[0]
