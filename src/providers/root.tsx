@@ -7,6 +7,7 @@ import { AppStores } from '../lib/zustand'
 import { MiniKitProvider } from '@coinbase/onchainkit/minikit'
 import { Spinner } from '@/components/Spinner';
 import { WagmiPosthog } from './providers';
+import { Analytics } from '@vercel/analytics/next';
 
 
 const apollo = (token: string) => {
@@ -46,6 +47,7 @@ export function Root(props: PropsWithChildren) {
         >
           {props.children}
         </MiniKitProvider>
+        <Analytics />
         <Toaster richColors position="top-center" expand={false} closeButton duration={2000} />
       </ApolloProvider>
     </WagmiPosthog>

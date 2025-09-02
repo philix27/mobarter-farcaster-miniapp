@@ -16,8 +16,7 @@ import { useAccount } from 'wagmi'
 export default function TopUpDataPlan() {
   const topUp = useTopUpForm();
   const { sendErc20 } = useSendToken()
-  const operaror = operatorsData[Country.Ng];
-  const ops = operaror.dataBundles
+  const ops = operatorsData[Country.Ng].dataBundles
   const { address } = useAccount()
   const store = AppStores.useSettings()
   const purchaseTopUp = usePurchaseTopUp()
