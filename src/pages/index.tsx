@@ -1,10 +1,10 @@
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
-import { AppStores } from "../lib/zustand";
-import ComingSoon from "@/components/ComingSoon";
+// import { AppStores } from "../lib/zustand";
+// import ComingSoon from "@/components/ComingSoon";
 import Head from "next/head";
 import { Spinner } from "@/components/Spinner";
 import { useEffect } from "react";
-import { TopUpSection } from "src/features/topup/TopUpSection";
+// import { TopUpSection } from "src/features/topup/TopUpSection";
 // import { ITab, Tabs } from "@/components/Tabs";
 import { ProfileCard } from "../features/ProfileCard";
 
@@ -32,7 +32,7 @@ const metadata = {
 }
 
 export default function HomePage() {
-  const settingsStore = AppStores.useSettings();
+  // const settingsStore = AppStores.useSettings();
   const { isFrameReady, setFrameReady } = useMiniKit();
 
   useEffect(() => {
@@ -96,12 +96,12 @@ export default function HomePage() {
         <ProfileCard />
         {/* <Tabs tabs={dashboardItems} /> */}
 
-        <div className="mx-auto rounded-lg px-3 w-full">
+        {/* <div className="mx-auto rounded-lg px-3 w-full">
           {settingsStore.homeTab === "TopUp" && <TopUpSection />}
           {settingsStore.homeTab === "TV" && <ComingSoon />}
           {settingsStore.homeTab === "Electricity" && <ComingSoon />}
           {settingsStore.homeTab === "Betting" && <ComingSoon />}
-        </div>
+        </div> */}
       </div>
     </>
   )
