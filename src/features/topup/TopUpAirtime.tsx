@@ -20,7 +20,6 @@ export default function AirtimeSection() {
   const store = AppStores.useSettings()
   const ops = operatorsData[AppStores.useSettings().countryIso].airtime;
 
-  // const sendNotification = useNotification();
   const { address } = useAccount()
   const topUp = useTopUpForm();
   const { amountToPay, } = usePrice({ amountInFiat: topUp.amountFiat })
