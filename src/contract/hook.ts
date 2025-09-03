@@ -21,7 +21,7 @@ export function usePay<T>() {
     txName: PaymentPurpose
     payload: T
   }) => {
-    const signer = await provider.getSigner()
+    const signer = await provider.celo.getSigner()
     if (!signer) {
       toast.error('Please connect your wallet')
       throw new Error('Signer needed')
