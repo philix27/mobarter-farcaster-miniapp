@@ -14,14 +14,7 @@ export default function PriceDisplay(props: { handleSend?: () => Promise<void>; 
 
             {props.rows.map((item, i) => <PriceRow key={i} {...item} />)}
             <PriceRow title='Phone' subtitle={"0".concat(topUp.phoneNo)} />
-            <PriceRow title='Operator'
-                subtitle={topUp.operator?.toString() || ""}
-                subImg={topUp.operatorLogo} />
-            {/* <PriceRow title='Operator ID'
-                subtitle={topUp.operatorId?.toString() || ""}
-                subImg={topUp.operatorLogo} />
-
-            */}
+            
             <Button className="mt-5 mb-3 w-[60%]"
                 onClick={props.handleSend}>
                 Confirm

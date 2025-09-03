@@ -1,6 +1,6 @@
 import { toast } from 'sonner'
 import { appAddresses, } from '@/src/lib/const'
-import { usePrice, useSendToken, } from '@/src/hooks'
+import { usePrice, useSendToken, getSafeErrorMessage } from '@/src/hooks'
 import { mapCountryToData, } from '@/src/lib/const/countries'
 import { Country, RequestFrom, } from '@/zapi'
 import { AppSelect } from '@/components/Select'
@@ -42,32 +42,34 @@ export default function TopUpDataPlan() {
       return
     }
 
-    await sendErc20({
-      recipient: appAddresses.topUpCollector,
-      amount: amountToPay!.toString(),
-      payWith: store.payWith,
-    })
-      .then(async (data) => {
-        purchaseTopUp.mutate({
-          phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
-          amount: topUp.amountFiat,
-          countryCode: store.country,
-          operatorId: topUp.operatorId!,
-          userId: address!,
-          payment: {
-            txHash: data?.txHash,
-            user_uid: address!,
-            transaction_pin: '',
-            tokenAddress: store.payWith.token.address,
-            tokenChain: store.payWith.chain.name,
-            amountCrypto: amountToPay as number,
-            amountFiat: topUp.amountFiat,
-            from: RequestFrom.Farcaster,
-            fiatCurrency: Country.Ng
-          },
-        })
+    try {
+      const txn = await sendErc20({
+        recipient: appAddresses.topUpCollector,
+        amount: amountToPay!.toString(),
+        payWith: store.payWith,
+      });
 
-        triggerEvent('top_up_airtime_successful', { userId: "", amount: topUp.amountFiat });
+      purchaseTopUp.mutate({
+        phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
+        amount: topUp.amountFiat,
+        countryCode: store.country,
+        operatorId: topUp.operatorId!,
+        userId: address!,
+        payment: {
+          txHash: txn?.txHash,
+          user_uid: address!,
+          transaction_pin: '',
+          tokenAddress: store.payWith.token.address,
+          tokenChain: store.payWith.chain.name,
+          amountCrypto: amountToPay as number,
+          amountFiat: topUp.amountFiat,
+          from: RequestFrom.Farcaster,
+          fiatCurrency: Country.Ng
+        },
+      })
+
+      if (purchaseTopUp.isSuccess) {
+        triggerEvent('top_up_airtime_successful', { userId: address, amount: topUp.amountFiat });
         toast.success('Airtime sent successfully')
 
         await sendNotification({
@@ -75,11 +77,14 @@ export default function TopUpDataPlan() {
           body: `Airtime sent successfully!`,
         });
         topUp.clear()
-      })
-      .catch((err) => {
-        logger.error('Topup error:' + JSON.stringify(err))
-        triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.reason });
-      })
+      }
+
+
+    } catch (err) {
+      toast.error(getSafeErrorMessage(err));
+      logger.error('Topup error:' + JSON.stringify(err))
+      triggerEvent('top_up_airtime_failed', { userId: address, amount: topUp.amountFiat, error: err });
+    }
   }
 
   const getPlans = () => {
