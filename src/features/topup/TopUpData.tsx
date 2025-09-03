@@ -99,6 +99,7 @@ export default function TopUpDataPlan() {
               dataBundleOperator: data as unknown as Operator,
               dataBundleOperatorId: ops.filter((val) => val.name === data)[0]?.operatorId || 0,
               operatorLogo: ops.filter((val) => val.name === data)[0]?.logo || '',
+              dataBundleOperatorLogo: ops.filter((val) => val.name === data)[0]?.logo || '',
               amountFiat: 0
             })
           }}
@@ -141,7 +142,7 @@ export default function TopUpDataPlan() {
             { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
             { title: "Data Plan", subtitle: topUp.dataDesc },
             { title: "Data Amount", subtitle: "NGN ".concat(topUp.amountFiat === undefined ? "0" : topUp.amountFiat.toString()) },
-
+            { title: "Operator", subtitle: topUp.dataBundleOperator, "subImg": topUp.dataBundleOperatorLogo },
           ]}
         />
       </div>

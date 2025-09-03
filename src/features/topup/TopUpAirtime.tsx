@@ -1,7 +1,7 @@
 import { toast } from 'sonner'
 import { mapCountryToData, appAddresses, } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
-import {usePrice, useSendToken } from '@/src/hooks'
+import { getSafeErrorMessage, usePrice, useSendToken } from '@/src/hooks'
 import { Input } from '@/components/Input'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 import PriceDisplay from './Price'
@@ -12,14 +12,14 @@ import { logger } from '@/src/lib/utils'
 import { useAccount } from 'wagmi'
 import { operatorsData } from './operatorData'
 import { AppSelect } from '@/components/Select'
-// import { useNotification } from '@coinbase/onchainkit/minikit'
+import { useNotification } from '@coinbase/onchainkit/minikit'
 
 
 export default function AirtimeSection() {
   const { sendErc20 } = useSendToken()
   const store = AppStores.useSettings()
   const ops = operatorsData[AppStores.useSettings().countryIso].airtime;
-
+  const sendNotification = useNotification()
   const { address } = useAccount()
   const topUp = useTopUpForm();
   const { amountToPay, } = usePrice({ amountInFiat: topUp.amountFiat })
@@ -42,44 +42,49 @@ export default function AirtimeSection() {
       return
     }
 
-    await sendErc20({
-      recipient: appAddresses.topUpCollector,
-      amount: amountToPay!.toString(),
-      payWith: store.payWith
-    })
-      .then(async (data) => {
-        purchaseTopUp.mutate({
-          phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
-          amount: topUp.amountFiat,
-          countryCode: store.country,
-          operatorId: topUp.operatorId!,
-          userId: address!,
-          payment: {
-            txHash: data?.txHash,
-            user_uid: address!,
-            transaction_pin: '',
-            tokenAddress: store.payWith.token.address,
-            tokenChain: store.payWith.chain.name,
-            amountCrypto: amountToPay as number,
-            amountFiat: topUp.amountFiat,
-            from: RequestFrom.Farcaster,
-            fiatCurrency: Country.Ng
-          },
-        })
+    try {
+      const txn = await sendErc20({
+        recipient: appAddresses.topUpCollector,
+        amount: amountToPay!.toString(),
+        payWith: store.payWith
+      })
 
-        triggerEvent('top_up_airtime_successful', { userId: "", amount: topUp.amountFiat });
+      purchaseTopUp.mutate({
+        phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
+        amount: topUp.amountFiat,
+        countryCode: store.country,
+        operatorId: topUp.operatorId!,
+        userId: address!,
+        payment: {
+          txHash: txn?.txHash,
+          user_uid: address!,
+          transaction_pin: '',
+          tokenAddress: store.payWith.token.address,
+          tokenChain: store.payWith.chain.name,
+          amountCrypto: amountToPay as number,
+          amountFiat: topUp.amountFiat,
+          from: RequestFrom.Farcaster,
+          fiatCurrency: Country.Ng
+        },
+      })
+
+      if (purchaseTopUp.isSuccess) {
+        triggerEvent('top_up_airtime_successful', { userId: address, amount: topUp.amountFiat });
         toast.success('Airtime sent successfully')
 
-        // await sendNotification({
-        //   title: "Congratulations!",
-        //   body: `Airtime sent successfully!`,
-        // });
+        await sendNotification({
+          title: "Congratulations!",
+          body: `Airtime sent successfully!`,
+        });
         topUp.clear()
-      })
-      .catch((err) => {
-        logger.error('Topup error:' + JSON.stringify(err))
-        triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.reason });
-      })
+      }
+
+
+    } catch (err) {
+      toast.error(getSafeErrorMessage(err));
+      logger.error('Topup error:' + JSON.stringify(err))
+      triggerEvent('top_up_airtime_failed', { userId: address, amount: topUp.amountFiat, error: err });
+    }
   }
 
 
@@ -135,6 +140,7 @@ export default function AirtimeSection() {
         rows={[
           { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
           { title: "Airtime Amount", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
+          { title: "Operator", subtitle: topUp.operator, subImg: topUp.operatorLogo },
         ]}
 
       />

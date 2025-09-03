@@ -14,6 +14,7 @@ export interface ISlice {
   dataDesc?: string
   operator?: string
   dataBundleOperator?: string
+  dataBundleOperatorLogo?: string
   operatorId?: number
   dataBundleOperatorId?: number
   operatorLogo?: string
@@ -35,6 +36,7 @@ const defaultValues: Required<ISlice> = {
   operatorLogo: '',
   dataBundleOperator: '',
   dataBundleOperatorId: 0,
+  dataBundleOperatorLogo: ''
 }
 
 
