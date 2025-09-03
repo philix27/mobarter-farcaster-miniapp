@@ -1,6 +1,6 @@
-// import { ethers, } from 'ethers'
+import { ethers, } from 'ethers'
 // import { toast } from 'sonner'
-// import { useAccount, useSwitchChain } from 'wagmi'
+import { useAccount, useSwitchChain } from 'wagmi'
 // import * as divvi from '@divvi/referral-sdk'
 // import { appAddresses } from '../lib/const'
 // import { logger } from '../lib/utils'
@@ -67,12 +67,12 @@ interface Param {
 
 
 export function useSendToken() {
-  // const { address, } = useAccount();
-  // const provider = new ethers.BrowserProvider(window.ethereum)
+  const { address, } = useAccount();
+  const provider = new ethers.BrowserProvider(window.ethereum)
 
-  // const {
-  //   switchChain,
-  // } = useSwitchChain();
+  const {
+    switchChain,
+  } = useSwitchChain();
 
   const sendErc20 = async (props: { recipient: string; amount: string; payWith: IPayWith }) => {
     // const signer = await provider.getSigner()
@@ -83,8 +83,8 @@ export function useSendToken() {
     //   throw new Error('Signer needed')
     // }
 
-    // const chain = props.payWith.chain
-    // switchChain({ chainId: chain.chainId });
+    const chain = props.payWith.chain
+    switchChain({ chainId: chain.chainId });
 
 
     // const token = props.payWith.token
@@ -93,7 +93,7 @@ export function useSendToken() {
     //   ERC20_ABI,
     //   signer
     // )
-    // console.log(address, contract)
+    console.log(address, provider)
 
     // // ! Start Divvi
     // const transferData = contract.interface.encodeFunctionData("transfer", [
