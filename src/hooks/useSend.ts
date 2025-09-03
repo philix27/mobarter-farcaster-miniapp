@@ -1,7 +1,7 @@
 // import { ethers, } from 'ethers'
 // import { toast } from 'sonner'
 import { IPayWith } from '../features/pay/tokens'
-// import { useAccount, useSwitchChain } from 'wagmi'
+import { useSwitchChain } from 'wagmi'
 // import { useProvider } from './useProvider'
 // import * as divvi from '@divvi/referral-sdk'
 // import { appAddresses } from '../lib/const'
@@ -70,9 +70,9 @@ interface Param {
 export function useSendToken() {
   // const { address, } = useAccount();
 
-  // const {
-  //   switchChain,
-  // } = useSwitchChain();
+  const {
+    switchChain,
+  } = useSwitchChain();
   // const provider = useProvider()
 
   const sendErc20 = async (props: { recipient: string; amount: string; payWith: IPayWith }) => {
@@ -84,8 +84,8 @@ export function useSendToken() {
     //   throw new Error('Signer needed')
     // }
 
-    // const chain = props.payWith.chain
-    // switchChain({ chainId: chain.chainId });
+    const chain = props.payWith.chain
+    switchChain({ chainId: chain.chainId });
 
 
     // const token = props.payWith.token
