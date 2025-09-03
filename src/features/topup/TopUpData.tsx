@@ -1,6 +1,6 @@
 import { toast } from 'sonner'
 import { appAddresses, } from '@/src/lib/const'
-import { ISendTxnError, usePrice, useSendToken, } from '@/src/hooks'
+import { usePrice, useSendToken, } from '@/src/hooks'
 import { mapCountryToData, } from '@/src/lib/const/countries'
 import { Country, RequestFrom, } from '@/zapi'
 import { AppSelect } from '@/components/Select'
@@ -47,7 +47,7 @@ export default function TopUpDataPlan() {
       amount: amountToPay!.toString(),
       payWith: store.payWith,
     })
-      .then(async (txHash) => {
+      .then(async (data) => {
         purchaseTopUp.mutate({
           phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
           amount: topUp.amountFiat,
@@ -55,7 +55,7 @@ export default function TopUpDataPlan() {
           operatorId: topUp.operatorId!,
           userId: address!,
           payment: {
-            txHash: txHash,
+            txHash: data?.txHash,
             user_uid: address!,
             transaction_pin: '',
             tokenAddress: store.payWith.token.address,
@@ -76,8 +76,7 @@ export default function TopUpDataPlan() {
         });
         topUp.clear()
       })
-      .catch((err: ISendTxnError) => {
-        toast.error(err.reason)
+      .catch((err) => {
         logger.error('Topup error:' + JSON.stringify(err))
         triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.reason });
       })

@@ -1,7 +1,7 @@
 import { toast } from 'sonner'
 import { mapCountryToData, appAddresses, } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
-import { ISendTxnError, usePrice, useSendToken } from '@/src/hooks'
+import {usePrice, useSendToken } from '@/src/hooks'
 import { Input } from '@/components/Input'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 import PriceDisplay from './Price'
@@ -47,7 +47,7 @@ export default function AirtimeSection() {
       amount: amountToPay!.toString(),
       payWith: store.payWith
     })
-      .then(async (txHash) => {
+      .then(async (data) => {
         purchaseTopUp.mutate({
           phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
           amount: topUp.amountFiat,
@@ -55,7 +55,7 @@ export default function AirtimeSection() {
           operatorId: topUp.operatorId!,
           userId: address!,
           payment: {
-            txHash: txHash,
+            txHash: data?.txHash,
             user_uid: address!,
             transaction_pin: '',
             tokenAddress: store.payWith.token.address,
@@ -76,8 +76,7 @@ export default function AirtimeSection() {
         // });
         topUp.clear()
       })
-      .catch((err: ISendTxnError) => {
-        toast.error(err.reason)
+      .catch((err) => {
         logger.error('Topup error:' + JSON.stringify(err))
         triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.reason });
       })

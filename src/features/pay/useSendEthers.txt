@@ -1,12 +1,12 @@
 import { ethers, } from 'ethers'
 import { toast } from 'sonner'
-import { useAccount, useSwitchChain } from 'wagmi'
+import { useAccount, } from 'wagmi'
 import * as divvi from '@divvi/referral-sdk'
-import { appAddresses } from '../lib/const'
-import { logger } from '../lib/utils'
-import { IPayWith } from '../features/pay/tokens'
-import { useProvider } from './useProvider'
-import { ChainName } from '../features/pay/chains'
+import { appAddresses } from '../../lib/const'
+import { logger } from '../../lib/utils'
+import { IPayWith } from './tokens'
+import { useProvider } from '../../hooks/useProvider'
+import { ChainName } from './chains'
 
 
 export interface ISendTxnError {
@@ -72,9 +72,6 @@ export function useSendToken() {
   const { address, } = useAccount();
   const provider = useProvider()
 
-  const {
-    switchChain,
-  } = useSwitchChain();
 
   const sendErc20 = async (props: { recipient: string; amount: string; payWith: IPayWith }) => {
     const chain = props.payWith.chain
@@ -90,66 +87,58 @@ export function useSendToken() {
     }
 
 
-    switchChain({ chainId: chain.chainId });
-
-
     const token = props.payWith.token
     const contract = new ethers.Contract(
       token.address,
       ERC20_ABI,
       signer
     )
-
-    // // ! Start Divvi
-    const transferData = contract.interface.encodeFunctionData("transfer", [
-      props.recipient,
-      ethers.parseUnits(props.amount, token.decimal),
-    ]);
-
-    // Generate Divvi referral tag
-    const dataSuffix = divvi.getReferralTag({
-      user: address!, // The user address making the transaction
-      consumer: appAddresses.divvi as `0x${string}`, // Your Divvi consumer address
-    })
-
-    // Append Divvi suffix to transaction data
-    let dataWithSuffix = transferData;
-    //  const txData = transferData + dataSuffix;
-    // const txData = transferData + ethers.hexlify(ethers.toUtf8Bytes(dataSuffix)).slice(2);
-
-    if (dataSuffix && dataSuffix.startsWith('0x')) {
-      // Remove '0x' prefix from suffix before concatenating
-      dataWithSuffix = transferData + dataSuffix.slice(2);
-    } else if (dataSuffix) {
-      dataWithSuffix = transferData + dataSuffix;
-    }
-
-    // // Send transaction
-    const txn = await signer.sendTransaction({
-      to: token.address,
-      data: dataWithSuffix,
-    });
-
-    logger.info("Tx hash:", txn.hash);
-
-    // // ! End Divvi
-
-    logger.info(`Transaction successful: ${txn.hash}`)
-
     try {
+      // // ! Start Divvi
+      const transferData = contract.interface.encodeFunctionData("transfer", [
+        props.recipient,
+        ethers.parseUnits(props.amount, token.decimal),
+      ]);
+
+      // Generate Divvi referral tag
+      const dataSuffix = divvi.getReferralTag({
+        user: address!, // The user address making the transaction
+        consumer: appAddresses.divvi as `0x${string}`, // Your Divvi consumer address
+      })
+
+      // Append Divvi suffix to transaction data
+      let dataWithSuffix = transferData;
+      //  const txData = transferData + dataSuffix;
+      // const txData = transferData + ethers.hexlify(ethers.toUtf8Bytes(dataSuffix)).slice(2);
+
+      if (dataSuffix && dataSuffix.startsWith('0x')) {
+        // Remove '0x' prefix from suffix before concatenating
+        dataWithSuffix = transferData + dataSuffix.slice(2);
+      } else if (dataSuffix) {
+        dataWithSuffix = transferData + dataSuffix;
+      }
+
+      // // Send transaction
+      const txn = await signer.sendTransaction({
+        to: token.address,
+        data: dataWithSuffix,
+      });
+
+      logger.info(`Transaction successful: ${txn.hash}`)
+
       await divvi.submitReferral({
         txHash: txn.hash as `0x${string}`,
         chainId: chain.chainId
       });
       logger.info("Referral submitted successfully");
-    } catch (referralError) {
-      logger.error("Referral submission error:", referralError);
+      return JSON.stringify(txn.hash)
+    } catch (e) {
+      console.log("Transfer Error", e)
+      return "Failed!"
     }
+    // // ! End Divvi
 
-    return JSON.stringify(txn.hash)
   }
-
-
 
   return { sendErc20, }
 }
