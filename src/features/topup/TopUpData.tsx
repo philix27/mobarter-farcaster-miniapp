@@ -1,27 +1,28 @@
 import { toast } from 'sonner'
-import { appAddresses, } from '@/src/lib/const'
-import { ISendTxnError, usePrice, useSendToken } from '@/src/hooks'
+// import { appAddresses, } from '@/src/lib/const'
+import { usePrice, } from '@/src/hooks'
 import { mapCountryToData, } from '@/src/lib/const/countries'
-import { Country, RequestFrom, } from '@/zapi'
+import { Country, } from '@/zapi'
 import { AppSelect } from '@/components/Select'
 import { AppStores } from '@/src/lib/zustand'
 import { Operator, useTopUpForm } from './_store'
 import { operatorsData } from './operatorData'
 import PriceDisplay from './Price'
-import { usePurchaseTopUp } from './api/hook'
-import { triggerEvent } from '@/src/providers/PostHogProvider'
-import { logger } from '@/src/lib/utils'
-import { useAccount } from 'wagmi'
+// import { usePurchaseTopUp } from './api/hook'
+// import { triggerEvent } from '@/src/providers/PostHogProvider'
+// import { logger } from '@/src/lib/utils'
+// import { useAccount } from 'wagmi'
+// import { useNotification } from "@coinbase/onchainkit/minikit";
 
 export default function TopUpDataPlan() {
   const topUp = useTopUpForm();
-  const { sendErc20 } = useSendToken()
+  // const { sendErc20 } = useSendToken()
   const ops = operatorsData[Country.Ng].dataBundles
   const store = AppStores.useSettings()
-  const { address } = useAccount()
-  const purchaseTopUp = usePurchaseTopUp()
+  // const { address } = useAccount()
+  // const purchaseTopUp = usePurchaseTopUp()
   const { amountToPay } = usePrice({ amountInFiat: topUp.amountFiat })
-
+  // const sendNotification = useNotification()
 
   const handleSend = async () => {
 
@@ -41,45 +42,45 @@ export default function TopUpDataPlan() {
       return
     }
 
-    await sendErc20({
-      recipient: appAddresses.topUpCollector,
-      amount: amountToPay!.toString(),
-      payWith: store.payWith,
-    })
-      .then(async (txHash) => {
-        purchaseTopUp.mutate({
-          phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
-          amount: topUp.amountFiat,
-          countryCode: store.country,
-          operatorId: topUp.operatorId!,
-          userId: address!,
-          payment: {
-            txHash: txHash,
-            user_uid: address!,
-            transaction_pin: '',
-            tokenAddress: store.payWith.token.address,
-            tokenChain: store.payWith.chain.name,
-            amountCrypto: amountToPay as number,
-            amountFiat: topUp.amountFiat,
-            from: RequestFrom.Farcaster,
-            fiatCurrency: Country.Ng
-          },
-        })
+    // await sendErc20({
+    //   recipient: appAddresses.topUpCollector,
+    //   amount: amountToPay!.toString(),
+    //   payWith: store.payWith,
+    // })
+    //   .then(async (txHash) => {
+    //     purchaseTopUp.mutate({
+    //       phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
+    //       amount: topUp.amountFiat,
+    //       countryCode: store.country,
+    //       operatorId: topUp.operatorId!,
+    //       userId: address!,
+    //       payment: {
+    //         txHash: txHash,
+    //         user_uid: address!,
+    //         transaction_pin: '',
+    //         tokenAddress: store.payWith.token.address,
+    //         tokenChain: store.payWith.chain.name,
+    //         amountCrypto: amountToPay as number,
+    //         amountFiat: topUp.amountFiat,
+    //         from: RequestFrom.Farcaster,
+    //         fiatCurrency: Country.Ng
+    //       },
+    //     })
 
-        triggerEvent('top_up_airtime_successful', { userId: "", amount: topUp.amountFiat });
-        toast.success('Airtime sent successfully')
+    //     triggerEvent('top_up_airtime_successful', { userId: "", amount: topUp.amountFiat });
+    //     toast.success('Airtime sent successfully')
 
-        // await sendNotification({
-        //   title: "Congratulations!",
-        //   body: `Airtime sent successfully!`,
-        // });
-        topUp.clear()
-      })
-      .catch((err: ISendTxnError) => {
-        toast.error(err.reason)
-        logger.error('Topup error:' + JSON.stringify(err))
-        triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.reason });
-      })
+    //     await sendNotification({
+    //       title: "Congratulations!",
+    //       body: `Airtime sent successfully!`,
+    //     });
+    //     topUp.clear()
+    //   })
+    //   .catch((err: ISendTxnError) => {
+    //     toast.error(err.reason)
+    //     logger.error('Topup error:' + JSON.stringify(err))
+    //     triggerEvent('top_up_airtime_failed', { userId: "", amount: topUp.amountFiat, error: err.reason });
+    //   })
   }
 
   const getPlans = () => {
