@@ -54,7 +54,7 @@
     "decimal.js-light": "^2.5.1",
     "dotenv": "^16.4.7",
     "eruda": "^3.0.1",
-    "ethers": "^6.13.5",
+    "ethers": "^6.15.0",
     "formik": "2.2.9",
     "framer-motion": "^12.6.2",
     "frappe-charts": "^1.6.2",
