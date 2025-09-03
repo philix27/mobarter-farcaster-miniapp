@@ -1,10 +1,10 @@
-import { ethers, } from 'ethers'
-import { toast } from 'sonner'
-import { IPayWith } from '../features/pay/tokens'
-import { useAccount, useSwitchChain } from 'wagmi'
+// import { ethers, } from 'ethers'
+// import { toast } from 'sonner'
+// import { useAccount, useSwitchChain } from 'wagmi'
 // import * as divvi from '@divvi/referral-sdk'
 // import { appAddresses } from '../lib/const'
 // import { logger } from '../lib/utils'
+import { IPayWith } from '../features/pay/tokens'
 
 
 export interface ISendTxnError {
@@ -63,38 +63,38 @@ interface Param {
 }
 
 
-const ERC20_ABI = ['function transfer(address recipient, uint256 amount) public returns (bool)']
+// const ERC20_ABI = ['function transfer(address recipient, uint256 amount) public returns (bool)']
 
 
 export function useSendToken() {
-  const { address, } = useAccount();
-  const provider = new ethers.BrowserProvider(window.ethereum)
+  // const { address, } = useAccount();
+  // const provider = new ethers.BrowserProvider(window.ethereum)
 
-  const {
-    switchChain,
-  } = useSwitchChain();
+  // const {
+  //   switchChain,
+  // } = useSwitchChain();
 
   const sendErc20 = async (props: { recipient: string; amount: string; payWith: IPayWith }) => {
-    const signer = await provider.getSigner()
+    // const signer = await provider.getSigner()
 
 
-    if (!signer) {
-      toast.error('Please connect your wallet')
-      throw new Error('Signer needed')
-    }
+    // if (!signer) {
+    //   toast.error('Please connect your wallet')
+    //   throw new Error('Signer needed')
+    // }
 
-    const chain = props.payWith.chain
-    switchChain({ chainId: chain.chainId });
+    // const chain = props.payWith.chain
+    // switchChain({ chainId: chain.chainId });
 
 
-    const token = props.payWith.token
-    const contract = new ethers.Contract(
-      token.address,
-      ERC20_ABI,
-      signer
-    )
-    console.log(address, contract)
-    
+    // const token = props.payWith.token
+    // const contract = new ethers.Contract(
+    //   token.address,
+    //   ERC20_ABI,
+    //   signer
+    // )
+    // console.log(address, contract)
+
     // // ! Start Divvi
     // const transferData = contract.interface.encodeFunctionData("transfer", [
     //   props.recipient,
