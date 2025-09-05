@@ -1,10 +1,10 @@
 import { toast } from 'sonner'
 import { mapCountryToData, appAddresses, } from '@/src/lib/const'
 import { AppStores } from '@/src/lib/zustand'
-import { getSafeErrorMessage, usePrice, useSendToken } from '@/src/hooks'
+import { usePrice, } from '@/src/hooks'
 import { Input } from '@/components/Input'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
-import PriceDisplay from '../pay/Price'
+import { PriceDisplay, getSafeErrorMessage, useSendToken } from '../pay'
 import { Operator, useTopUpForm } from './_store'
 import { usePurchaseTopUp } from './api/hook'
 import { Country, RequestFrom } from '@/zapi'
@@ -138,6 +138,7 @@ export default function AirtimeSection() {
       </div>
       <PriceDisplay
         handleSend={handleSend}
+        isLoading={topUp.isLoading}
         rows={[
           { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
           { title: "Airtime Amount", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },

@@ -24,8 +24,8 @@ export default function OrderSection() {
   ]
   return (
     <div>
+      <div className='bg-card rounded-lg py-2'>
       <Tabs tabs={tabItems} />
-      <div className='mt-4'>
         {store.tabs === "SELL" && <OrderSell />}
         {store.tabs === "BUY" && <BuyOrder />}
       </div>

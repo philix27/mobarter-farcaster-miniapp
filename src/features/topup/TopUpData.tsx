@@ -1,13 +1,13 @@
 import { toast } from 'sonner'
 import { appAddresses, } from '@/src/lib/const'
-import { usePrice, useSendToken, getSafeErrorMessage } from '@/src/hooks'
+import { usePrice, } from '@/src/hooks'
 import { mapCountryToData, } from '@/src/lib/const/countries'
 import { Country, RequestFrom, } from '@/zapi'
 import { AppSelect } from '@/components/Select'
 import { AppStores } from '@/src/lib/zustand'
 import { Operator, useTopUpForm } from './_store'
 import { operatorsData } from './operatorData'
-import PriceDisplay from '../pay/Price'
+import { PriceDisplay, getSafeErrorMessage, useSendToken } from '../pay'
 import { logger } from '@/src/lib/utils'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 import { usePurchaseTopUp } from './api/hook'
@@ -146,6 +146,7 @@ export default function TopUpDataPlan() {
 
         <PriceDisplay
           handleSend={handleSend}
+          isLoading={topUp.isLoading}
           rows={[
             { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
             { title: "Data Plan", subtitle: topUp.dataDesc },

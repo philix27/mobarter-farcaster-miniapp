@@ -5,7 +5,7 @@ import { payTokens } from './tokens'
 import TokenBalanceDisplay from './TokenBalance'
 
 
-export default function PayWithToken() {
+export function PayWithToken() {
     const store = AppStores.useSettings()
     return (
         <AppSelect

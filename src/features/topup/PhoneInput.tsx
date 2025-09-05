@@ -4,8 +4,8 @@ import { pasteTextFromClipboard } from '@/src/lib/utils'
 import { AppStores } from '@/src/lib/zustand'
 import { FaCopy } from 'react-icons/fa6'
 import { toast } from 'sonner'
-import {  useTopUpForm } from './_store'
-import PayWithToken from '../pay/PayWithToken'
+import { useTopUpForm } from './_store'
+import { PayWithToken } from '../pay'
 
 export default function PhoneInput() {
     const store = AppStores.useSettings()
@@ -40,7 +40,7 @@ export default function PhoneInput() {
                 }
             />
 
-           
+
             <PayWithToken />
         </div>
     )

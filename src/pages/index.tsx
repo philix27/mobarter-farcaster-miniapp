@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { TopUpSection } from "src/features/topup/TopUpSection";
 import { ITab, Tabs } from "@/components/Tabs";
 import { ProfileCard } from "../features/profile";
-import OrderSection from "../features/order-sell/orders";
+import OrderSection from "../features/orders/orders";
 
 
 const metadata = {
