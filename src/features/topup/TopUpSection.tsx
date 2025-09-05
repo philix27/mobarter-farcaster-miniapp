@@ -9,7 +9,6 @@ export function TopUpSection() {
     const tabItems: ITab[] = [
         {
             title: "Airtime",
-            name: 'TopUp',
             isActive: store.topUpTab === "Airtime",
             onClick: () => {
                 store.update({ topUpTab: "Airtime" });
@@ -17,7 +16,6 @@ export function TopUpSection() {
         },
         {
             title: "Bundle",
-            name: "DataBundle",
             isActive: store.topUpTab === "DataBundle",
             onClick: () => {
                 store.update({ topUpTab: "DataBundle" });

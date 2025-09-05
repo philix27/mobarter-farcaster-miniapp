@@ -46,7 +46,6 @@ export default function HomePage() {
   const dashboardItems: ITab[] = [
     {
       title: "TOPUP",
-      name: 'TopUp',
       isActive: settingsStore.homeTab === 'TopUp',
       onClick: () => {
         settingsStore.update({ homeTab: 'TopUp' });
@@ -54,14 +53,13 @@ export default function HomePage() {
     },
     {
       title: "EXCHANGE",
-      name: "Orders",
       isActive: settingsStore.homeTab === "Orders",
       onClick: () => {
         settingsStore.update({ homeTab: "Orders" });
       }
     },
     {
-      title: "SETTINGS", name: "Profile",
+      title: "SETTINGS",
       isActive: settingsStore.homeTab === "Profile",
       onClick: () => {
         settingsStore.update({ homeTab: "Profile" });

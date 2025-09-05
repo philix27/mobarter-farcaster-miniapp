@@ -19,9 +19,6 @@ export default function OrderSell() {
 
   return (
     <div className='space-y-5'>
-      <div className='w-full items-center flex justify-center'>
-        <Label>Sell Crypto</Label>
-      </div>
       <PayWithToken />
       <Input
         label={`Amount*`}

@@ -3,7 +3,6 @@ import { cn } from "@/src/lib/utils";
 export type ITab = {
     title: string;
     isActive: boolean;
-    name: string
     onClick: VoidFunction;
 }
 

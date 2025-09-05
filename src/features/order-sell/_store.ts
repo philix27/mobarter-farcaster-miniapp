@@ -3,14 +3,14 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 
-export type ITopUpTabs = 'Airtime' | "DataPlan" | "DataBundle"
+export type IExchangeTabs = 'BUY' | "SELL"
+
 export enum Operator {
   MTN = "MTN",
   AIRTEL = "AIRTEL", GLO = "GLO", ETISALAT = "ETISALAT",
 }
 
 export interface ISlice {
-  // dataAmount?: number
   isLoading?: boolean
   dataDesc?: string
   operator?: string
@@ -22,7 +22,7 @@ export interface ISlice {
   phoneNo?: string
   amountFiat?: number
   country?: Country
-  topUpTab?: ITopUpTabs
+  tabs?: IExchangeTabs
 }
 
 const defaultValues: Required<ISlice> = {
@@ -30,9 +30,8 @@ const defaultValues: Required<ISlice> = {
   amountFiat: 0,
   country: Country.Gh,
   operator: Operator.MTN,
-  topUpTab: 'Airtime',
+  tabs: "BUY",
   operatorId: 0,
-  // dataAmount: 0,
   dataDesc: '',
   operatorLogo: '',
   dataBundleOperator: '',
