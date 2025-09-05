@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { TopUpSection } from "src/features/topup/TopUpSection";
 import { ITab, Tabs } from "@/components/Tabs";
 import { ProfileCard } from "../features/profile";
+import OrderSection from "../features/order-sell/orders";
 
 
 const metadata = {
@@ -99,7 +100,7 @@ export default function HomePage() {
         <div className="mx-auto rounded-lg px-3 w-full mt-4">
           {settingsStore.homeTab === "TopUp" && <TopUpSection />}
           {settingsStore.homeTab === "Profile" && <ProfileCard />}
-          {/* {settingsStore.homeTab === "TV" && <ComingSoon />} */}
+          {settingsStore.homeTab === "Orders" && <OrderSection />}
           {/* {settingsStore.homeTab === "Electricity" && <ComingSoon />} */}
           {/* {settingsStore.homeTab === "Betting" && <ComingSoon />} */}
         </div>
