@@ -52,7 +52,7 @@ export default class MyDocument extends Document {
             name="viewport"
             content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no,viewport-fit=cover"
           /> */}
-
+          <script defer src="https://cloud.umami.is/script.js" data-website-id="2706080c-3b0d-4b16-894e-d7912d3c05ed"></script>
         </Head>
         <body className=" text-foreground p-0 m-0">
           <Main />
