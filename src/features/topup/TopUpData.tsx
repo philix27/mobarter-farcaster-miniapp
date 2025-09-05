@@ -7,7 +7,7 @@ import { AppSelect } from '@/components/Select'
 import { AppStores } from '@/src/lib/zustand'
 import { Operator, useTopUpForm } from './_store'
 import { operatorsData } from './operatorData'
-import PriceDisplay from './Price'
+import PriceDisplay from '../pay/Price'
 import { logger } from '@/src/lib/utils'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 import { usePurchaseTopUp } from './api/hook'
@@ -151,6 +151,7 @@ export default function TopUpDataPlan() {
             { title: "Data Plan", subtitle: topUp.dataDesc },
             { title: "Data Amount", subtitle: "NGN ".concat(topUp.amountFiat === undefined ? "0" : topUp.amountFiat.toString()) },
             { title: "Operator", subtitle: topUp.dataBundleOperator, "subImg": topUp.dataBundleOperatorLogo },
+            { title: "Phone", subtitle: "0".concat(topUp.phoneNo) },
           ]}
         />
       </div>

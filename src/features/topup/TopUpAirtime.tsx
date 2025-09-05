@@ -4,7 +4,7 @@ import { AppStores } from '@/src/lib/zustand'
 import { getSafeErrorMessage, usePrice, useSendToken } from '@/src/hooks'
 import { Input } from '@/components/Input'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
-import PriceDisplay from './Price'
+import PriceDisplay from '../pay/Price'
 import { Operator, useTopUpForm } from './_store'
 import { usePurchaseTopUp } from './api/hook'
 import { Country, RequestFrom } from '@/zapi'
@@ -142,6 +142,7 @@ export default function AirtimeSection() {
           { title: "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
           { title: "Airtime Amount", subtitle: "NGN ".concat(topUp.amountFiat.toString()) },
           { title: "Operator", subtitle: topUp.operator, subImg: topUp.operatorLogo },
+          { title: "Phone", subtitle: "0".concat(topUp.phoneNo) },
         ]}
 
       />

@@ -1,7 +1,7 @@
 import { Button } from '@/components/Button'
 import { Label } from '@/components/comps'
 import React from 'react'
-import { useTopUpForm } from './_store';
+import { useTopUpForm } from '../topup/_store';
 
 
 type IPriceRow = { title: string; subtitle: string; subImg?: string; }
@@ -13,7 +13,6 @@ export default function PriceDisplay(props: { handleSend?: () => Promise<void>; 
             <p className='text-[12px] font-bold'>Transaction Summary</p>
 
             {props.rows.map((item, i) => <PriceRow key={i} {...item} />)}
-            <PriceRow title='Phone' subtitle={"0".concat(topUp.phoneNo)} />
 
             <Button className="mt-5 mb-3 w-[60%]"
                 isLoading={topUp.isLoading}
