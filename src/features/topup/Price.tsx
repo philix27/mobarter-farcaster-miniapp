@@ -4,7 +4,7 @@ import React from 'react'
 import { useTopUpForm } from './_store';
 
 
-type IPriceRow = { title: string; subtitle: string; subImg?: string }
+type IPriceRow = { title: string; subtitle: string; subImg?: string; }
 export default function PriceDisplay(props: { handleSend?: () => Promise<void>; rows: IPriceRow[] }) {
     const topUp = useTopUpForm();
 
@@ -14,8 +14,9 @@ export default function PriceDisplay(props: { handleSend?: () => Promise<void>; 
 
             {props.rows.map((item, i) => <PriceRow key={i} {...item} />)}
             <PriceRow title='Phone' subtitle={"0".concat(topUp.phoneNo)} />
-            
+
             <Button className="mt-5 mb-3 w-[60%]"
+                isLoading={topUp.isLoading}
                 onClick={props.handleSend}>
                 Confirm
             </Button>

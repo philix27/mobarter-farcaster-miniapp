@@ -24,6 +24,7 @@ export default function AirtimeSection() {
   const topUp = useTopUpForm();
   const { amountToPay, } = usePrice({ amountInFiat: topUp.amountFiat })
   const purchaseTopUp = usePurchaseTopUp()
+
   const handleSend = async () => {
     const leastAmount = 50
 
@@ -43,6 +44,7 @@ export default function AirtimeSection() {
     }
 
     try {
+      topUp.update({ isLoading: true })
       const txn = await sendErc20({
         recipient: appAddresses.topUpCollector,
         amount: amountToPay!.toString(),
@@ -68,22 +70,21 @@ export default function AirtimeSection() {
         },
       })
 
-      if (purchaseTopUp.isSuccess) {
-        triggerEvent('top_up_airtime_successful', { userId: address, amount: topUp.amountFiat });
-        toast.success('Airtime sent successfully')
 
-        await sendNotification({
-          title: "Congratulations!",
-          body: `Airtime sent successfully!`,
-        });
-        topUp.clear()
-      }
+      triggerEvent('top_up_airtime_successful', { userId: address, amount: topUp.amountFiat });
+      toast.success('Airtime sent successfully')
 
+      await sendNotification({
+        title: "Congratulations!",
+        body: `Airtime sent successfully!`,
+      });
 
     } catch (err) {
       toast.error(getSafeErrorMessage(err));
-      logger.error('Topup error:' + JSON.stringify(err))
+      logger.error('Topup ' + JSON.stringify(err))
       triggerEvent('top_up_airtime_failed', { userId: address, amount: topUp.amountFiat, error: err });
+    } finally {
+      topUp.update({ isLoading: false })
     }
   }
 

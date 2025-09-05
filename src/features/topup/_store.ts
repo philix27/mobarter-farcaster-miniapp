@@ -11,6 +11,7 @@ export enum Operator {
 
 export interface ISlice {
   // dataAmount?: number
+  isLoading?: boolean
   dataDesc?: string
   operator?: string
   dataBundleOperator?: string
@@ -36,7 +37,8 @@ const defaultValues: Required<ISlice> = {
   operatorLogo: '',
   dataBundleOperator: '',
   dataBundleOperatorId: 0,
-  dataBundleOperatorLogo: ''
+  dataBundleOperatorLogo: '',
+  isLoading: false
 }
 
 

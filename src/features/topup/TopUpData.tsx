@@ -43,6 +43,7 @@ export default function TopUpDataPlan() {
     }
 
     try {
+      topUp.update({ isLoading: true })
       const txn = await sendErc20({
         recipient: appAddresses.topUpCollector,
         amount: amountToPay!.toString(),
@@ -76,7 +77,8 @@ export default function TopUpDataPlan() {
           title: "Congratulations!",
           body: `Airtime sent successfully!`,
         });
-        topUp.clear()
+        // topUp.clear()
+        topUp.update({ isLoading: false })
       }
 
 
@@ -84,6 +86,7 @@ export default function TopUpDataPlan() {
       toast.error(getSafeErrorMessage(err));
       logger.error('Topup error:' + JSON.stringify(err))
       triggerEvent('top_up_airtime_failed', { userId: address, amount: topUp.amountFiat, error: err });
+      topUp.update({ isLoading: false })
     }
   }
 
