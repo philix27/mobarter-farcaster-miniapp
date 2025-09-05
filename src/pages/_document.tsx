@@ -4,10 +4,11 @@ import { getDarkMode } from 'src/styles/mediaQueries'
 export default class MyDocument extends Document {
   render() {
     const isDarkMode = getDarkMode()
+    const desc = "Mobarter offramping services"
     // todo: use this for dark
     // <Html className={isDarkMode ? 'dark' : ''}>
     return (
-      <Html className={isDarkMode ? 'dark' : 'dark'}>
+      <Html className={isDarkMode ? 'dark' : ''}>
         <Head>
           <meta charSet="utf-8" />
 
@@ -21,30 +22,30 @@ export default class MyDocument extends Document {
           <meta name="msapplication-config" content="/browserconfig.xml" />
           <meta name="theme-color" content="#ffffff" />
 
-          <meta name="application-name" content="Mobarter P2P Exchange" />
-          <meta name="keywords" content="Mobarter P2P Exchange Finance cUSD cEUR cREAL" />
+          <meta name="application-name" content={desc} />
+          <meta name="keywords" content="mobarter, offramping, crypto, payment" />
           <meta
             name="description"
-            content="P2P crypto exchanges on stable coins (cUSD cEUR cREAL)"
+            content={desc}
           />
 
           <meta name="HandheldFriendly" content="true" />
-          <meta name="apple-mobile-web-app-title" content="Mobarter P2P Exchange" />
+          <meta name="apple-mobile-web-app-title" content={desc} />
           <meta name="apple-mobile-web-app-capable" content="yes" />
 
           <meta property="og:url" content="https://mobarter.com" />
-          <meta property="og:title" content="Mobarter P2P Exchange" />
+          <meta property="og:title" content={desc} />
           <meta property="og:type" content="website" />
           <meta property="og:image" content="https://mobarter.com/logo.png" />
           <meta
             property="og:description"
-            content="P2P crypto exchanges on stable coins (cUSD cEUR cREAL)"
+            content={desc}
           />
           <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content="Mobarter P2P Exchange" />
+          <meta name="twitter:title" content={desc} />
           <meta
             name="twitter:description"
-            content="P2P crypto exchanges on stable coins (cUSD cEUR cREAL)"
+            content={desc}
           />
           <meta name="twitter:image" content="https://mobarter.com/logo.png" />
 

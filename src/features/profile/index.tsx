@@ -8,13 +8,15 @@ import { useViewProfile } from "@coinbase/onchainkit/minikit";
 import { secrets } from "../../lib";
 import { AdsRow } from "@/components/comps";
 import BankAccount from "../bankAccount/BankAccount";
+import PersonalInfo from "./personalInfo";
+import { useDarkMode } from "@/src/styles/mediaQueries";
 
 
 export function ProfileCard() {
     const { address, isConnected, } = useAccount()
     const { connect, connectors } = useConnect()
     const store = AppStores.useSettings();
-
+    const { isDarkMode, setDarkMode } = useDarkMode()
     const profile = useViewProfile()
 
     const handleConnect = useCallback(() => {
@@ -43,7 +45,7 @@ export function ProfileCard() {
         </div>
     }
     return (
-        <div className="w-full flex flex-col justify-center px-2"
+        <div className="w-full flex flex-col justify-center"
         >
             <div className="w-full p-2 border-b-1 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
                 <AdsRow text="Country" text2={store.country} />
@@ -64,8 +66,19 @@ export function ProfileCard() {
                         }
                     }}
                 />
+                <AdsRow
+                    text="Theme"
+                    text2={"Toggle"}
+                    text2options={{
+                        active: true,
+                        onClick: () => {
+                            setDarkMode(!isDarkMode)
+                        }
+                    }}
+                />
             </div>
 
+            <PersonalInfo />
             <BankAccount />
         </div>
     )
