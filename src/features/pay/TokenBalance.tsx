@@ -32,7 +32,7 @@ function TokenBalanceDisplay(props: { tokenAddress: `0x${string}`; chainId?: num
                    {balance.formatted} {balance.symbol}
                 </span>
             ) : (
-                <p>No balance found or token not held.</p>
+                <p  className='text-[8px]'>No balance found or token not held.</p>
             )}
         </div>
     );

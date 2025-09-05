@@ -1,5 +1,5 @@
 import { ethers, Interface, } from 'ethers'
-import { useAccount, useWriteContract, } from 'wagmi'
+import { useAccount, useSwitchChain, useWriteContract, } from 'wagmi'
 import * as divvi from '@divvi/referral-sdk'
 import { appAddresses } from '../../lib/const'
 import { logger } from '../../lib/utils'
@@ -20,10 +20,12 @@ export function useSendToken() {
     reset
   } = useWriteContract();
 
+  const { switchChain } = useSwitchChain()
 
   const sendErc20 = async (props: { recipient: string; amount: string; payWith: IPayWith }) => {
     const chain = props.payWith.chain
     const activeChain = chain.name === ChainName.Base ? base : celo;
+    switchChain({ "chainId": activeChain.id })
     const token = props.payWith.token
 
     const transferInterface = new Interface(erc20TokenAbi);
