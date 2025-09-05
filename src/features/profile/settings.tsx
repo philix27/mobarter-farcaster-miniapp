@@ -6,7 +6,7 @@ import { celo } from "viem/chains";
 import { AppStores } from "../../lib/zustand";
 import { useViewProfile } from "@coinbase/onchainkit/minikit";
 import { secrets } from "../../lib";
-import { AdsRow } from "@/components/comps";
+import { AdsRow,  } from "@/components/comps";
 import { useDarkMode } from "@/src/styles/mediaQueries";
 
 
@@ -44,6 +44,7 @@ export function SettingsCard() {
     }
     return (
         <div className="w-full p-2 border-b-1 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
+            
             <AdsRow text="Country" text2={store.country} />
             <AdsRow
                 text="Wallet Address"

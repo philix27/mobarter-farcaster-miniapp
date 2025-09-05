@@ -22,7 +22,7 @@ export function BottomNote(params: { children: ReactNode }) {
 export function AdsRow(params: {
   text: string
   text2: string
-  text2options?: { onClick?: VoidFunction; active?: boolean }
+  text2options?: { onClick?: VoidFunction; active?: boolean ;  }
 }) {
   return (
     <div className="mb-1 flex items-center w-full justify-between p-1">
