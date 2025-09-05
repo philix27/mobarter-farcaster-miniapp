@@ -20,7 +20,7 @@ export class UtilitiesService {
     ): Promise<Utilities_TopUpResponse> {
         logger.info('Purchase Airtime');
 
-        const transaction_hash = "hash from transfer"
+        // const transaction_hash = "hash from transfer"
 
         try {
             const res = await this.reloadly!.topUp({
@@ -31,7 +31,7 @@ export class UtilitiesService {
                     number: input.phoneNo,
                 },
                 useLocalAmount: true,
-                customIdentifier: `userId:${input.userId}&txnHash:${transaction_hash}`,
+                customIdentifier: `userId:${input.userId}&txnHash:${input.payment.txHash}`,
             });
 
 

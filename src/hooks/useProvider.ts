@@ -14,6 +14,10 @@ export const useProvider = () => {
     []
   );
 
-  // const provider = new ethers.BrowserProvider(window.ethereum)
+  if (window.ethereum) {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    return { celo: provider, base: provider }
+  }
+
   return { celo: providerCelo, base: providerBase }
 }
