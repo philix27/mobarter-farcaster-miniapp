@@ -24,6 +24,7 @@ const links = [
         url: 'https://www.instagram.com/mobarter.co/',
     },
 ]
+
 export default function LinksSection() {
     const openUrl = useOpenUrl()
     return (

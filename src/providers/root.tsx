@@ -1,5 +1,5 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
-import { type PropsWithChildren } from 'react'
+import { useEffect, type PropsWithChildren } from 'react'
 import { Toaster } from 'sonner'
 import { base } from "wagmi/chains";
 import { useDidMount } from '../hooks/useDidMount'
@@ -8,6 +8,7 @@ import { MiniKitProvider } from '@coinbase/onchainkit/minikit'
 import { Spinner } from '@/components/Spinner';
 import { WagmiPosthog } from './providers';
 import { Analytics } from '@vercel/analytics/next';
+import umami from '@umami/node';
 
 
 const apollo = (token: string) => {
@@ -27,8 +28,17 @@ const apollo = (token: string) => {
 export function Root(props: PropsWithChildren) {
   const store = AppStores.useUser()
 
+  useEffect(() => {
+    umami.init({
+      websiteId: "2706080c-3b0d-4b16-894e-d7912d3c05ed", // Your website id
+      hostUrl: 'https://app.mobarter.com' // URL to your Umami instance
+    });
+
+  }, [])
+  
   const didMount = useDidMount()
   if (!didMount) return <Spinner />
+
 
   return (
     <WagmiPosthog>
