@@ -30,7 +30,7 @@ export default async function BankAccountHandler(req: NextApiRequest, res: NextA
         case "DELETE":
             try {
                 const data = await service.delete(req.body)
-                return data
+                res.status(201).json({ success: true, data: data });
             } catch (error) {
                 res.status(400).json({ success: false });
             }

@@ -56,8 +56,8 @@ export class BankAccountService {
     async delete(p: IBankAccountParams["delete"]) {
         try {
             const account = await BankAccountModel.deleteOne({ _id: p.id });
-            if (!account.deletedCount)
-                return account
+            // if (!account.deletedCount)
+            return account
 
         } catch (error) {
             logger.error(error)
