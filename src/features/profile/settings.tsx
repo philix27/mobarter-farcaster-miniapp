@@ -4,10 +4,11 @@ import { useAccount, useConnect } from "wagmi";
 import { shortenAddress } from "../../lib/config";
 import { celo } from "viem/chains";
 import { AppStores } from "../../lib/zustand";
-import { useViewProfile } from "@coinbase/onchainkit/minikit";
 import { secrets } from "../../lib";
-import { AdsRow,  } from "@/components/comps";
+import { AdsRow, } from "@/components/comps";
 import { useDarkMode } from "@/src/styles/mediaQueries";
+import { useFarcasterProfile } from "./hook";
+
 
 
 export function SettingsCard() {
@@ -15,7 +16,7 @@ export function SettingsCard() {
     const { connect, connectors } = useConnect()
     const store = AppStores.useSettings();
     const { isDarkMode, setDarkMode } = useDarkMode()
-    const profile = useViewProfile()
+    const fContext = useFarcasterProfile()
 
     const handleConnect = useCallback(() => {
 
@@ -42,9 +43,15 @@ export function SettingsCard() {
             <Button onClick={handleConnect} className="w-[60%]">Connect</Button>
         </div>
     }
+    const user = fContext.data === undefined ? undefined : fContext.data.user
     return (
         <div className="w-full p-2 border-b-1 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
-            
+            {user && <AdsRow
+                text={user.displayName!}
+                text2={user.fid!.toString()}
+
+            />}
+
             <AdsRow text="Country" text2={store.country} />
             <AdsRow
                 text="Wallet Address"
@@ -53,16 +60,8 @@ export function SettingsCard() {
                     active: true,
                 }}
             />
-            <AdsRow
-                text="View Profile"
-                text2={"See More"}
-                text2options={{
-                    active: true,
-                    onClick: () => {
-                        profile()
-                    }
-                }}
-            />
+
+
             <AdsRow
                 text="Theme"
                 text2={"Toggle"}

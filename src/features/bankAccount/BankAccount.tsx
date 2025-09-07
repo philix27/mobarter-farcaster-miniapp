@@ -5,6 +5,7 @@ import AddBankAccount from './AddBank';
 
 export default function BankAccount() {
   const [showAddAccount, setShowAddAccount] = useState(false)
+
   return (
     <div className='bg-card rounded-lg mt-4 px-2 py-2'>
       <p>List</p>

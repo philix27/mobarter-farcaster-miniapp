@@ -11,7 +11,7 @@ export default async function BankAccountHandler(req: NextApiRequest, res: NextA
     switch (method) {
         case "GET":
             try {
-                const data = await service.getAll(req.body)
+                const data = await service.getAll(req.query as any)
                 res.status(200).json({ success: true, data: data });
             } catch (error) {
                 res.status(400).json({ success: false });

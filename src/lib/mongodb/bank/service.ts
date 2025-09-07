@@ -7,6 +7,12 @@ export interface IBankAccountParams {
     getOne: { user_id: string; id: string }
     delete: { user_id: string; id: string }
 }
+export interface IBankAccountResponse {
+    create: IBankAccount
+    getAll: IBankAccount[]
+    getOne: IBankAccount
+    delete: IBankAccount
+}
 
 export class BankAccountService {
     async create(body: IBankAccountParams["create"]): Promise<IBankAccount> {
