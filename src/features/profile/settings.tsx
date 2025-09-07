@@ -48,7 +48,7 @@ export function SettingsCard() {
         <div className="w-full p-2 border-b-1 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
             {user && <AdsRow
                 text={user.displayName!}
-                text2={user.fid!.toString()}
+                text2={`FID: ${user.fid!.toString()}`}
 
             />}
 

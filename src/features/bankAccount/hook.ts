@@ -19,7 +19,7 @@ export interface BankGetAccountName_Response {
     status: number
 }
 
-export function useFetchAccountInfo(data: BankGetAccountNameInput) {
+export function useFetchAccountInfo(data: BankGetAccountNameInput, update: (name: string) => void) {
     const query = useQuery<BankGetAccountName_Response, BankGetAccountNameInput>({
         queryKey: ["accountNo", data.account_number, data.bank_code],
         queryFn: async () => {
@@ -30,7 +30,9 @@ export function useFetchAccountInfo(data: BankGetAccountNameInput) {
                 }
             })
             console.log("AccountInfo:", result.data)
-            return result.data as BankGetAccountName_Response
+            const typedRes = result.data as BankGetAccountName_Response
+            update(typedRes.account_name)
+            return typedRes
         },
     })
 
