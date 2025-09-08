@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { z } from "zod";
+import { useUserInfoCreate } from '@/src/lib/mongodb/user/hook';
 
 const formSchema = z.object({
     first: z.string().min(2, "Name must be at least 2 characters long"),
@@ -14,9 +15,13 @@ const formSchema = z.object({
     phone: z.string().max(11).min(11),
     nin: z.string().max(11).min(11),
     bvn: z.string().max(11).min(11),
-    // dob: z.date()
-    //     .max(new Date("2010-01-01"), { message: "Too young" })
-    //     .min(new Date("1940-01-01"), { message: "Too old" }),
+    dob: z.string()
+        .refine((val) => !isNaN(Date.parse(val)), {
+            message: "Invalid date format",
+        })
+        .refine((val) => new Date(val) <= new Date(), {
+            message: "Date cannot be in the future",
+        })
 });
 
 
@@ -25,19 +30,38 @@ export type FormSchema = z.infer<typeof formSchema>;
 
 
 export default function KycForm() {
-
+    const createUser = useUserInfoCreate()
     const {
         register,
         handleSubmit,
         formState: { errors },
+        reset
     } = useForm<FormSchema>({
         resolver: zodResolver(formSchema),
     });
 
     const onSubmit = (data: FormSchema) => {
-        console.log("Valid: " + JSON.stringify(data))
-        toast.success("Successful")
-        return
+        // console.log("Form Data", data)
+        // toast.success("Sent for verification")
+        createUser.mutate({
+            bvn: data.bvn,
+            nin: data.nin,
+            first_name: data.first,
+            last_name: data.last,
+            middle_name: data.middle,
+            phone: data.phone,
+            dob: data.dob
+        }, {
+            onSuccess: () => {
+                toast.success("Sent for verification")
+                reset()
+            },
+            onError: (e) => {
+                toast.error("Err: " + e.message)
+            },
+
+        })
+
 
     }
     return (
@@ -65,10 +89,14 @@ export default function KycForm() {
                 <Input
                     label={`Date of Birth (DOB)*`}
                     placeholder={`DY-MM-YR`}
-                    // error={errors.dob?.message}
-                    // control={register("dob")}
+                    error={errors.dob?.message}
+                    control={register("dob")}
                     type="date"
                     max={"2010-01-01"}
+                    min={"1940-01-01"}
+                    onChange={(e) => {
+                        console.log("Date", + e)
+                    }}
                 />
                 <Input
                     label={`National Identity No (NIN)*`}

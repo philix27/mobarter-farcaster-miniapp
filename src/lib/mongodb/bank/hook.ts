@@ -2,8 +2,9 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { IBankAccountParams, IBankAccountResponse } from './service'
 import { useFarcasterProfile } from '@/src/features/profile/hook'
+import { testFid } from '../const'
 
-const testFid = "854428"
+
 const URL = "/api/bank-account"
 export function useBankAccountCreate() {
     const profile = useFarcasterProfile()
@@ -38,13 +39,11 @@ export function useBankAccountGetAll() {
     const query = useQuery<IBankAccountParams["getAll"], any, IBankAccountResponse["getAll"]>({
         queryKey: ["bank-getAll"],
         queryFn: async () => {
-            console.log("Get Bank Accounts" )
             const result = await axios.get(URL, {
                 params: {
                     "user_id": user_id || testFid
                 },
             })
-            console.log("Get Bank Accounts" + JSON.stringify(result))
             return result.data.data
         },
     })

@@ -1,10 +1,10 @@
 import mongoose, { Schema, Model, Document } from "mongoose";
 
 export interface IUserInfo {
-    fid: string;
+    fid?: string;
     first_name: string;
     last_name: string;
-    middle_name: string;
+    middle_name?: string;
     bvn: string;
     nin: string;
     phone: string;
