@@ -1,7 +1,7 @@
 import mongoose, { Schema, Model, Document } from "mongoose";
 
 export interface IBankAccount {
-    user_id: string;
+    user_id?: string;
     account_name: string;
     account_no: string;
     bank_name: string;
@@ -28,7 +28,7 @@ const BankAccountSchema: Schema<ISchema> = new Schema(
 );
 
 const BankAccountModel: Model<ISchema> =
-    mongoose.models.Todo || mongoose.model<ISchema>("bank_accounts", BankAccountSchema);
+    mongoose.models.bank_accounts || mongoose.model<ISchema>("bank_accounts", BankAccountSchema);
 
 export default BankAccountModel;
 

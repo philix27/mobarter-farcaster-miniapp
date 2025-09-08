@@ -34,7 +34,7 @@ const schema: Schema<ISchema> = new Schema(
 );
 
 export const UserInfoModel: Model<ISchema> =
-    mongoose.models.UserInfo || mongoose.model<ISchema>("user_info", schema);
+    mongoose.models.user_info || mongoose.model<ISchema>("user_info", schema);
 
 
 

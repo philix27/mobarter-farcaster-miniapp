@@ -7,50 +7,43 @@ import { toast } from 'sonner'
 import { useFetchAccountInfo } from './hook'
 import { Card, Label } from '@/components/comps'
 import { useBankAccountCreate } from '@/src/lib/mongodb/bank/hook'
-import { useFarcasterProfile } from '../profile/hook'
 
-const require = (val: any, msg: string) => {
-  if (!val) {
-    throw new Error(msg)
-  }
-}
 
 type IAccountFormData = { bankName: string; bankCode: string; accountNo: string; accountName: string }
 export default function AddBankAccount(props: { onClose: VoidFunction }) {
   const [formData, setFormData] = useState<IAccountFormData | undefined>(undefined)
   const addAccount = useBankAccountCreate()
-  const profile = useFarcasterProfile()
 
   const onAdd = async () => {
-    try {
-      try {
-        require(formData?.accountNo, "Account no needed")
-        require(formData?.accountName, "No account name found")
-        addAccount.mutate({
-          // "user_id": "854428",
-          "user_id": profile.data!.user.fid.toString(),
-          "account_name": formData!.accountName,
-          "account_no": formData!.accountNo,
-          "bank_name": formData!.bankName,
-          bank_code: formData!.bankCode,
-        })
-      } catch (e: any) {
-        toast.error("Err: " + e.message)
-        return
-      }
-    } catch (e: any) {
-      toast.error("Err: " + e.message)
+    if (!formData!.bankName) { toast.error("Account name is needed"); return }
+    if (!formData!.accountName) { toast.error("Account name is needed"); return }
+    if (!formData!.accountNo) { toast.error("Account name is needed"); return };
 
-    } finally {
-      props.onClose()
-    }
+    addAccount.mutate({
+      "account_name": formData!.accountName,
+      "account_no": formData!.accountNo,
+      "bank_name": formData!.bankName,
+      bank_code: formData!.bankCode,
+    }, {
+      onSuccess: () => {
+        toast.success("Account added")
+      },
+      onError: (e) => {
+        toast.error("Err: " + e.message)
+      },
+      onSettled: () => {
+        props.onClose()
+      }
+    })
+
+
   }
   return (
     <div className='h-[45vh] space-y-5'>
       <AppSelect
         label="Bank*"
         onChange={(data) => {
-          setFormData({ ...formData!, bankCode: data })
+          setFormData({ ...formData!, bankCode: data, bankName: BANKS_LIST.filter((item) => item.code === data)[0].name })
         }}
         data={BANKS_LIST.map((val, i) => {
           return {
@@ -83,6 +76,7 @@ export default function AddBankAccount(props: { onClose: VoidFunction }) {
         <AccountName account_number={formData!.accountNo} bank_code={formData!.bankCode!} setFormData={setFormData} formData={formData} />}
 
       <div className='flex justify-center items-center mt-5'>
+        {/* <Button className='w-[45%]' onClick={onAdd}  >Add</Button> */}
         <Button className='w-[45%]' onClick={onAdd} isLoading={addAccount.isPending} >Add</Button>
       </div>
     </div>

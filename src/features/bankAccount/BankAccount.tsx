@@ -57,7 +57,7 @@ function AccountList(props: { setShowAddAccount: React.Dispatch<React.SetStateAc
   return <div className='w-full space-y-1'>
     {accounts.data?.map((bank, i) => (
       <Card key={i} className='bg-background rounded-lg'>
-        <AdsRow text={bank.account_name} text2={`${bank.account_name}${bank.account_no}`} />
+        <AdsRow text={bank.account_name} text2={`${bank.bank_name} | ${bank.account_no}`} />
       </Card>
     ))}
   </div>

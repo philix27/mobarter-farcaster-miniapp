@@ -19,8 +19,6 @@ export function useUserInfoCreate() {
 }
 
 
-
-
 export function useUserInfoGet(data: IUserInfoParams["get"]) {
     const profile = useFarcasterProfile()
     const fid = profile.data?.user.fid
@@ -36,7 +34,6 @@ export function useUserInfoGet(data: IUserInfoParams["get"]) {
             return result.data
         },
     })
-
     return query
 }
 
