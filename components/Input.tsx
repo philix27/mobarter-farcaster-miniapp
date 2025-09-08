@@ -11,7 +11,7 @@ export function Input(
     helperText?: string
     label?: string
     trailingIcon?: JSX.Element
-    control?: unknown
+    control?: any
   } & React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 ) {
   const { className, error, desc, label, trailingIcon, ...inputParams } = props
@@ -58,7 +58,7 @@ export function Input(
       <div className='flex items-center justify-between'>
         {desc && <BottomNote>{desc}</BottomNote>}
         {desc && <BottomNote>{props.helperText}</BottomNote>}</div>
-      {error && <p className="text-destructive text-[13px] mt-1">{error}</p>}
+      {error && <p className="text-destructive text-[11px] mt-1">{error}</p>}
     </div>
   )
 }
