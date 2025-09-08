@@ -24,7 +24,7 @@ export function useUserInfoGet() {
     const profile = useFarcasterProfile()
     const fid = profile.data?.user.fid
 
-    const query = useQuery<IUserInfoParams["get"], IUserInfoResponse["get"]>({
+    const query = useQuery<IUserInfoParams["get"], any, IUserInfoResponse["get"]>({
         queryKey: ["user-get"],
         queryFn: async () => {
             const result = await axios.get(URL, {
