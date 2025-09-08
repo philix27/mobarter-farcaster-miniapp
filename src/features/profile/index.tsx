@@ -13,7 +13,7 @@ export function ProfileCard() {
         >
             <SettingsCard />
             {secrets.NODE_ENV === "development" && <PersonalInfo />}
-            <BankAccount />
+            <BankAccount /> 
             <LinksSection />
         </div>
     )
