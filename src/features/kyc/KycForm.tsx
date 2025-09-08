@@ -14,12 +14,14 @@ const formSchema = z.object({
     phone: z.string().max(11).min(11),
     nin: z.string().max(11).min(11),
     bvn: z.string().max(11).min(11),
-    dob: z.date(),
+    // dob: z.date()
+    //     .max(new Date("2010-01-01"), { message: "Too young" })
+    //     .min(new Date("1940-01-01"), { message: "Too old" }),
 });
 
 
 // You can export the inferred type
-export type UserSchema = z.infer<typeof formSchema>;
+export type FormSchema = z.infer<typeof formSchema>;
 
 
 export default function KycForm() {
@@ -28,12 +30,12 @@ export default function KycForm() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<UserSchema>({
+    } = useForm<FormSchema>({
         resolver: zodResolver(formSchema),
     });
 
-    const onSubmit = () => {
-
+    const onSubmit = (data: FormSchema) => {
+        console.log("Valid: " + JSON.stringify(data))
         toast.success("Successful")
         return
 
@@ -63,11 +65,14 @@ export default function KycForm() {
                 <Input
                     label={`Date of Birth (DOB)*`}
                     placeholder={`DY-MM-YR`}
+                    // error={errors.dob?.message}
+                    // control={register("dob")}
+                    type="date"
+                    max={"2010-01-01"}
                 />
                 <Input
                     label={`National Identity No (NIN)*`}
                     placeholder={`012345678901`}
-
                     error={errors.nin?.message}
                     control={register("nin")}
                 />
@@ -77,6 +82,7 @@ export default function KycForm() {
                     type="number"
                     error={errors.bvn?.message}
                     control={register("bvn")}
+                    maxLength={11}
                 />
                 <Input
                     label={`Phone*`}

@@ -33,26 +33,42 @@ export function Input(
             <p className="font-normal  text-[15px]">{props.preText}</p>
           </div>
         )}
-        <input
+        {props.type === "date" ? <input
+          type="date"
+          style={{ outline: "none", border: "none", }}
           {...inputParams}
           {...(typeof props.control === 'object' && props.control !== null ? props.control : {})}
-          className={cn(
-            "w-full bg-card border-none outline-none text-[16px] font-normal placeholder:font-light placeholder:text-sm ",
-          )}
-          style={{ outline: "none", border: "none", }}
-          autoComplete={isNum ? 'off' : undefined}
           onFocus={() => {
             setFocus(true)
           }}
           onBlur={() => {
             setFocus(false)
           }}
-          type={isNum ? 'number' : undefined}
-          pattern={isNum ? '[0-9]*' : undefined}
-          inputMode={isNum ? 'decimal' : undefined}
-          min={isNum ? 0 : undefined}
-        // style={{ backgroundColor: styles.bgColor }}
-        />
+          className={cn(
+            "w-full bg-card border-none outline-none text-[16px] font-normal placeholder:font-light placeholder:text-sm ",
+          )}
+        /> :
+          <input
+            {...inputParams}
+            {...(typeof props.control === 'object' && props.control !== null ? props.control : {})}
+            className={cn(
+              "w-full bg-card border-none outline-none text-[16px] font-normal placeholder:font-light placeholder:text-sm ",
+            )}
+            style={{ outline: "none", border: "none", }}
+            autoComplete={isNum ? 'off' : undefined}
+            onFocus={() => {
+              setFocus(true)
+            }}
+            onBlur={() => {
+              setFocus(false)
+            }}
+            type={isNum ? 'number' : undefined}
+            pattern={isNum ? '[0-9]*' : undefined}
+            inputMode={isNum ? 'decimal' : undefined}
+            min={isNum ? 0 : undefined}
+          // style={{ backgroundColor: styles.bgColor }}
+          />
+        }
         {trailingIcon && trailingIcon}
       </div>
       <div className='flex items-center justify-between'>
