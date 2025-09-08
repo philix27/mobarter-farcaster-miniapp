@@ -39,7 +39,6 @@ export function SettingsCard() {
     if (!isConnected) {
         return <div className="w-full border-b-1 bg-background border-muted flex flex-col items-center justify-center p-4 "
         >
-
             <Button onClick={handleConnect} className="w-[60%]">Connect</Button>
         </div>
     }
