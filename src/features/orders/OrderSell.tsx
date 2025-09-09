@@ -1,5 +1,4 @@
-import ComingSoon from '@/components/ComingSoon'
-import { mapCountryToData, secrets } from '@/src/lib'
+import { mapCountryToData,  } from '@/src/lib'
 import React from 'react'
 import { PriceDisplay, PayWithToken, getSafeErrorMessage, useSendToken } from '../pay'
 import { Input } from '@/components/Input'
@@ -27,12 +26,7 @@ export default function OrderSell() {
   // const sendNotification = useNotification()
   const sellCrypto = useOrdersCreate()
   const currencySymbol = mapCountryToData[store.countryIso].currencySymbol
-  if (secrets.NODE_ENV !== "development") {
-    return <div className='h-[500px] flex items-center justify-center'>
-      <ComingSoon />
-    </div>
-  }
-
+ 
   const handleSend = async () => {
     const leastAmount = 40
 
