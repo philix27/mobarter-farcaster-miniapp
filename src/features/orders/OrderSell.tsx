@@ -16,6 +16,7 @@ import { useNotification } from '@coinbase/onchainkit/minikit'
 import { useBankAccountGetAll } from '@/src/lib/mongodb/bank/hook'
 import { Spinner } from '@/components/Spinner'
 import { AppSelect } from '@/components/Select'
+import { useOrdersCreate } from '@/src/lib/mongodb/orders/hook'
 
 export default function OrderSell() {
   const ordersStore = useOrders()
@@ -24,6 +25,7 @@ export default function OrderSell() {
   const { amountToPay, } = usePrice({ amountInFiat: ordersStore.amountFiat })
   const { address } = useAccount()
   const sendNotification = useNotification()
+  const sellCrypto = useOrdersCreate()
   const currencySymbol = mapCountryToData[store.countryIso].currencySymbol
   if (secrets.NODE_ENV !== "development") {
     return <div className='h-[500px] flex items-center justify-center'>
@@ -41,39 +43,48 @@ export default function OrderSell() {
 
     try {
       ordersStore.update({ isLoading: true })
-      const txn = await sendErc20({
-        recipient: appAddresses.topUpCollector,
-        amount: amountToPay!.toString(),
-        payWith: store.payWith
-      })
-
-      // purchaseTopUp.mutate({
-      //   phoneNo: `${mapCountryToData[store.countryIso].callingCodes}${topUp.phoneNo}`,
-      //   amount: topUp.amountFiat,
-      //   countryCode: store.country,
-      //   operatorId: topUp.operatorId!,
-      //   userId: address!,
-      //   payment: {
-      //     txHash: txn?.txHash,
-      //     user_uid: address!,
-      //     transaction_pin: '',
-      //     tokenAddress: store.payWith.token.address,
-      //     tokenChain: store.payWith.chain.name,
-      //     amountCrypto: amountToPay as number,
-      //     amountFiat: topUp.amountFiat,
-      //     from: RequestFrom.Farcaster,
-      //     fiatCurrency: Country.Ng
-      //   },
+      // const txn = await sendErc20({
+      //   recipient: appAddresses.topUpCollector,
+      //   amount: amountToPay!.toString(),
+      //   payWith: store.payWith
       // })
+      sellCrypto.mutate({
+        type: 'SELL',
+        status: 'PENDING',
+        fiat_currency: 'NGN',
+        amount_in_fiat: ordersStore.amountFiat,
+        amount_in_crypto: amountToPay,
+        txn_hash: "txn.txHash",
+        bank_name: ordersStore.bankName,
+        account_name: ordersStore.accountName,
+        account_number: ordersStore.accountNo,
+        bank_code: ordersStore.bankCode,
+        token_name: store.payWith.token.symbol,
+        token_address: store.payWith.token.address,
+        chain_name: store.payWith.chain.name
+      },
+        // {
+        //   onSuccess: async () => {
+        //     logger.info("txn")
+        //     triggerEvent('create_order_successful', { userId: address, amount: ordersStore.amountFiat });
+        //     toast.success('Order created successfully')
+        void ordersStore.update({ amountFiat: 0 })
+        //     await sendNotification({
+        //       title: "Success",
+        //       body: `Order created successfully!`,
+        //     });
+        //   },
+        //   onError: (err) => {
+        //     toast.error(err);
+        //     logger.error('Order ' + JSON.stringify(err))
+        //   },
+        //   onSettled: () => {
+        //     ordersStore.update({ isLoading: false })
+        //   },
 
-      logger.info(txn)
-      triggerEvent('top_up_airtime_successful', { userId: address, amount: ordersStore.amountFiat });
-      toast.success('Order created successfully')
+        // }
 
-      await sendNotification({
-        title: "Success",
-        body: `Order created successfully!`,
-      });
+      )
 
     } catch (err) {
       toast.error(getSafeErrorMessage(err));

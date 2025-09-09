@@ -10,7 +10,7 @@ export interface IOrderResponse {
     getAll: IOrder[]
 }
 
-export class UserInfoService {
+export class OrdersService {
     async create(body: IOrderParams["create"]): Promise<IOrder> {
         try {
             logger.info("Create order: " + body)

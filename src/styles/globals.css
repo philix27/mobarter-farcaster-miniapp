@@ -8,7 +8,7 @@
   :root {
     --safe-area-inset-bottom: calc(100vh - var(--tg-viewport-stable-height, 100vh));
    
-    --background: #cbe2e5;
+    --background: #eaedee;
     --foreground: #494a4a;
 
     --muted: #8f8f8f;

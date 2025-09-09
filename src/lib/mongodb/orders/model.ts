@@ -1,4 +1,4 @@
-import mongoose, { Schema, Model, Document } from "mongoose";
+import mongoose, { Schema, Model, Document, } from "mongoose";
 
 type OrderType = "BUY" | "SELL"
 type OrderStatus = "PENDING" | "COMPLETED" | "CANCELED"
@@ -9,7 +9,6 @@ export interface IOrder {
     status: OrderStatus
     fiat_currency: FiatCurrency
     amount_in_fiat: number;
-    crypto_currency: string;
     amount_in_crypto: number;
     txn_hash: string;
     bank_name: string;
@@ -20,20 +19,25 @@ export interface IOrder {
     token_address: string
     chain_name: string
     note?: string
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 interface ISchema extends IOrder, Document {
     createdAt: Date;
     updatedAt: Date;
 }
-const schema: Schema<ISchema> = new Schema(
+
+
+const schema: Schema<ISchema, IOrder> = new Schema(
     {
-        fid: { type: String, required: true },
+        fid: { type: String, required: true, },
         type: { type: String, required: true },
         status: { type: String, required: true },
+        account_name: { type: String, required: true },
+        account_number: { type: String, required: true },
         fiat_currency: { type: String, required: true },
         amount_in_fiat: { type: Number, required: true },
-        crypto_currency: { type: String, required: true },
         amount_in_crypto: { type: Number, required: true },
         txn_hash: { type: String, required: true },
         bank_name: { type: String, required: true },
@@ -41,7 +45,7 @@ const schema: Schema<ISchema> = new Schema(
         token_name: { type: String, required: true },
         token_address: { type: String, required: true },
         chain_name: { type: String, required: true },
-        note: { type: String, required: true },
+        note: { type: String, required: false },
     },
     {
         timestamps: true,

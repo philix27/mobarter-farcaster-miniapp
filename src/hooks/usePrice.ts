@@ -36,5 +36,5 @@ export function usePrice(props?: { amountInFiat?: number }) {
   const plusFee = c + 0.01
 
 
-  return { amountToPay: plusFee.toFixed(4) }
+  return { amountToPay: parseFloat(plusFee.toFixed(4)) }
 }

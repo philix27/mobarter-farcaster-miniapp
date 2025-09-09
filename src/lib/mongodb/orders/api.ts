@@ -1,11 +1,11 @@
 import dbConnect from "@/src/lib/mongodb/init";
 import { NextApiRequest, NextApiResponse } from "next";
-import { UserInfoService } from "./service";
+import { OrdersService } from "./service";
 
 
 export default async function OrdersApiHandler(req: NextApiRequest, res: NextApiResponse) {
     await dbConnect();
-    const service = new UserInfoService()
+    const service = new OrdersService()
     const { method } = req;
 
     switch (method) {
