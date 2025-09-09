@@ -3,6 +3,7 @@ import OrderSell from './OrderSell'
 import { ITab, Tabs } from "@/components/Tabs";
 import { useOrders } from './_store';
 import BuyOrder from './OrderBuy';
+import OrderHistory from './OrderHistory';
 
 export default function OrderSection() {
   const store = useOrders();
@@ -15,18 +16,26 @@ export default function OrderSection() {
       }
     },
     {
-      title: "BUY",
-      isActive: store.tabs === "BUY",
+      title: "HISTORY",
+      isActive: store.tabs === "HISTORY",
       onClick: () => {
-        store.update({ tabs: "BUY" });
+        store.update({ tabs: "HISTORY" });
       }
     },
+    // {
+    //   title: "BUY",
+    //   isActive: store.tabs === "BUY",
+    //   onClick: () => {
+    //     store.update({ tabs: "BUY" });
+    //   }
+    // },
   ]
   return (
     <div>
       <div className='bg-card rounded-lg py-2'>
       <Tabs tabs={tabItems} />
         {store.tabs === "SELL" && <OrderSell />}
+        {store.tabs === "HISTORY" && <OrderHistory />}
         {store.tabs === "BUY" && <BuyOrder />}
       </div>
     </div>

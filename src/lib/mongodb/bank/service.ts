@@ -3,13 +3,17 @@ import BankAccountModel, { IBankAccount } from "./model";
 
 export interface IBankAccountParams {
     create: IBankAccount
-    getAll: { user_id: string }
+    getAll: { user_id: string; }
     getOne: { user_id: string; id: string }
     delete: { user_id: string; id: string }
 }
+
+interface GetAll extends IBankAccount {
+     _id:string
+}
 export interface IBankAccountResponse {
     create: IBankAccount
-    getAll: IBankAccount[]
+    getAll: GetAll[]
     getOne: IBankAccount
     delete: IBankAccount
 }

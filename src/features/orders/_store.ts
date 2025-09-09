@@ -3,7 +3,7 @@ import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
 
-export type IExchangeTabs = 'BUY' | "SELL"
+export type IExchangeTabs = 'BUY' | "SELL" | "HISTORY"
 
 export enum Operator {
   MTN = "MTN",
@@ -12,32 +12,26 @@ export enum Operator {
 
 export interface ISlice {
   isLoading?: boolean
-  dataDesc?: string
-  operator?: string
-  dataBundleOperator?: string
-  dataBundleOperatorLogo?: string
-  operatorId?: number
-  dataBundleOperatorId?: number
-  operatorLogo?: string
-  phoneNo?: string
   amountFiat?: number
   country?: Country
   tabs?: IExchangeTabs
+  accountName?: string
+  accountNo?: string
+  bankName?: string
+  bankCode?: string
+  accountId?: string
 }
 
 const defaultValues: Required<ISlice> = {
-  phoneNo: '',
   amountFiat: 0,
   country: Country.Gh,
-  operator: Operator.MTN,
   tabs: "BUY",
-  operatorId: 0,
-  dataDesc: '',
-  operatorLogo: '',
-  dataBundleOperator: '',
-  dataBundleOperatorId: 0,
-  dataBundleOperatorLogo: '',
-  isLoading: false
+  isLoading: false,
+  accountName: '',
+  accountNo: '',
+  bankName: '',
+  bankCode: '',
+  accountId: ''
 }
 
 
@@ -61,7 +55,7 @@ export const useOrders = create(
         }),
     }),
     {
-      name: 'useTopUpForm',
+      name: 'useSellOrders',
       storage: createJSONStorage(() => localStorage),
     }
   )

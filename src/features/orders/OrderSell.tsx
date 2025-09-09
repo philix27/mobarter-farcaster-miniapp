@@ -5,7 +5,7 @@ import { PriceDisplay, PayWithToken, getSafeErrorMessage, useSendToken } from '.
 import { Input } from '@/components/Input'
 import { useOrders } from './_store'
 import { useSettings } from '@/src/lib/zustand/settings'
-import { Card, Label } from '@/components/comps'
+import { Label } from '@/components/comps'
 import { usePrice, } from '@/src/hooks'
 import { toast } from 'sonner'
 import { appAddresses } from '@/src/lib/const'
@@ -13,6 +13,9 @@ import { triggerEvent } from '@/src/providers/PostHogProvider'
 import { logger } from '@/src/lib/utils'
 import { useAccount } from 'wagmi'
 import { useNotification } from '@coinbase/onchainkit/minikit'
+import { useBankAccountGetAll } from '@/src/lib/mongodb/bank/hook'
+import { Spinner } from '@/components/Spinner'
+import { AppSelect } from '@/components/Select'
 
 export default function OrderSell() {
   const ordersStore = useOrders()
@@ -65,11 +68,11 @@ export default function OrderSell() {
 
       logger.info(txn)
       triggerEvent('top_up_airtime_successful', { userId: address, amount: ordersStore.amountFiat });
-      toast.success('Airtime sent successfully')
+      toast.success('Order created successfully')
 
       await sendNotification({
-        title: "Congratulations!",
-        body: `Airtime sent successfully!`,
+        title: "Success",
+        body: `Order created successfully!`,
       });
 
     } catch (err) {
@@ -100,20 +103,68 @@ export default function OrderSell() {
         }}
       />
 
-      <div className=''>
-        <Label> Select Account </Label>
-        <Card className='bg-background'>
-          <Label> Opay | 090292 </Label>
-        </Card>
-      </div>
+      <SelectBankAccount />
 
       <PriceDisplay isLoading={ordersStore.isLoading} handleSend={handleSend} rows={[
         { "title": "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
         { "title": "You Receive", subtitle: currencySymbol.concat(ordersStore.amountFiat.toString()) },
-        { "title": "Bank Account", subtitle: "OPAY", },
-        { "title": "Account No", subtitle: "81234567890", },
-        { "title": "Account name", subtitle: "Felix Eligbue" },
+        { "title": "Bank Account", subtitle: ordersStore.bankName, },
+        { "title": "Account No", subtitle: ordersStore.accountNo, },
+        { "title": "Account name", subtitle: ordersStore.accountName },
       ]} />
+    </div>
+  )
+}
+
+function SelectBankAccount() {
+  const accounts = useBankAccountGetAll()
+  const ordersStore = useOrders()
+  if (accounts.isPending) {
+    return <Spinner size={24} />
+  }
+
+  if (!accounts.data || accounts.data?.length === 0) {
+    return <div className='flex space-y-4 items-center justify-center flex-col'>
+      <Label>Go to settings to add a bank account</Label>
+      <div className='mb-5' />
+    </div>
+
+  }
+
+  return (
+    <div className=''>
+      <AppSelect
+        label="Select Account*"
+        defaultInputValue={ordersStore.accountId}
+        onChange={(value) => {
+          const acct = accounts.data.filter((t) => t._id === value)[0]
+          ordersStore.update({
+            accountId: value,
+            accountName: acct.account_name,
+            accountNo: acct.account_no,
+            bankCode: acct.bank_code,
+            bankName: acct.bank_name
+          })
+
+        }}
+        data={accounts.data.map((val, i) => {
+          return {
+            value: val._id,
+            label: (
+              <div key={i} className='flex items-center justify-between w-full'>
+                <div className='flex items-center mr-2'>
+                  <p>
+                    <span className='text-[12px] font-semibold'> {val.bank_name} </span>
+                    <span className='text-[10px] text-muted'>{val.account_name}</span>
+                  </p>
+                </div>
+                <p className='text-[13px] font-normal text-muted'>{val.account_no} </p>
+              </div>
+            )
+          }
+        })}
+      />
+
     </div>
   )
 }

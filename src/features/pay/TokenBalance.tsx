@@ -13,7 +13,7 @@ function TokenBalanceDisplay(props: { tokenAddress: `0x${string}`; chainId?: num
     });
 
     if (!isConnected) {
-        return <div>Connect your wallet to see token balance.</div>;
+        return <div  className='text-[10px] text-muted font-normal'>Connect your wallet</div>;
     }
 
     if (isLoading) {
@@ -21,7 +21,7 @@ function TokenBalanceDisplay(props: { tokenAddress: `0x${string}`; chainId?: num
     }
 
     if (isError) {
-        return <div>Error fetching balance.</div>;
+        return <div  className='text-[10px] text-muted font-normal'>Error fetching balance.</div>;
     }
 
     return (
