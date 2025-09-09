@@ -12,7 +12,7 @@ import { appAddresses } from '@/src/lib/const'
 import { triggerEvent } from '@/src/providers/PostHogProvider'
 import { logger } from '@/src/lib/utils'
 import { useAccount } from 'wagmi'
-import { useNotification } from '@coinbase/onchainkit/minikit'
+// import { useNotification } from '@coinbase/onchainkit/minikit'
 import { useBankAccountGetAll } from '@/src/lib/mongodb/bank/hook'
 import { Spinner } from '@/components/Spinner'
 import { AppSelect } from '@/components/Select'
@@ -24,7 +24,7 @@ export default function OrderSell() {
   const { sendErc20 } = useSendToken()
   const { amountToPay, } = usePrice({ amountInFiat: ordersStore.amountFiat })
   const { address } = useAccount()
-  const sendNotification = useNotification()
+  // const sendNotification = useNotification()
   const sellCrypto = useOrdersCreate()
   const currencySymbol = mapCountryToData[store.countryIso].currencySymbol
   if (secrets.NODE_ENV !== "development") {
@@ -34,27 +34,31 @@ export default function OrderSell() {
   }
 
   const handleSend = async () => {
-    const leastAmount = 50
+    const leastAmount = 40
 
     if (ordersStore.amountFiat == undefined || ordersStore.amountFiat < leastAmount) {
-      toast.error('Minimum of NGN 50')
+      toast.error(`Minimum of NGN ${leastAmount}`)
+      return
+    }
+    if (ordersStore.bankName == undefined || !ordersStore.accountNo) {
+      toast.error(`Please select an account`)
       return
     }
 
     try {
       ordersStore.update({ isLoading: true })
-      // const txn = await sendErc20({
-      //   recipient: appAddresses.topUpCollector,
-      //   amount: amountToPay!.toString(),
-      //   payWith: store.payWith
-      // })
+      const txn = await sendErc20({
+        recipient: appAddresses.topUpCollector,
+        amount: amountToPay!.toString(),
+        payWith: store.payWith
+      })
       sellCrypto.mutate({
         type: 'SELL',
         status: 'PENDING',
         fiat_currency: 'NGN',
         amount_in_fiat: ordersStore.amountFiat,
         amount_in_crypto: amountToPay,
-        txn_hash: "txn.txHash",
+        txn_hash: txn.txHash,
         bank_name: ordersStore.bankName,
         account_name: ordersStore.accountName,
         account_number: ordersStore.accountNo,
@@ -63,27 +67,26 @@ export default function OrderSell() {
         token_address: store.payWith.token.address,
         chain_name: store.payWith.chain.name
       },
-        // {
-        //   onSuccess: async () => {
-        //     logger.info("txn")
-        //     triggerEvent('create_order_successful', { userId: address, amount: ordersStore.amountFiat });
-        //     toast.success('Order created successfully')
-        void ordersStore.update({ amountFiat: 0 })
-        //     await sendNotification({
-        //       title: "Success",
-        //       body: `Order created successfully!`,
-        //     });
-        //   },
-        //   onError: (err) => {
-        //     toast.error(err);
-        //     logger.error('Order ' + JSON.stringify(err))
-        //   },
-        //   onSettled: () => {
-        //     ordersStore.update({ isLoading: false })
-        //   },
+        {
+          onSuccess: async () => {
+            logger.info("Txn hash" + txn)
+            triggerEvent('create_order_successful', { userId: address, amount: ordersStore.amountFiat });
+            toast.success('Order created successfully')
+            void ordersStore.update({ amountFiat: 0 })
+            // await sendNotification({
+            //   title: "Success",
+            //   body: `Order created successfully!`,
+            // });
+          },
+          onError: (err) => {
+            toast.error("Sorry could not create order");
+            logger.error('Order ' + JSON.stringify(err))
+          },
+          onSettled: () => {
+            ordersStore.update({ isLoading: false })
+          },
 
-        // }
-
+        }
       )
 
     } catch (err) {

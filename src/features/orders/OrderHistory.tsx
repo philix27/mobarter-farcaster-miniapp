@@ -20,9 +20,10 @@ export default function OrderHistory() {
     )
   }
 
+  const sorted = ordersAcct.data.sort((a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime());
   return (
     <div className='space-y-1 p-2'>
-      {ordersAcct.data.map((val, i) => {
+      {sorted.map((val, i) => {
         return (
           <div key={i} className='p-2 w-full bg-background rounded-lg'>
             <AdsRow text='Bank' text2={`${val.bank_name} | ${val.account_number}`} />
