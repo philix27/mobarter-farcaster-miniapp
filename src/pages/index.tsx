@@ -102,9 +102,16 @@ export default function HomePage() {
           </div>
           <Label>Supported Countries: NG </Label>
         </div>
-        <div className="h-[100px]">
-          <img src="/bgx.png" className="h-full" />
-        </div>
+        {settingsStore.homeTab === "ORDERS" &&
+          <div className="h-[100px]">
+            <img src="/fast.png" className="h-full" />
+
+          </div>}
+        {settingsStore.homeTab === "TopUp" &&
+          <div className="h-[100px]">
+            <img src="/bgx.png" className="h-full" />
+          </div>}
+
         <Tabs tabs={dashboardItems} />
 
         <div className="mx-auto rounded-lg px-3 w-full mt-4">
