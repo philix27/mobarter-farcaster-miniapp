@@ -10,6 +10,7 @@ import { ProfileCard } from "../features/profile";
 import OrderSection from "../features/orders/orders";
 import { Label } from "@/components/comps";
 import RewardsSection from "../features/rewards/Rewards";
+import { useFarcasterProfile } from "../features/profile/hook";
 
 
 const metadata = {
@@ -97,7 +98,7 @@ export default function HomePage() {
         <div className="py-2 px-4 flex items-center justify-between">
           <div className="h-[35px] flex items-center">
             <img src="/icon.png" className="h-[35px] mr-2" />
-            <p className="font-bold text-[15px]">Hi David,</p>
+            <Greetings />
           </div>
           <Label>Supported Countries: NG </Label>
         </div>
@@ -123,3 +124,7 @@ export default function HomePage() {
 
 
 
+function Greetings() {
+  const profile = useFarcasterProfile()
+  return <p className="font-bold text-[15px]">Hi {` ${profile.data?.user.displayName || ""}`},</p>
+}
