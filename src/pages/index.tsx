@@ -8,6 +8,8 @@ import { TopUpSection } from "src/features/topup/TopUpSection";
 import { ITab, Tabs } from "@/components/Tabs";
 import { ProfileCard } from "../features/profile";
 import OrderSection from "../features/orders/orders";
+import { Label } from "@/components/comps";
+import RewardsSection from "../features/rewards/Rewards";
 
 
 const metadata = {
@@ -53,9 +55,9 @@ export default function HomePage() {
     },
     {
       title: "EXCHANGE",
-      isActive: settingsStore.homeTab === "Orders",
+      isActive: settingsStore.homeTab === "ORDERS",
       onClick: () => {
-        settingsStore.update({ homeTab: "Orders" });
+        settingsStore.update({ homeTab: "ORDERS" });
       }
     },
     {
@@ -65,14 +67,13 @@ export default function HomePage() {
         settingsStore.update({ homeTab: "Profile" });
       }
     },
-    // {
-    //   title: "Betting",
-    //   name: "Betting",
-    //   isActive: settingsStore.homeTab === "Betting",
-    //   onClick: () => {
-    //     settingsStore.update({ homeTab: "Betting" });
-    //   }
-    // },
+    {
+      title: "REWARDS",
+      isActive: settingsStore.homeTab === "REWARDS",
+      onClick: () => {
+        settingsStore.update({ homeTab: "REWARDS" });
+      }
+    },
   ]
 
 
@@ -91,14 +92,25 @@ export default function HomePage() {
         <meta property="og:title" content={metadata.title} />
         <meta property="og:description" content={metadata.description} />
       </Head>
-      <div className="w-full h-screen flex flex-col ">
+      <div className="w-full h-screen flex flex-col overflow-y-scroll h-screen">
 
+        <div className="py-2 px-4 flex items-center justify-between">
+          <div className="h-[35px] flex items-center">
+            <img src="/icon.png" className="h-[35px] mr-2" />
+            <p className="font-bold text-[15px]">Hi David,</p>
+          </div>
+          <Label>Supported Countries: NG </Label>
+        </div>
+        <div className="h-[100px]">
+          <img src="/bgx.png" className="h-full" />
+        </div>
         <Tabs tabs={dashboardItems} />
 
         <div className="mx-auto rounded-lg px-3 w-full mt-4">
           {settingsStore.homeTab === "TopUp" && <TopUpSection />}
           {settingsStore.homeTab === "Profile" && <ProfileCard />}
-          {settingsStore.homeTab === "Orders" && <OrderSection />}
+          {settingsStore.homeTab === "ORDERS" && <OrderSection />}
+          {settingsStore.homeTab === "REWARDS" && <RewardsSection />}
           {/* {settingsStore.homeTab === "Electricity" && <ComingSoon />} */}
           {/* {settingsStore.homeTab === "Betting" && <ComingSoon />} */}
         </div>
