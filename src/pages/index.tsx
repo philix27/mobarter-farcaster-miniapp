@@ -68,13 +68,13 @@ export default function HomePage() {
         settingsStore.update({ homeTab: "Profile" });
       }
     },
-    {
-      title: "REWARDS",
-      isActive: settingsStore.homeTab === "REWARDS",
-      onClick: () => {
-        settingsStore.update({ homeTab: "REWARDS" });
-      }
-    },
+    // {
+    //   title: "REWARDS",
+    //   isActive: settingsStore.homeTab === "REWARDS",
+    //   onClick: () => {
+    //     settingsStore.update({ homeTab: "REWARDS" });
+    //   }
+    // },
   ]
 
 
