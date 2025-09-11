@@ -7,7 +7,6 @@ import { useFarcasterProfile } from '@/src/features/profile/hook'
 import { getUniversalLink, SelfApp } from '@selfxyz/core'
 import { ITab, Tabs } from '@/components/Tabs'
 import { useState } from 'react'
-import { Button } from '@/components/Button'
 
 const rootUrl = process.env.NEXT_PUBLIC_ROOT_URL
 export default function SelfVerification() {
@@ -76,11 +75,14 @@ function SelfQRCode(props: { selfApp: SelfApp }) {
 }
 
 function SelfDeepLink(props: { deeplink: string; }) {
+
   return (
     <div className="h-[400px] w-full flex items-center justify-center flex-col">
-      <Button onClick={() => window.open(props.deeplink, '_blank')}>
-        Open Self App
-      </Button>
+      <a target='_blank' href={props.deeplink}
+        className='bg-primary rounded-lg my-2 border-none outline-none hover:bg-primary/50 bg-primary px-8 py-[8px]'
+      >
+        <p className='text-[12px] font-semibold text-[#fff]'>  Open Self App</p>
+      </a>
     </div>
   )
 }
