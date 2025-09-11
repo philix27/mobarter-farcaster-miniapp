@@ -45,7 +45,7 @@ export const payTokens: IPayWith[] = [
             symbol: "USDC",
             address: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
             logo: '/tokens/USDC.svg',
-            decimal: 18
+            decimal: 6
         }
     },
     {
