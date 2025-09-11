@@ -20,7 +20,7 @@ export default function PersonalInfo() {
                 <div className='flex justify-between items-center w-full'>
                     <Label>Personal</Label>
 
-                    {noKyc ||
+                    {noKyc == undefined &&
                         <div className='flex space-x-2 items-center'>
                             <p className='text-primary text-[11px] font-semibold underline' onClick={() => {
                                 storeKyc.update({ modals: 'VERIFY_SELF_PROTOCOL' })
