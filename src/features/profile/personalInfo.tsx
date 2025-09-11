@@ -20,7 +20,18 @@ export default function PersonalInfo() {
                 <div className='flex justify-between items-center w-full'>
                     <Label>Personal</Label>
 
-                    {noKyc == undefined &&
+
+                    <div className='flex space-x-2 items-center'>
+                        <p className='text-primary text-[11px] font-semibold underline' onClick={() => {
+                            storeKyc.update({ modals: 'VERIFY_SELF_PROTOCOL' })
+                        }} > SELF PROTOCOL</p>
+                        <Label>|</Label>
+                        <p className='text-primary text-[11px] font-semibold underline' onClick={() => {
+                            void router.push("/kyc-form")
+                        }} > MANUAL</p>
+                    </div>
+
+                    {/* {noKyc == undefined &&
                         <div className='flex space-x-2 items-center'>
                             <p className='text-primary text-[11px] font-semibold underline' onClick={() => {
                                 storeKyc.update({ modals: 'VERIFY_SELF_PROTOCOL' })
@@ -30,7 +41,7 @@ export default function PersonalInfo() {
                                 void router.push("/kyc-form")
                             }} > MANUAL</p>
                         </div>
-                    }
+                    } */}
                 </div>
                 <hr className='border-1 border-muted w-full mb-1' />
 
