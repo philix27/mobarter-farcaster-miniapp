@@ -4,7 +4,6 @@ import LinksSection from "./links";
 import PersonalInfo from "./personalInfo";
 import { SettingsCard } from "./settings";
 
-
 export function ProfileCard() {
 
     return (
@@ -15,6 +14,8 @@ export function ProfileCard() {
             <PersonalInfo />
             <BankAccount />
             <LinksSection />
+
+         
         </div>
     )
 }

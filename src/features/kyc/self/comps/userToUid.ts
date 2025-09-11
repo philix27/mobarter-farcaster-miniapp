@@ -7,6 +7,14 @@ export function numberToUUID(num: number) {
     return uuidv5(num.toString(), MY_NAMESPACE);
 }
 
+import crypto from "crypto";
+
+export function numberToDeterministicHex(num: number) {
+  return crypto.createHash("sha256")
+               .update(num.toString())
+               .digest("hex");
+}
+
 // // Example
 // console.log(numberToUUID(12345));
 // // 👉 "f8b8fd4f-7199-520d-bb0d-1a58cbd0f4c2"

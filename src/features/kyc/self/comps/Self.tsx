@@ -7,7 +7,7 @@ import { ITab, Tabs } from '@/components/Tabs'
 import { useState } from 'react'
 import { secrets } from '@/src/lib'
 import { logger } from '@/src/lib/utils'
-import { numberToUUID } from './userToUid'
+import { numberToDeterministicHex } from './userToUid'
 
 const rootUrl = secrets.NODE_ENV === "development" ? "http://localhost:3233/" : process.env.NEXT_PUBLIC_ROOT_URL
 export default function SelfVerification() {
@@ -24,7 +24,7 @@ export default function SelfVerification() {
     // endpointType: "https",
     "userIdType": "hex",
     // userId: userId.toString(),
-    userId: numberToUUID(userId),
+    userId: numberToDeterministicHex(userId),
     header: 'A payment solution for Africans',
     logoBase64: logoBase64ToString,
     // userId: evmAddress,
