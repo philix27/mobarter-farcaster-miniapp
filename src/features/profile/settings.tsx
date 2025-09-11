@@ -7,16 +7,12 @@ import { AppStores } from "../../lib/zustand";
 import { secrets } from "../../lib";
 import { AdsRow, } from "@/components/comps";
 import { useDarkMode } from "@/src/styles/mediaQueries";
-import { useFarcasterProfile } from "./hook";
-
-
 
 export function SettingsCard() {
     const { address, isConnected, } = useAccount()
     const { connect, connectors } = useConnect()
     const store = AppStores.useSettings();
     const { isDarkMode, setDarkMode } = useDarkMode()
-    const fContext = useFarcasterProfile()
 
     const handleConnect = useCallback(() => {
 
@@ -42,15 +38,9 @@ export function SettingsCard() {
             <Button onClick={handleConnect} className="w-[60%]">Connect</Button>
         </div>
     }
-    const user = fContext.data === undefined ? undefined : fContext.data.user
     return (
         <div className="w-full p-2 border-b-1 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
-            {user && <AdsRow
-                text={user.displayName!}
-                text2={`FID: ${user.fid!.toString()}`}
-
-            />}
-
+           
             <AdsRow text="Country" text2={store.country} />
             <AdsRow
                 text="Wallet Address"

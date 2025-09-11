@@ -20,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       // Initialize and configure the verifier
       const selfBackendVerifier = new SelfBackendVerifier(
-        'telegram-mini-app',
+        'mini-app',
         `${rootUrl}/auth-self`
       )
 

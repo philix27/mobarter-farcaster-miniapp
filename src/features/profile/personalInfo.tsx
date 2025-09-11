@@ -1,27 +1,42 @@
 import { AdsRow, Label } from '@/components/comps'
 import { Spinner } from '@/components/Spinner'
 import { useUserInfoGet } from '@/src/lib/mongodb/user/hook'
+import { AppStores } from '@/src/lib/zustand'
 import { useRouter } from 'next/router'
 import React from 'react'
+import KycBottomSheets from '../kyc/self/ModalList'
 
 export default function PersonalInfo() {
     const router = useRouter()
-
+    const storeKyc = AppStores.useKyc()
+    const accounts = useUserInfoGet()
+    const noKyc = accounts.data?.first_name
     return (
-        <div className="w-full p-2 border-b-1 mt-4 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
+        <>
+            <KycBottomSheets />
 
-            <div className='flex justify-between items-center w-full'>
-                <Label>Personal</Label>
+            <div className="w-full p-2 border-b-1 mt-4 border-muted  rounded-lg flex flex-col items-start justify-center bg-card">
 
-                <p className='text-primary text-[12px] font-semibold underline' onClick={() => {
-                    void router.push("/kyc-form")
-                }} > Verify</p>
+                <div className='flex justify-between items-center w-full'>
+                    <Label>Personal</Label>
 
+                    {noKyc ||
+                        <div className='flex space-x-2 items-center'>
+                            <p className='text-primary text-[11px] font-semibold underline' onClick={() => {
+                                storeKyc.update({ modals: 'VERIFY_SELF_PROTOCOL' })
+                            }} > SELF PROTOCOL</p>
+                            <Label>|</Label>
+                            <p className='text-primary text-[11px] font-semibold underline' onClick={() => {
+                                void router.push("/kyc-form")
+                            }} > MANUAL</p>
+                        </div>
+                    }
+                </div>
+                <hr className='border-1 border-muted w-full mb-1' />
+
+                <AccountInfo />
             </div>
-            <hr className='border-1 border-muted w-full mb-1' />
-
-            <AccountInfo />
-        </div>
+        </>
     )
 }
 
@@ -36,7 +51,7 @@ function AccountInfo() {
         return (
             <div
                 className='flex space-y-4 items-center justify-center w-full'>
-                <Label>Kindly fill the KYC form</Label>
+                <Label>Kindly complete your KYC</Label>
                 <div className='mb-5' />
             </div>
 

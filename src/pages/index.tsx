@@ -9,8 +9,8 @@ import { ITab, Tabs } from "@/components/Tabs";
 import { ProfileCard } from "../features/profile";
 import OrderSection from "../features/orders/orders";
 import { Label } from "@/components/comps";
-import RewardsSection from "../features/rewards/Rewards";
 import { useFarcasterProfile } from "../features/profile/hook";
+import KycSelf from "../features/kyc/self";
 
 
 const metadata = {
@@ -118,7 +118,8 @@ export default function HomePage() {
           {settingsStore.homeTab === "TopUp" && <TopUpSection />}
           {settingsStore.homeTab === "Profile" && <ProfileCard />}
           {settingsStore.homeTab === "ORDERS" && <OrderSection />}
-          {settingsStore.homeTab === "REWARDS" && <RewardsSection />}
+          {settingsStore.homeTab === "REWARDS" && <KycSelf />}
+          {/* {settingsStore.homeTab === "REWARDS" && <RewardsSection />} */}
           {/* {settingsStore.homeTab === "Electricity" && <ComingSoon />} */}
           {/* {settingsStore.homeTab === "Betting" && <ComingSoon />} */}
         </div>
