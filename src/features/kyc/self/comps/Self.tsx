@@ -7,8 +7,10 @@ import { useFarcasterProfile } from '@/src/features/profile/hook'
 import { getUniversalLink, SelfApp } from '@selfxyz/core'
 import { ITab, Tabs } from '@/components/Tabs'
 import { useState } from 'react'
+import { secrets } from '@/src/lib'
+import { logger } from '@/src/lib/utils'
 
-const rootUrl = process.env.NEXT_PUBLIC_ROOT_URL
+const rootUrl = secrets.NODE_ENV === "development" ? "http://localhost:3233/" : process.env.NEXT_PUBLIC_ROOT_URL
 export default function SelfVerification() {
   const profile = useFarcasterProfile()
   const userId = profile.data?.user.fid || uuidv4()
@@ -20,12 +22,18 @@ export default function SelfVerification() {
     appName: 'Mobarter',
     scope: 'mini-app',
     endpoint: `${rootUrl}/api/auth-self`,
+    // endpointType: "https",
     userId: userId.toString(),
     header: 'A payment solution for Africans',
     logoBase64: logoBase64ToString,
     // userId: evmAddress,
   }).build()
-  const deeplink = getUniversalLink(selfApp);
+  let deeplink = ""
+  try {
+    deeplink = getUniversalLink(selfApp);
+  } catch (e) {
+    logger.error(e)
+  }
   const tabItems: ITab[] = [
     {
       title: "SCAN QR CODE",
