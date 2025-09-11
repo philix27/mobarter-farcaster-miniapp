@@ -31,8 +31,9 @@ export function useSendToken() {
     const transferInterface = new Interface(erc20TokenAbi);
     const transferData = transferInterface.encodeFunctionData("transfer", [
       props.recipient,
-      ethers.parseUnits(props.amount, token.decimal),
+      ethers.parseUnits(props.amount),
     ]);
+    // ethers.parseUnits(props.amount, token.decimal),
 
     // Generate Divvi referral tag
     const dataSuffix = divvi.getReferralTag({
@@ -81,20 +82,28 @@ export function useSendToken() {
 
 
 export const getSafeErrorMessage = (error: unknown): string => {
-  if (error instanceof Error) {
-    const message = error.message.toLowerCase();
-    if (message.includes('insufficient funds') || message.includes('insufficient balance')) {
-      return 'Insufficient funds in wallet';
+  try {
+    if (error instanceof Error) {
+      const message = error.message.toLowerCase();
+      if (message.includes('insufficient funds') || message.includes('insufficient balance')) {
+        return 'Insufficient funds in wallet';
+      }
+      if (message.includes('user rejected') || message.includes('user denied')) {
+        return 'Transaction cancelled by user';
+      }
+      if (message.includes('network') || message.includes('connection')) {
+        return 'Network error. Please check your connection';
+      }
+      if (message.includes('nonce')) {
+        return 'Transaction conflict. Please try again';
+      }
+    } else {
+      return 'Transaction failed. Please try again';
     }
-    if (message.includes('user rejected') || message.includes('user denied')) {
-      return 'Transaction cancelled by user';
-    }
-    if (message.includes('network') || message.includes('connection')) {
-      return 'Network error. Please check your connection';
-    }
-    if (message.includes('nonce')) {
-      return 'Transaction conflict. Please try again';
-    }
+
+    return 'Transaction failed. Please try again';
+  } catch (e) {
+    return 'Transaction failed. Please try again';
   }
-  return 'Transaction failed. Please try again';
+
 };

@@ -68,16 +68,19 @@ export default function AirtimeSection() {
           from: RequestFrom.Farcaster,
           fiatCurrency: Country.Ng
         },
+      }, {
+        "onSuccess": async () => {
+          triggerEvent('top_up_airtime_successful', { userId: address, amount: topUp.amountFiat });
+          toast.success('Airtime sent successfully')
+
+          await sendNotification({
+            title: "Congratulations!",
+            body: `Airtime sent successfully!`,
+          });
+        }
       })
 
 
-      triggerEvent('top_up_airtime_successful', { userId: address, amount: topUp.amountFiat });
-      toast.success('Airtime sent successfully')
-
-      await sendNotification({
-        title: "Congratulations!",
-        body: `Airtime sent successfully!`,
-      });
 
     } catch (err) {
       toast.error(getSafeErrorMessage(err));
@@ -150,3 +153,4 @@ export default function AirtimeSection() {
     </>
   )
 }
+
