@@ -1,7 +1,5 @@
 import SelfQRcodeWrapper, { SelfAppBuilder } from '@selfxyz/qrcode'
 import { toast } from 'sonner'
-import { v4 as uuidv4 } from 'uuid'
-
 import { logoBase64ToString } from './logoBase64'
 import { useFarcasterProfile } from '@/src/features/profile/hook'
 import { getUniversalLink, SelfApp } from '@selfxyz/core'
@@ -9,11 +7,12 @@ import { ITab, Tabs } from '@/components/Tabs'
 import { useState } from 'react'
 import { secrets } from '@/src/lib'
 import { logger } from '@/src/lib/utils'
+import { numberToUUID } from './userToUid'
 
 const rootUrl = secrets.NODE_ENV === "development" ? "http://localhost:3233/" : process.env.NEXT_PUBLIC_ROOT_URL
 export default function SelfVerification() {
   const profile = useFarcasterProfile()
-  const userId = profile.data?.user.fid || uuidv4()
+  const userId = profile.data?.user.fid
   const [openOrScan, setOpenOrScan] = useState<"OPEN_APP" | "SCAN">("SCAN")
   if (!userId) return null
 
@@ -23,7 +22,9 @@ export default function SelfVerification() {
     scope: 'mini-app',
     endpoint: `${rootUrl}/api/auth-self`,
     // endpointType: "https",
-    userId: userId.toString(),
+    "userIdType": "hex",
+    // userId: userId.toString(),
+    userId: numberToUUID(userId),
     header: 'A payment solution for Africans',
     logoBase64: logoBase64ToString,
     // userId: evmAddress,

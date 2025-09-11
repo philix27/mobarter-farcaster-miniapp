@@ -1,6 +1,7 @@
 import posthog from "posthog-js";
 import { useEffect } from "react";
 import { PostHogProvider as PHProvider } from "posthog-js/react";
+import { useFarcasterProfile } from "../features/profile/hook";
 
 type OrderEvents = "create_order_successful"
 type TopUpEvents = "top_up_airtime_failed" | "purchase_airtime" | "top_up_airtime_successful" | "purchase_data" | "purchase_electricity" | "top_up_airtime_initiated"
@@ -14,6 +15,7 @@ export const triggerEvent = (eventName: EventNames, properties?: Record<string, 
 
 
 export function PostHogProvider({ children }: { children: React.ReactNode }) {
+  const profile = useFarcasterProfile()
   useEffect(() => {
     if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) return;
 
@@ -28,6 +30,12 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
           posthog.debug()
           return
         }
+
+        const user = profile.data?.user
+        posthog.identify(user?.fid.toString(), {
+          displayName: user?.displayName, // Optional: Include custom properties
+          username: user?.username,
+        })
         // Generate anonymous session ID without identifying
         const sessionId = posthog.get_distinct_id() || crypto.randomUUID();
         posthog.register({ session_id: sessionId });
