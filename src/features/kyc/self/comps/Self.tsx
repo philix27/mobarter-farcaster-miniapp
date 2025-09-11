@@ -78,10 +78,11 @@ function SelfDeepLink(props: { deeplink: string; }) {
 
   return (
     <div className="h-[400px] w-full flex items-center justify-center flex-col">
-      <a target='_blank' href={props.deeplink}
+      {/* <a target='_blank' href={props.deeplink} */}
+      <a href={props.deeplink}
         className='bg-primary rounded-lg my-2 border-none outline-none hover:bg-primary/50 bg-primary px-8 py-[8px]'
       >
-        <p className='text-[12px] font-semibold text-[#fff]'>  Open Self App</p>
+        <p className='text-[12px] font-semibold text-[#fff]'>Open Self App</p>
       </a>
     </div>
   )
