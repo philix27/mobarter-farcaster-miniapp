@@ -10,7 +10,7 @@ export function numberToUUID(num: number) {
 import crypto from "crypto";
 
 export function numberToDeterministicHex(num: number) {
-  return crypto.createHash("sha256")
+  return  "0x" + crypto.createHash("sha256")
                .update(num.toString())
                .digest("hex");
 }
