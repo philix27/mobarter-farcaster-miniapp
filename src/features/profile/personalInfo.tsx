@@ -11,6 +11,7 @@ export default function PersonalInfo() {
     const storeKyc = AppStores.useKyc()
     const accounts = useUserInfoGet()
     const noKyc = accounts.data?.first_name
+    noKyc
     return (
         <>
             <KycBottomSheets />
