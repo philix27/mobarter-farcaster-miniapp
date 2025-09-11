@@ -21,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Initialize and configure the verifier
       const selfBackendVerifier = new SelfBackendVerifier(
         'mini-app',
-        `${rootUrl}/auth-self`
+        `${rootUrl}/api/auth-self`
       )
 
       // Verify the proof
