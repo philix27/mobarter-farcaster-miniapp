@@ -121,6 +121,7 @@ export default function KycForm() {
                 />
                 <div className='flex justify-center items-center mt-5'>
                     <Button
+                        btnName='Submit KYC'
                         className='w-[45%]'
                         type="submit"
                         isLoading={false} >Add</Button>

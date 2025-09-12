@@ -3,6 +3,7 @@ export enum IAppEvents {
     ClickSettingsTab = "TABS/SETTINGS",
     ClickTopUpTab = "TABS/TOPUP",
 }
+
 export enum TopUpEvents {
     BUY_DATA = "TOPUP/BUY_DATA",
     BUY_AIRTIME = "TOPUP/BUY_AIRTIME",

@@ -7,6 +7,7 @@ export function Button(
     isLoading?: boolean
     children: React.ReactNode
     variant?: 'primary' | 'secondary'
+    btnName: string
   }
 ) {
 
@@ -19,6 +20,7 @@ export function Button(
   }
   return (
     <button
+      data-umami-event={props.btnName}
       className={cn(
         'bg-primary rounded-lg my-2 border-none outline-none hover:bg-primary/50 bg-primary px-8 py-[8px]',
         props.className,

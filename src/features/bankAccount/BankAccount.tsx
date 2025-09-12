@@ -46,9 +46,11 @@ function AccountList(props: { setShowAddAccount: React.Dispatch<React.SetStateAc
   if (!accounts.data || accounts.data?.length === 0) {
     return <div className='flex space-y-4 items-center justify-center flex-col'>
       <Label>No bank account</Label>
-      <Button onClick={() => {
-        props.setShowAddAccount(true)
-      }}>Add new account</Button>
+      <Button
+        btnName='Add new bank account'
+        onClick={() => {
+          props.setShowAddAccount(true)
+        }}>Add new account</Button>
       <div className='mb-5' />
     </div>
 

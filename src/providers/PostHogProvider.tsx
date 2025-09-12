@@ -46,7 +46,7 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         }
       }
     })
-  }, [])
+  }, [profile.data?.user])
 
   return <PHProvider client={posthog}>{children}</PHProvider>;
 }

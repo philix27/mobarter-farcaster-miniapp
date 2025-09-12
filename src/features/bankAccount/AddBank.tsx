@@ -77,7 +77,7 @@ export default function AddBankAccount(props: { onClose: VoidFunction }) {
 
       <div className='flex justify-center items-center mt-5'>
         {/* <Button className='w-[45%]' onClick={onAdd}  >Add</Button> */}
-        <Button className='w-[45%]' onClick={onAdd} isLoading={addAccount.isPending} >Add</Button>
+        <Button btnName='Submit New Bank account' className='w-[45%]' onClick={onAdd} isLoading={addAccount.isPending} >Add</Button>
       </div>
     </div>
   )

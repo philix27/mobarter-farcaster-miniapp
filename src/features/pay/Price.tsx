@@ -13,7 +13,9 @@ export function PriceDisplay(props: { isLoading: boolean; handleSend?: () => Pro
 
             {props.rows.map((item, i) => <PriceRow key={i} {...item} />)}
 
-            <Button className="mt-5 mb-3 w-[60%]"
+            <Button
+                btnName='Send TopUp'
+                className="mt-5 mb-3 w-[60%]"
                 isLoading={props.isLoading}
                 onClick={props.handleSend}>
                 Confirm
