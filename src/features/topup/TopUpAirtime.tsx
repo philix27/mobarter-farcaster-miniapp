@@ -140,6 +140,7 @@ export default function AirtimeSection() {
 
       </div>
       <PriceDisplay
+        paymentFor='Purchase Data Airtime'
         handleSend={handleSend}
         isLoading={topUp.isLoading}
         rows={[

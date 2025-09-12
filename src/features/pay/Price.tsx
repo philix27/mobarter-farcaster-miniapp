@@ -4,7 +4,7 @@ import React from 'react'
 
 
 type IPriceRow = { title: string; subtitle: string; subImg?: string; }
-export function PriceDisplay(props: { isLoading: boolean; handleSend?: () => Promise<void>; rows: IPriceRow[] }) {
+export function PriceDisplay(props: { paymentFor: string; isLoading: boolean; handleSend?: () => Promise<void>; rows: IPriceRow[] }) {
     // const topUp = useTopUpForm();
 
     return (
@@ -14,7 +14,7 @@ export function PriceDisplay(props: { isLoading: boolean; handleSend?: () => Pro
             {props.rows.map((item, i) => <PriceRow key={i} {...item} />)}
 
             <Button
-                btnName='Send TopUp'
+                btnName={props.paymentFor}
                 className="mt-5 mb-3 w-[60%]"
                 isLoading={props.isLoading}
                 onClick={props.handleSend}>

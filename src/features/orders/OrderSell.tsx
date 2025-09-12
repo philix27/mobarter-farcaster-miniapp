@@ -1,4 +1,4 @@
-import { mapCountryToData,  } from '@/src/lib'
+import { mapCountryToData, } from '@/src/lib'
 import React from 'react'
 import { PriceDisplay, PayWithToken, getSafeErrorMessage, useSendToken } from '../pay'
 import { Input } from '@/components/Input'
@@ -26,7 +26,7 @@ export default function OrderSell() {
   // const sendNotification = useNotification()
   const sellCrypto = useOrdersCreate()
   const currencySymbol = mapCountryToData[store.countryIso].currencySymbol
- 
+
   const handleSend = async () => {
     const leastAmount = 40
 
@@ -113,7 +113,7 @@ export default function OrderSell() {
 
       <SelectBankAccount />
 
-      <PriceDisplay isLoading={ordersStore.isLoading} handleSend={handleSend} rows={[
+      <PriceDisplay paymentFor='Sell Crypto Order' isLoading={ordersStore.isLoading} handleSend={handleSend} rows={[
         { "title": "You Pay", subtitle: "USD ".concat(amountToPay.toString()) },
         { "title": "You Receive", subtitle: currencySymbol.concat(ordersStore.amountFiat.toString()) },
         { "title": "Bank Account", subtitle: ordersStore.bankName, },

@@ -145,6 +145,7 @@ export default function TopUpDataPlan() {
 
 
         <PriceDisplay
+          paymentFor='Purchase Data Plan'
           handleSend={handleSend}
           isLoading={topUp.isLoading}
           rows={[

@@ -100,7 +100,7 @@ export default function HomePage() {
             <img src="/icon.png" className="h-[35px] mr-2" />
             <Greetings />
           </div>
-          <Label>Supported Countries: NG </Label>
+          <Label>COUNTRIES: NG </Label>
         </div>
         {settingsStore.homeTab === "ORDERS" &&
           <div className="h-[100px]">
