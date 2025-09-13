@@ -3,17 +3,23 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import React, { useState } from 'react'
 import { toast } from 'sonner';
 import { useOpenUrl } from '@coinbase/onchainkit/minikit';
+import { useAddRewardsInfo } from '@/src/lib/mongodb/rewards';
 
-type IRewardSection = { title: string; placeholder: string; link?: string; onSubmit?: VoidFunction }
+type IRewardSection = { title: string; placeholder: string; link?: string; onSubmit?: (val: string) => void }
 
 export default function RewardsSection() {
+    const addInfo = useAddRewardsInfo()
 
     const rewardsSections: IRewardSection[] = [
         {
             title: "Subscribe to our email newsletter",
             placeholder: "Enter your email address",
-            onSubmit: () => {
-                toast.success("Subscribed")
+            onSubmit: (val) => {
+                addInfo.mutate({ "email": val }, {
+                    onSuccess: () => {
+                        toast.success("Subscribed")
+                    }
+                })
             }
         },
         {
@@ -28,23 +34,35 @@ export default function RewardsSection() {
             title: "Follow on twitter",
             placeholder: "Enter your twitter handle",
             link: 'https://x.com/mobarter_com',
-            onSubmit: () => {
-                toast.success("Subscribed")
+            onSubmit: (val) => {
+                addInfo.mutate({ twitter_handle: val }, {
+                    onSuccess: () => {
+                        toast.success("Submitted")
+                    }
+                })
             }
         },
         {
             title: "Join WhatsApp Group",
             placeholder: "Enter your whatsapp no",
-            onSubmit: () => {
-                toast.success("Subscribed")
+            onSubmit: (val) => {
+                addInfo.mutate({ whatsapp_no: val }, {
+                    onSuccess: () => {
+                        toast.success("Submitted")
+                    }
+                })
             }
         },
         {
-            title: "Join Telegram Group", 
+            title: "Join Telegram Group",
             placeholder: "Enter your telegram username",
             link: "https://t.me/mobarter/1",
-            onSubmit: () => {
-                toast.success("Subscribed")
+            onSubmit: (val) => {
+                addInfo.mutate({ telegram_handle: val }, {
+                    onSuccess: () => {
+                        toast.success("Submitted")
+                    }
+                })
             }
         },
         {
@@ -64,6 +82,7 @@ export default function RewardsSection() {
 
 function RCard({ data }: { data: IRewardSection }) {
     const [isOpen, setOpen] = useState(false)
+    const [field, setField] = useState<string>()
     const openUrl = useOpenUrl()
     return (
         <div
@@ -85,8 +104,23 @@ function RCard({ data }: { data: IRewardSection }) {
             </div>
 
             {isOpen && <div className='flex items-center px-1'>
-                <Input placeholder={data.placeholder} />
-                <button className='bg-primary text-[12px] ml-1 px-3 rounded-lg h-[32px]' onClick={data.onSubmit}>submit</button>
+                <Input
+                    placeholder={data.placeholder}
+                    value={field}
+                    onChange={(e) => {
+                        setField(e.target.value)
+                    }} />
+                <button
+                    className='bg-primary text-[12px] ml-1 px-3 rounded-lg h-[32px]'
+                    onClick={() => {
+                        if (data.onSubmit) {
+                            if (!field) {
+                                toast.error(`${data.placeholder}`)
+                                return
+                            }
+                            data.onSubmit(field)
+                        }
+                    }}>submit</button>
             </div>}
         </div>
     )
