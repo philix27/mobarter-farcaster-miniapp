@@ -80,8 +80,6 @@ export default function AirtimeSection() {
         }
       })
 
-
-
     } catch (err) {
       toast.error(getSafeErrorMessage(err));
       logger.error('Topup ' + JSON.stringify(err))
@@ -94,8 +92,7 @@ export default function AirtimeSection() {
 
   return (
     <>
-      <div className="w-full px-1 mb-4"
-      >
+      <div className="w-full px-1 mb-4">
         <AppSelect
           label="Network*"
           onChange={(data) => {
@@ -140,7 +137,7 @@ export default function AirtimeSection() {
 
       </div>
       <PriceDisplay
-        paymentFor='Purchase Data Airtime'
+        paymentFor='Purchase Airtime'
         handleSend={handleSend}
         isLoading={topUp.isLoading}
         rows={[
