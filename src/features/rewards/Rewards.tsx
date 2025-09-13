@@ -10,13 +10,16 @@ export default function RewardsSection() {
 
     const rewardsSections: IRewardSection[] = [
         {
-            title: "Subscribe to our email newsletter", placeholder: "Enter your email address",
+            title: "Subscribe to our email newsletter",
+            placeholder: "Enter your email address",
             onSubmit: () => {
                 toast.success("Subscribed")
             }
         },
         {
-            title: "Follow on Farcaster", placeholder: "Enter your email address",
+            title: "Follow on Farcaster",
+            placeholder: "Enter your farcaster username",
+            link: "https://farcaster.xyz/philix",
             onSubmit: () => {
                 toast.success("Subscribed")
             }
@@ -30,13 +33,15 @@ export default function RewardsSection() {
             }
         },
         {
-            title: "Join WhatsApp Group", placeholder: "Enter your whatsapp no",
+            title: "Join WhatsApp Group",
+            placeholder: "Enter your whatsapp no",
             onSubmit: () => {
                 toast.success("Subscribed")
             }
         },
         {
-            title: "Join Telegram Group", placeholder: "Enter your telegram username",
+            title: "Join Telegram Group", 
+            placeholder: "Enter your telegram username",
             link: "https://t.me/mobarter/1",
             onSubmit: () => {
                 toast.success("Subscribed")
