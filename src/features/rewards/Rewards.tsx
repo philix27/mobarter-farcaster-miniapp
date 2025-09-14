@@ -3,15 +3,31 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import React, { useState } from 'react'
 import { toast } from 'sonner';
 import { useOpenUrl } from '@coinbase/onchainkit/minikit';
-import { useAddRewardsInfo } from '@/src/lib/mongodb/rewards/hook';
+import { useAddRewardsInfo, useGetUserRewardsInfo } from '@/src/lib/mongodb/rewards/hook';
+import { Spinner } from '@/components/Spinner';
+import { Button } from '@/components/Button';
 
-type IRewardSection = { title: string; placeholder: string; link?: string; onSubmit?: (val: string) => void }
+type IRewardSection = {
+    title: string;
+    placeholder?: string;
+    link?: string;
+    hasValue?: boolean;
+    onSubmit?: (val: string) => void
+}
 
 export default function RewardsSection() {
     const addInfo = useAddRewardsInfo()
+    const { data, isPending } = useGetUserRewardsInfo()
 
+
+    if (isPending) {
+        return <Spinner />
+    }
+
+    const info = data!
     const rewardsSections: IRewardSection[] = [
         {
+            hasValue: !!info.email,
             title: "Subscribe to our email newsletter",
             placeholder: "Enter your email address",
             onSubmit: (val) => {
@@ -24,13 +40,14 @@ export default function RewardsSection() {
         },
         {
             title: "Follow on Farcaster",
-            placeholder: "Enter your farcaster username",
+            // placeholder: "Enter your farcaster username",
             link: "https://farcaster.xyz/philix",
             onSubmit: () => {
                 toast.success("Success")
             }
         },
         {
+            hasValue: !!info.twitter_handle,
             title: "Follow on twitter",
             placeholder: "Enter your twitter handle",
             link: 'https://x.com/mobarter_com',
@@ -43,6 +60,7 @@ export default function RewardsSection() {
             }
         },
         {
+            hasValue: !!info.whatsapp_no,
             title: "Join WhatsApp Group",
             placeholder: "Enter your whatsapp no",
             link: "https://chat.whatsapp.com/KCUxiROyufX44M04SP2L6j",
@@ -55,6 +73,7 @@ export default function RewardsSection() {
             }
         },
         {
+            hasValue: !!info.telegram_handle,
             title: "Join Telegram Group",
             placeholder: "Enter your telegram username",
             link: "https://t.me/mobarter/1",
@@ -67,13 +86,15 @@ export default function RewardsSection() {
             }
         },
         {
-            title: "Subscribe to our youtube", placeholder: "Enter your telegram username",
+            title: "Subscribe to our youtube",
+            // placeholder: "Enter your telegram username",
             link: "https://www.youtube.com/@mobarter",
             onSubmit: () => {
                 return
             }
         },
     ]
+
     return (
         <div className='space-y-2'>
             {rewardsSections.map((item, i) => <RCard key={i} data={item} />)}
@@ -100,29 +121,43 @@ function RCard({ data }: { data: IRewardSection }) {
                         }}>Link</span>}</p>
                 </div>
                 <div>
-                    {isOpen ? <ChevronUp className='text-muted' /> : <ChevronDown className='text-muted' />}
+                    <div>
+                        {isOpen ? <ChevronUp className='text-muted' /> : <ChevronDown className='text-muted' />}
+                    </div>
                 </div>
             </div>
 
-            {isOpen && <div className='flex items-center px-1'>
-                <Input
-                    placeholder={data.placeholder}
-                    value={field}
-                    onChange={(e) => {
-                        setField(e.target.value)
-                    }} />
-                <button
-                    className='bg-primary text-[12px] ml-1 px-3 rounded-lg h-[32px]'
-                    onClick={() => {
-                        if (data.onSubmit) {
-                            if (!field) {
-                                toast.error(`${data.placeholder}`)
-                                return
-                            }
-                            data.onSubmit(field)
+
+            {isOpen && <div>
+                {data.hasValue ? <div className='flex items-center justify-center w-full h-[80px]'>
+                    <Button btnName={'CLAIM Rewards'}>Claim</Button> </div> :
+                    <div>
+                        {data.placeholder ? <div className='flex items-center px-1'>
+                            <Input
+                                placeholder={data.placeholder}
+                                value={field}
+                                onChange={(e) => {
+                                    setField(e.target.value)
+                                }} />
+                            <button
+                                className='bg-primary text-[12px] ml-1 px-3 rounded-lg h-[32px]'
+                                onClick={() => {
+                                    if (data.onSubmit) {
+                                        if (!field) {
+                                            toast.error(`${data.placeholder}`)
+                                            return
+                                        }
+                                        data.onSubmit(field)
+                                    }
+                                }}>submit</button>
+                        </div> :
+
+                            <div> </div>
                         }
-                    }}>submit</button>
-            </div>}
+                    </div>
+                }
+            </div>
+            }
         </div>
     )
 }
