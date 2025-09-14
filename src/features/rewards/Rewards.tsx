@@ -3,12 +3,12 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import React, { useState } from 'react'
 import { toast } from 'sonner';
 import { useOpenUrl } from '@coinbase/onchainkit/minikit';
-import { useAddRewardsInfo } from '@/src/lib/mongodb/rewards';
+import { useAddRewardsInfo } from '@/src/lib/mongodb/rewards/hook';
 
 type IRewardSection = { title: string; placeholder: string; link?: string; onSubmit?: (val: string) => void }
 
 export default function RewardsSection() {
-    // const addInfo = useAddRewardsInfo()
+    const addInfo = useAddRewardsInfo()
 
     const rewardsSections: IRewardSection[] = [
         {
@@ -27,7 +27,7 @@ export default function RewardsSection() {
             placeholder: "Enter your farcaster username",
             link: "https://farcaster.xyz/philix",
             onSubmit: () => {
-                toast.success("Subscribed")
+                toast.success("Success")
             }
         },
         {

@@ -14,6 +14,23 @@ export class RewardsService {
     async create(body: IRewardsParams["add"]): Promise<IRewards> {
         try {
             logger.info("add rewards data: " + body)
+
+            const result = await RewardsModel.find({
+                fid: body.fid
+            });
+
+
+            if (result.length > 0) {
+                const record = result[0]
+                const accounts = await RewardsModel.findByIdAndUpdate(record._id, {
+                    ...body
+                }, {
+                    "new": true,
+                    "runValidators": true
+                })
+                return accounts as IRewards
+            }
+
             const accounts = await RewardsModel.create(body);
             return accounts
         } catch (error: any) {
