@@ -22,12 +22,12 @@ const schema: Schema<ISchema> = new Schema(
     },
     {
         timestamps: true,
-        collection: "rewards"
+        collection: "user_rewards"
     }
 );
 
 export const RewardsModel: Model<ISchema> =
-    mongoose.models.user_info || mongoose.model<ISchema>("rewards", schema);
+    mongoose.models.user_rewards || mongoose.model<ISchema>("user_rewards", schema);
 
 
 

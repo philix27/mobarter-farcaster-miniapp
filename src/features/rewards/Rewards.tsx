@@ -8,7 +8,7 @@ import { useAddRewardsInfo } from '@/src/lib/mongodb/rewards';
 type IRewardSection = { title: string; placeholder: string; link?: string; onSubmit?: (val: string) => void }
 
 export default function RewardsSection() {
-    const addInfo = useAddRewardsInfo()
+    // const addInfo = useAddRewardsInfo()
 
     const rewardsSections: IRewardSection[] = [
         {

@@ -4,7 +4,10 @@ import { getDarkMode } from 'src/styles/mediaQueries'
 export default class MyDocument extends Document {
   render() {
     const isDarkMode = getDarkMode()
-    const desc = "Mobarter offramping services"
+    const title = "Crypto payment services"
+    const desc = "Airtime, Data Bundle and Offramping Services. Fast and reliable crypto exchange"
+    const appName = "Mobarter Mini App"
+    const url = "https://farcaster.xyz/miniapps/kZOQI35AUiXL/mobarter"
     // todo: use this for dark
     // <Html className={isDarkMode ? 'dark' : ''}>
     return (
@@ -18,11 +21,12 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="/site.webmanifest" />
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff6719" />
           <link rel="shortcut icon" href="/favicon.ico" />
+
           <meta name="msapplication-TileColor" content="#ff6719" />
           <meta name="msapplication-config" content="/browserconfig.xml" />
           <meta name="theme-color" content="#ffffff" />
 
-          <meta name="application-name" content={desc} />
+          <meta name="application-name" content={appName} />
           <meta name="keywords" content="mobarter, offramping, crypto, payment" />
           <meta
             name="description"
@@ -33,8 +37,8 @@ export default class MyDocument extends Document {
           <meta name="apple-mobile-web-app-title" content={desc} />
           <meta name="apple-mobile-web-app-capable" content="yes" />
 
-          <meta property="og:url" content="https://mobarter.com" />
-          <meta property="og:title" content={desc} />
+          <meta property="og:title" content={title} />
+          <meta property="og:url" content={url} />
           <meta property="og:type" content="website" />
           <meta property="og:image" content="https://mobarter.com/logo.png" />
           <meta
@@ -42,7 +46,7 @@ export default class MyDocument extends Document {
             content={desc}
           />
           <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content={desc} />
+          <meta name="twitter:title" content={title} />
           <meta
             name="twitter:description"
             content={desc}
