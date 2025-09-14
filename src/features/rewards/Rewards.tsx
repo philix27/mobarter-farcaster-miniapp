@@ -24,10 +24,10 @@ export default function RewardsSection() {
         return <Spinner />
     }
 
-    const info = data!
+    const info = data
     const rewardsSections: IRewardSection[] = [
         {
-            hasValue: !!info.email,
+            hasValue: info && !!info.email,
             title: "Subscribe to our email newsletter",
             placeholder: "Enter your email address",
             onSubmit: (val) => {
@@ -47,7 +47,7 @@ export default function RewardsSection() {
             }
         },
         {
-            hasValue: !!info.twitter_handle,
+            hasValue: info && !!info.twitter_handle,
             title: "Follow on twitter",
             placeholder: "Enter your twitter handle",
             link: 'https://x.com/mobarter_com',
@@ -60,7 +60,7 @@ export default function RewardsSection() {
             }
         },
         {
-            hasValue: !!info.whatsapp_no,
+            hasValue: info && !!info.whatsapp_no,
             title: "Join WhatsApp Group",
             placeholder: "Enter your whatsapp no",
             link: "https://chat.whatsapp.com/KCUxiROyufX44M04SP2L6j",
@@ -73,7 +73,7 @@ export default function RewardsSection() {
             }
         },
         {
-            hasValue: !!info.telegram_handle,
+            hasValue: info && !!info.telegram_handle,
             title: "Join Telegram Group",
             placeholder: "Enter your telegram username",
             link: "https://t.me/mobarter/1",
