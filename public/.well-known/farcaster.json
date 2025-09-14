@@ -17,7 +17,7 @@
       ],
       "iconUrl": "https://app.mobarter.com/icon.png",
       "splashImageUrl": "https://app.mobarter.com/splash.png",
-      "splashBackgroundColor": "#FF5E00",
+      "splashBackgroundColor": "#1F2C3DFF",
       "homeUrl": "https://app.mobarter.com",
       "webhookUrl": "https://app.mobarter.com/api/webhook",
       "primaryCategory": "finance",

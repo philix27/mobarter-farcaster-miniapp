@@ -45,6 +45,7 @@ export default function RewardsSection() {
         {
             title: "Join WhatsApp Group",
             placeholder: "Enter your whatsapp no",
+            link: "https://chat.whatsapp.com/KCUxiROyufX44M04SP2L6j",
             onSubmit: (val) => {
                 addInfo.mutate({ whatsapp_no: val }, {
                     onSuccess: () => {
