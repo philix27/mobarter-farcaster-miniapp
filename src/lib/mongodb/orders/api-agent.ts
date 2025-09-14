@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { OrdersService } from "./service";
 
 
-export default async function OrdersApiHandler(req: NextApiRequest, res: NextApiResponse) {
+export default async function AgentOrdersApiHandler(req: NextApiRequest, res: NextApiResponse) {
     await dbConnect();
     const service = new OrdersService()
     const { method } = req;
@@ -11,19 +11,10 @@ export default async function OrdersApiHandler(req: NextApiRequest, res: NextApi
     switch (method) {
         case "GET":
             try {
-                const data = await service.getForUser(req.query as any)
+                const data = await service.getForAgent()
                 res.status(200).json({ success: true, data: data });
             } catch (error) {
                 res.status(400).json({ success: false });
-            }
-            break;
-
-        case "POST":
-            try {
-                const data = await service.create(req.body)
-                res.status(201).json({ success: true, data: data });
-            } catch (error: any) {
-                res.status(400).json({ success: false, error: error.message });
             }
             break;
 

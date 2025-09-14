@@ -3,11 +3,12 @@ import { IOrder, OrdersModel } from "./model";
 
 export interface IOrderParams {
     create: IOrder
-    getAll: { fid: string; }
+    getForUser: { fid: string; }
 }
 export interface IOrderResponse {
     create: IOrder
-    getAll: IOrder[]
+    getForUser: IOrder[]
+    getForAgent: IOrder[]
 }
 
 export class OrdersService {
@@ -27,12 +28,22 @@ export class OrdersService {
 
     }
 
-    async get(p: IOrderParams["getAll"]): Promise<IOrderResponse["getAll"]> {
+    async getForUser(p: IOrderParams["getForUser"]): Promise<IOrderResponse["getForUser"]> {
         try {
             logger.info("Get orders: " + p.fid)
             const result = await OrdersModel.find({
                 fid: p.fid
             });
+            return result
+        } catch (error: any) {
+            logger.error(error)
+            throw new Error("Fetch orders failed")
+        }
+    }
+    async getForAgent(): Promise<IOrderResponse["getForAgent"]> {
+        try {
+            logger.info("Get orders: ")
+            const result = await OrdersModel.find();
             return result
         } catch (error: any) {
             logger.error(error)

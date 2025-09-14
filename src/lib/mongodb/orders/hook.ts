@@ -24,7 +24,7 @@ export function useOrdersGet() {
     const profile = useFarcasterProfile()
     const fid = profile.data?.user.fid
 
-    const query = useQuery<IOrderParams["getAll"], any, IOrderResponse["getAll"]>({
+    const query = useQuery<IOrderParams["getForUser"], any, IOrderResponse["getForUser"]>({
         queryKey: ["orders-get"],
         queryFn: async () => {
             const result = await axios.get(URL, {
@@ -32,6 +32,17 @@ export function useOrdersGet() {
                     fid: fid || testFid
                 },
             })
+            return result.data.data
+        },
+    })
+    return query
+}
+
+export function useGetOrdersForAgent() {
+    const query = useQuery<any, any, IOrderResponse["getForAgent"]>({
+        queryKey: ["orders-get"],
+        queryFn: async () => {
+            const result = await axios.get("/api/agent-orders")
             return result.data.data
         },
     })
