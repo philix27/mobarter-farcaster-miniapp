@@ -2,7 +2,7 @@ import { ethers, } from "ethers";
 import { TXN_MANAGER_ABI } from "../abi/abi.txnManager";
 import { Address, parseEther } from "viem";
 import { Injectable, } from "@nestjs/common";
-import { OnchainUtilsService } from "./onchainUtils";
+import { OnchainUtilsService } from "./services/onchainUtils";
 import { Erc20Service } from "./erc20Contract";
 
 

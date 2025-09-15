@@ -1,12 +1,10 @@
 import { ethers, parseEther, } from "ethers";
 import { Address } from "viem";
-import { Injectable, } from "@nestjs/common";
-import { OnchainUtilsService, SupportedChains } from "./onchainUtils";
 import { rewardAbi } from "../abi/rewards";
+import { OnchainUtilsService } from "./onchainUtils";
 import { Erc20Service } from "./erc20Contract";
 
 
-@Injectable()
 export class RewardsService {
     constructor(private readonly utils: OnchainUtilsService) { }
 
@@ -27,6 +25,7 @@ export class RewardsService {
         } catch (error) {
             console.error("Txn err: " + this.utils.wallet.address, error)
         }
+        return "";
     }
 
     async setRewardAmount(payload: { tokenAddress: Address, newAmount: number }): Promise<string> {
@@ -40,6 +39,7 @@ export class RewardsService {
 
         } catch (error) {
             console.error("Txn err:", error)
+            return "";
         }
     }
     async setAllowedToken(payload: { tokenAddress: Address, allowed: boolean }): Promise<string> {
@@ -53,6 +53,7 @@ export class RewardsService {
 
         } catch (error) {
             console.error("Txn err:", error)
+            return "";
         }
     }
 
@@ -67,6 +68,7 @@ export class RewardsService {
 
         } catch (error) {
             console.error("Txn err:", error)
+            return "";
         }
     }
     async withdrawTokens(payload: { tokenAddress: Address, amount: number, to: Address }): Promise<string> {
@@ -80,9 +82,10 @@ export class RewardsService {
 
         } catch (error) {
             console.error("Txn err:", error)
+            return "";
         }
     }
-    async depositTokens(payload: { tokenAddress: Address, amount: number }): Promise<string> {
+    async depositTokens(payload: { tokenAddress: Address, amount: number }): Promise<string | undefined> {
         const amt = parseEther(payload.amount.toString())
         const contractAddr = this.utils.getContractAddress().rewards
         try {
@@ -112,10 +115,11 @@ export class RewardsService {
             console.error("Txn err:", error)
         }
     }
-    async nextClaimTime(payload: { tokenAddress: Address, }): Promise<string> {
+    async nextClaimTime(payload: { tokenAddress: Address, }): Promise<string | undefined> {
         try {
             const tx = await this.contract(this.utils.wallet).nextClaimTime();
             console.log("Transaction sent:", tx.hash);
+            payload
 
             const receipt = await tx.wait();
             console.log("Transaction mined:", receipt.transactionHash);
@@ -138,7 +142,7 @@ export class RewardsService {
             console.error("Txn err:", error)
         }
     }
-    async canClaim(payload: { tokenAddress: Address, }): Promise<boolean> {
+    async canClaim(payload: { tokenAddress: Address, }): Promise<boolean | undefined> {
         try {
             const tx = await this.contract(this.utils.wallet).canClaim(payload.tokenAddress);
             console.log("Transaction sent:", tx.hash);
@@ -151,7 +155,7 @@ export class RewardsService {
             console.error("Txn err:", error)
         }
     }
-    async canClaimFor(payload: { tokenAddress: Address, user: Address }): Promise<string> {
+    async canClaimFor(payload: { tokenAddress: Address, user: Address }): Promise<string | undefined> {
         try {
             const tx = await this.contract(this.utils.wallet).canClaimFor(payload.user, payload.tokenAddress);
             console.log("Transaction sent:", tx.hash);
