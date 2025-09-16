@@ -6,6 +6,8 @@ import { useOpenUrl } from '@coinbase/onchainkit/minikit';
 import { useAddRewardsInfo, useGetUserRewardsInfo } from '@/src/lib/mongodb/rewards/hook';
 import { Spinner } from '@/components/Spinner';
 import { Button } from '@/components/Button';
+import { baseUSDC, useClaim } from '@/src/contract/hook';
+import { SupportedChains } from '@/src/contract/services/onchainUtils';
 
 type IRewardSection = {
     title: string;
@@ -18,19 +20,28 @@ type IRewardSection = {
 export default function RewardsSection() {
     const addInfo = useAddRewardsInfo()
     const { data, isPending } = useGetUserRewardsInfo()
-
+    const claim = useClaim()
 
     if (isPending) {
         return <Spinner />
     }
 
+    const handleClaim = async () => {
+        try {
+            await claim.claim({ tokenAddress: baseUSDC, chain: SupportedChains.base })
+
+        } catch (error: any) {
+            const msg = error.message.toString().split(",")[0]
+            toast.error(msg)
+        }
+    }
     const info = data
     const rewardsSections: IRewardSection[] = [
         {
             hasValue: info && !!info.email,
             title: "Subscribe to our email newsletter",
             placeholder: "Enter your email address",
-            onSubmit: (val) => {
+            onSubmit: async (val) => {
                 addInfo.mutate({ "email": val }, {
                     onSuccess: () => {
                         toast.success("Subscribed")
@@ -97,7 +108,11 @@ export default function RewardsSection() {
 
     return (
         <div className='space-y-2'>
+
             {rewardsSections.map((item, i) => <RCard key={i} data={item} />)}
+            <button
+                className='bg-primary text-[12px] ml-1 px-3 rounded-lg h-[32px]'
+                onClick={handleClaim}>Claim Reward</button>
         </div>
     )
 }

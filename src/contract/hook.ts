@@ -11,6 +11,8 @@ import { TXN_MANAGER_ABI } from './abi/abi.txnManager'
 import { logger } from '../lib/utils'
 import { getContractAddress, SupportedChains } from './services/onchainUtils'
 import { rewardAbi } from './abi/rewards'
+import { useSwitchChain } from 'wagmi'
+import { base, celo } from 'viem/chains'
 
 const erc20Abi = ['function approve(address spender, uint256 amount) public returns (bool)']
 export const baseUSDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
@@ -18,19 +20,29 @@ export const baseUSDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
 
 export function useClaim() {
   const provider = useProvider()
+  const { switchChain } = useSwitchChain()
 
 
-  const claim = async (payload: { tokenAddress: string }) => {
+  const claim = async (payload: { tokenAddress: string; chain: SupportedChains }) => {
+    const isBase = payload.chain === SupportedChains.base
+
+    const activeChain = isBase ? base : celo;
+
+    switchChain({ "chainId": activeChain.id });
+
+    const signer = isBase ? await provider.base.getSigner() : await provider.celo.getSigner();
+
+    const contractAddr = getContractAddress(payload.chain).rewards
     try {
       // 2. Create token contract instance
-      const contractAddr = getContractAddress(SupportedChains.base).rewards
-      const signer = await provider.celo.getSigner()
+
       const contract = new ethers.Contract(contractAddr, rewardAbi, signer)
 
       const tx = await contract.claim(payload.tokenAddress);
       logger.debug("Transaction sent:", tx.hash);
-    } catch (error) {
+    } catch (error:any) {
       logger.info("Error in claim" + error)
+      throw new Error(error.toString())
     }
   }
 
@@ -41,17 +53,23 @@ export type PaymentPurpose = 'AIRTIME' | 'DATA' | 'OFFRAMP' | 'ELECTRICITY' | 'G
 export function usePay<T>() {
   const provider = useProvider()
 
+
   const pay = async (props: {
     token: TokenId
     amount: string
     txName: PaymentPurpose
     payload: T
   }) => {
+
+
+
     const signer = await provider.celo.getSigner()
     if (!signer) {
       toast.error('Please connect your wallet')
       throw new Error('Signer needed')
     }
+
+
     const amount = ethers.parseUnits(props.amount, 18)
     const tokenAddress = TokenAddresses[ChainId.Celo][props.token]
 
