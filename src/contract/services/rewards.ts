@@ -117,7 +117,7 @@ export class RewardsService {
             return undefined;
         }
     }
-    
+
     async nextClaimTime(payload: { tokenAddress: Address, }): Promise<string | undefined> {
         try {
             const tx = await this.contract(this.utils.wallet).nextClaimTime();
@@ -130,6 +130,7 @@ export class RewardsService {
 
         } catch (error) {
             logger.error("Txn err:", error)
+            return
         }
     }
     async nextClaimTimeFor(payload: { tokenAddress: Address, user: Address }) {
@@ -143,6 +144,7 @@ export class RewardsService {
 
         } catch (error) {
             logger.error("Txn err:", error)
+
         }
     }
     async canClaim(payload: { tokenAddress: Address, }): Promise<boolean | undefined> {
@@ -152,10 +154,11 @@ export class RewardsService {
 
             const receipt = await tx.wait();
             logger.debug("Transaction mined:", receipt.transactionHash);
-            return receipt.transactionHash;
+            return true
 
         } catch (error) {
             logger.error("Txn err:", error)
+            return 
         }
     }
     async canClaimFor(payload: { tokenAddress: Address, user: Address }): Promise<string | undefined> {
@@ -169,6 +172,7 @@ export class RewardsService {
 
         } catch (error) {
             logger.error("Txn err:", error)
+              return
         }
     }
 }
