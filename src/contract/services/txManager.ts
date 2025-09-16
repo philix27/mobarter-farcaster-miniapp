@@ -1,12 +1,10 @@
 import { ethers, } from "ethers";
 import { TXN_MANAGER_ABI } from "../abi/abi.txnManager";
 import { Address, parseEther } from "viem";
-import { Injectable, } from "@nestjs/common";
-import { OnchainUtilsService } from "./services/onchainUtils";
+import { OnchainUtilsService } from "./onchainUtils";
 import { Erc20Service } from "./erc20Contract";
 
 
-// @Injectable()
 export class TxnManagerService {
 
     constructor(private readonly utils: OnchainUtilsService) { }

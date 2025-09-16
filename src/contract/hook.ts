@@ -4,12 +4,38 @@ import { toast } from 'sonner'
 import { TokenAddresses, TokenId } from 'src/lib/config/tokens'
 
 import { useProvider } from '../hooks/useProvider'
-import { ChainId } from '../lib/config'
+import { ChainId, } from '../lib/config'
 
-import { TXN_MANAGER_ABI } from './abi.txnManager'
 import { TXN_MANAGER_CONTRACT_ADDRESS } from './const'
+import { TXN_MANAGER_ABI } from './abi/abi.txnManager'
+import { logger } from '../lib/utils'
+import { getContractAddress, SupportedChains } from './services/onchainUtils'
+import { rewardAbi } from './abi/rewards'
 
 const erc20Abi = ['function approve(address spender, uint256 amount) public returns (bool)']
+export const baseUSDC = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913"
+
+
+export function useClaim() {
+  const provider = useProvider()
+
+
+  const claim = async (payload: { tokenAddress: string }) => {
+    try {
+      // 2. Create token contract instance
+      const contractAddr = getContractAddress(SupportedChains.base).rewards
+      const signer = await provider.celo.getSigner()
+      const contract = new ethers.Contract(contractAddr, rewardAbi, signer)
+
+      const tx = await contract.claim(payload.tokenAddress);
+      logger.debug("Transaction sent:", tx.hash);
+    } catch (error) {
+      logger.info("Error in claim" + error)
+    }
+  }
+
+  return { claim }
+}
 
 export type PaymentPurpose = 'AIRTIME' | 'DATA' | 'OFFRAMP' | 'ELECTRICITY' | 'GIFTCARD'
 export function usePay<T>() {
@@ -56,6 +82,7 @@ export function usePay<T>() {
         '0x5f0a55fad9424ac99429f635dfb9bf20c3360ab8',
       ],
     })
+
     const iface = new ethers.Interface(TXN_MANAGER_ABI)
     const encodedCall = iface.encodeFunctionData('pay', [
       tokenAddress,

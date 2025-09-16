@@ -3,7 +3,18 @@ import { base, celo } from "viem/chains";
 import { baseContracts, celoContracts } from "../const";
 
 export enum SupportedChains { celo, base }
-
+export function getContractAddress(chain: SupportedChains) {
+    switch (chain) {
+        case SupportedChains.celo: {
+            return celoContracts;
+        }
+        case SupportedChains.base: {
+            return baseContracts
+        }
+        default:
+            return celoContracts;
+    }
+}
 export class OnchainUtilsService {
 
     wallet: ethers.Wallet
