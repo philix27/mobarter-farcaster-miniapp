@@ -18,13 +18,9 @@ type IRewardSection = {
 }
 
 export default function RewardsSection() {
-    const addInfo = useAddRewardsInfo()
-    const { data, isPending } = useGetUserRewardsInfo()
+
     const claim = useClaim()
 
-    if (isPending) {
-        return <Spinner />
-    }
 
     const handleClaim = async () => {
         try {
@@ -35,6 +31,28 @@ export default function RewardsSection() {
             toast.error(msg)
         }
     }
+
+
+    return (
+        <div className='space-y-2'>
+            <button
+                className='bg-primary text-[12px] ml-1 px-3 rounded-lg h-[32px]'
+                onClick={handleClaim}>Claim Reward</button>
+            <FormField />
+
+        </div>
+    )
+}
+
+function FormField() {
+    const addInfo = useAddRewardsInfo()
+    const { data, isPending } = useGetUserRewardsInfo()
+
+    if (isPending) {
+        return <Spinner />
+    }
+
+
     const info = data
     const rewardsSections: IRewardSection[] = [
         {
@@ -106,17 +124,11 @@ export default function RewardsSection() {
         },
     ]
 
-    return (
-        <div className='space-y-2'>
+    return <>
 
-            {rewardsSections.map((item, i) => <RCard key={i} data={item} />)}
-            <button
-                className='bg-primary text-[12px] ml-1 px-3 rounded-lg h-[32px]'
-                onClick={handleClaim}>Claim Reward</button>
-        </div>
-    )
+        {rewardsSections.map((item, i) => <RCard key={i} data={item} />)}
+    </>
 }
-
 function RCard({ data }: { data: IRewardSection }) {
     const [isOpen, setOpen] = useState(false)
     const [field, setField] = useState<string>()
