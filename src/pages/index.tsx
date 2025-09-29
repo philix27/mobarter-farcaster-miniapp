@@ -68,13 +68,13 @@ export default function HomePage() {
         settingsStore.update({ homeTab: "Profile" });
       }
     },
-    {
-      title: "REWARDS",
-      isActive: settingsStore.homeTab === "REWARDS",
-      onClick: () => {
-        settingsStore.update({ homeTab: "REWARDS" });
-      }
-    },
+    // {
+    //   title: "REWARDS",
+    //   isActive: settingsStore.homeTab === "REWARDS",
+    //   onClick: () => {
+    //     settingsStore.update({ homeTab: "REWARDS" });
+    //   }
+    // },
   ]
 
 
@@ -118,7 +118,7 @@ export default function HomePage() {
           {settingsStore.homeTab === "TopUp" && <TopUpSection />}
           {settingsStore.homeTab === "Profile" && <ProfileCard />}
           {settingsStore.homeTab === "ORDERS" && <OrderSection />}
-          {settingsStore.homeTab === "REWARDS" && <RewardsSection />}
+          {/* {settingsStore.homeTab === "REWARDS" && <RewardsSection />} */}
           {/* {settingsStore.homeTab === "Electricity" && <ComingSoon />} */}
           {/* {settingsStore.homeTab === "Betting" && <ComingSoon />} */}
         </div>
