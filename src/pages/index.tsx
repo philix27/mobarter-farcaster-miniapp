@@ -10,7 +10,7 @@ import { ProfileCard } from "../features/profile";
 import OrderSection from "../features/orders/orders";
 import { Label } from "@/components/comps";
 import { useFarcasterProfile } from "../features/profile/hook";
-import RewardsSection from "../features/rewards/Rewards";
+// import RewardsSection from "../features/rewards/Rewards";
 
 
 const metadata = {
