@@ -18,7 +18,7 @@
       "iconUrl": "https://app.mobarter.com/icon.png",
       "splashImageUrl": "https://app.mobarter.com/splash.png",
       "splashBackgroundColor": "#1F2C3DFF",
-      "homeUrl": "https://app.mobarter.com",
+      "homeUrl": "https://app.mobarter.com/farcaster",
       "webhookUrl": "https://app.mobarter.com/api/webhook",
       "primaryCategory": "finance",
       "tags": ["crypto", "topup", "mobile", "data"],
