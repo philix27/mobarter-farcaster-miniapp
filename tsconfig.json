@@ -19,7 +19,7 @@
     "strict": true,
     "target": "es2020",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*", "./src/ *"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/api/bank-accoun.txt",],

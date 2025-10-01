@@ -3,6 +3,7 @@ import Select, { GroupBase, OptionProps, PlaceholderProps } from 'react-select'
 
 import { BottomNote, Label } from './comps'
 import { useThemeColor } from '@/src/styles/Color'
+import { cn } from '@/src/lib/utils'
 
 const CustomOption: ComponentType<OptionProps<any, false, GroupBase<any>>> = (props) => {
   if (props.isDisabled) return null;
@@ -27,6 +28,7 @@ export const AppSelect = (props: {
   label?: string
   error?: string
   value?: string
+  className?: string
   name?: string
   desc?: string
   defaultInputValue?: string
@@ -44,7 +46,7 @@ export const AppSelect = (props: {
   const textColor = theme.text
 
   return (
-    <div className="w-full">
+    <div className={cn("w-full", props.className)}>
       {props.label && <Label>{props.label}</Label>}
       <Select
         isSearchable
