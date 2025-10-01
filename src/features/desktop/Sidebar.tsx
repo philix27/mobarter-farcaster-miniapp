@@ -18,7 +18,7 @@ export function Sidebar() {
         { title: "Bank Account", href: "/bank-account", Icon: BsBank, isActive: path === "/bank-account" },
         { title: "Profile", href: "/profile", Icon: BsPerson, isActive: path === "/profile" },
     ]
-    return <div className='w-[275px] bg-card h-full py-4 px-3'>
+    return <div className='md:w-[275px] w-full bg-card h-full py-4 px-3 bg-card'>
         <div>
             {drawerItems.map((val, i) => {
                 const { Icon } = val;

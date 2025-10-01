@@ -25,7 +25,7 @@ export function AdsRow(params: {
   text2options?: { onClick?: VoidFunction; active?: boolean ;  }
 }) {
   return (
-    <div className="mb-1 flex items-center w-full justify-between p-1">
+    <div className="mb-1 flex items-center w-full justify-between p-1 md:py-2">
       <p className="text-[12px] uppercase text-muted" >{params.text}</p>
       <p
         className={cn('text-[12px]', params.text2options?.active && 'text-primary')}

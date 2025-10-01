@@ -7,7 +7,7 @@ import { Spinner } from '@/components/Spinner';
 import { AdsRow, Card, Label } from '@/components/comps';
 import { MdAddCircle } from 'react-icons/md';
 
-export default function BankAccount() {
+export default function BankAccounts() {
   const [showAddAccount, setShowAddAccount] = useState(false)
 
   return (

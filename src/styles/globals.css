@@ -51,7 +51,7 @@
     --popover-foreground: 222.2 47.4% 11.2%;
 
     --card: #1c2937;
-    /* --card: #1f1f1f; */
+    /* --card: #181818; */
     --card-foreground: #ffff;
 
     /* --primary: #ff6719; */
@@ -76,7 +76,7 @@
   body {
     font-family: 'Inter', sans-serif;
     /* font-family: 'Fira Mono', serif; */
-    background: var(--tg-theme-secondary-bg-color, #363637);
+    /* background: var(--tg-theme-secondary-bg-color, #363637); */
   }
 }
 
@@ -118,7 +118,7 @@ body {
   -ms-content-zooming: none;
   touch-action: pan-x pan-y;
   -ms-touch-action: pan-x pan-y;
-  background: var(--tg-theme-secondary-bg-color, #18222e);
+  /* background: var(--tg-theme-secondary-bg-color, #18222e); */
 }
 
 @layer utilities {
