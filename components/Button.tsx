@@ -28,7 +28,7 @@ export function Button(
       )}
       onClick={props.onClick}
     >
-      <p className='text-[12px] font-semibold text-[#fff]'>{props.children}</p>
+      <p className='text-[12px] font-semibold text-[#fff]  flex items-center justify-center'>{props.children}</p>
     </button>
   )
 }

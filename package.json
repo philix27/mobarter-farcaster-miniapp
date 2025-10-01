@@ -54,6 +54,8 @@
     "dayjs": "^1.11.13",
     "decimal.js-light": "^2.5.1",
     "dotenv": "^16.4.7",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-react": "^8.6.0",
     "eruda": "^3.0.1",
     "ethers": "^6.15.0",
     "formik": "2.2.9",
