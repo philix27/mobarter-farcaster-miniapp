@@ -1,94 +1,154 @@
-import { Button } from '@/components/Button'
-import React, { useEffect } from 'react'
-import useEmblaCarousel from 'embla-carousel-react'
-import Autoplay from 'embla-carousel-autoplay'
-import { BsGoogle } from 'react-icons/bs'
+import { useMiniKit } from "@coinbase/onchainkit/minikit";
+import { AppStores } from "../lib/zustand";
+// import ComingSoon from "@/components/ComingSoon";
+import Head from "next/head";
+import { Spinner } from "@/components/Spinner";
+import {  useEffect } from "react";
+import { TopUpSection } from "src/features/topup/TopUpSection";
+import { ITab, Tabs } from "@/components/Tabs";
+import { ProfileCard } from "../features/profile";
+import OrderSection from "../features/orders/orders";
+import { Label } from "@/components/comps";
+import { useFarcasterProfile } from "../features/profile/hook";
+import sdk from "@farcaster/miniapp-sdk";
+import { useRouter } from "next/router";
+// import RewardsSection from "../features/rewards/Rewards";
 
 
-export default function Page() {
-  return (
-    <div className='flex h-screen w-full p-0 m-0 ' >
-      <Slides />
-      <FormField />
-    </div>
-  )
+const metadata = {
+  title: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
+  description: "Mobarter Mini App",
+  other: {
+    "fc:frame": JSON.stringify({
+      version: "next",
+      imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE,
+      button: {
+        title: `Launch ${process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME}`,
+        action: {
+          type: "launch_frame",
+          name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
+          url: URL,
+          splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE,
+          splashBackgroundColor:
+            process.env.NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR,
+        },
+      },
+    }),
+  },
 }
 
-function FormField() {
-  return (
-    <div className='w-1/3  h-full flex flex-col items-center justify-center p-5'>
-      <div className='w-[75%] flex flex-col items-center justify-center space-y-5'>
-        <div className='mb-10 text-center space-y-5'>
-          <p className='text-[35px] font-bold text-gray-800'>
-            Buy and sell crypto.
-            Seamlessly.
-            In seconds.
-            With no-to-low fees.
-          </p>
+export default function HomePage() {
+  const settingsStore = AppStores.useSettings();
+  const { isFrameReady, setFrameReady } = useMiniKit();
+  const router = useRouter();
+  async function checkMiniAppEnvironment() {
+    const isMiniApp = await sdk.isInMiniApp();
 
-          <p className='text-[20px]'>Smooth and easy</p>
-        </div>
+    if (isMiniApp) {
+      // Code specific to running inside the Farcaster Mini App environment
+      console.log("Running inside a Farcaster Mini App.");
+    } else {
+      void router.replace("/login");
+      // Code for when the app is running in a regular web browser
+      console.log("Running in a regular web browser.");
+    }
+  }
 
-
-        <Button btnName='singInWithGoogle'
-          className='space-x-2 py-3'
-          onClick={() => {
-            window.location.href = '/dashboard'
-          }}
-        >
-          <BsGoogle />
-          <span className='pl-2'>Sign in with Google</span>
-        </Button>
-
-        <div>
-          <p className='text-[14px] text-gray-500 mt-5'>By signing in you agree to our
-            <span className='underline'>Terms of Service</span> and
-            <span className='underline'>Privacy Policy</span>
-          </p>
-        </div>
-
-      </div>
-    </div>
-  )
-}
-
-type ISlide = { title: string; subtitle: string; img: string }
-function Slides() {
-  // slides with prev and next button
-  const slides: ISlide[] = [
-    { title: 'Slide 1', subtitle: 'This is slide 1', img: '/login/trend1.jpg' },
-    { title: 'Slide 2', subtitle: 'This is slide 2', img: '/login/trend2.jpg' },
-    { title: 'Slide 3', subtitle: 'This is slide 3', img: '/login/trend3.jpg' },
-  ]
-  return (
-    <div className='w-2/3 h-full flex  p-0 m-0'>
-      <EmblaCarousel slides={slides} />
-    </div>
-  )
-}
-
-
-export function EmblaCarousel(props: { slides: ISlide[] }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, "duration": 250, }, [Autoplay()])
 
   useEffect(() => {
-    if (emblaApi) {
-      console.log(emblaApi.slideNodes()) // Access API
+    if (!isFrameReady) {
+      void setFrameReady();
     }
-  }, [emblaApi])
+    void checkMiniAppEnvironment();
+  }, [setFrameReady, isFrameReady]);
 
+
+  const dashboardItems: ITab[] = [
+    {
+      title: "TOPUP",
+      isActive: settingsStore.homeTab === 'TopUp',
+      onClick: () => {
+        settingsStore.update({ homeTab: 'TopUp' });
+      }
+    },
+    {
+      title: "EXCHANGE",
+      isActive: settingsStore.homeTab === "ORDERS",
+      onClick: () => {
+        settingsStore.update({ homeTab: "ORDERS" });
+      }
+    },
+    {
+      title: "SETTINGS",
+      isActive: settingsStore.homeTab === "Profile",
+      onClick: () => {
+        settingsStore.update({ homeTab: "Profile" });
+      }
+    },
+    // {
+    //   title: "REWARDS",
+    //   isActive: settingsStore.homeTab === "REWARDS",
+    //   onClick: () => {
+    //     settingsStore.update({ homeTab: "REWARDS" });
+    //   }
+    // },
+  ]
+
+
+  if (!isFrameReady) {
+    return <Spinner />
+  }
   return (
-    <div className="h-full w-full" ref={emblaRef} style={{ width: '100%', overflow: 'hidden' }}>
-      <div className="h-full" style={{ display: 'flex' }}>
-        {props.slides?.map((slide, index) => (
-          <div
-            className="h-full" key={index}
-            style={{ minWidth: '100%', boxSizing: 'border-box', flex: '0 0 100%' }}>
-            <img src={slide.img} alt={slide.title} className='absolute w-full h-full object-cover' />
-            <h3>{slide.title}</h3>
-            <p>{slide.subtitle}</p>   </div>
-        ))}
+    <>
+      <Head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+        <meta name="other" content={metadata.other["fc:frame"]} />
+        <meta name="fc:frame" content={metadata.other["fc:frame"]} />
+
+        {/* Dynamic Open Graph tags based on post data */}
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.description} />
+      </Head>
+      <div className="w-full h-screen flex flex-col overflow-y-scroll h-screen">
+
+        <div className="py-2 px-4 flex items-center justify-between">
+          <div className="h-[35px] flex items-center">
+            <img src="/icon.png" className="h-[35px] mr-2" />
+            <Greetings />
+          </div>
+          <Label>COUNTRIES: NG </Label>
+        </div>
+        {settingsStore.homeTab === "ORDERS" &&
+          <div className="h-[100px]">
+            <img src="/fast.png" className="h-full" />
+
+          </div>}
+        {settingsStore.homeTab === "TopUp" &&
+          <div className="h-[100px]">
+            <img src="/bgx.png" className="h-full" />
+          </div>}
+
+        <Tabs tabs={dashboardItems} />
+
+        <div className="mx-auto rounded-lg px-3 w-full mt-4">
+          {settingsStore.homeTab === "TopUp" && <TopUpSection />}
+          {settingsStore.homeTab === "Profile" && <ProfileCard />}
+          {settingsStore.homeTab === "ORDERS" && <OrderSection />}
+          {/* {settingsStore.homeTab === "REWARDS" && <RewardsSection />} */}
+          {/* {settingsStore.homeTab === "Electricity" && <ComingSoon />} */}
+          {/* {settingsStore.homeTab === "Betting" && <ComingSoon />} */}
+        </div>
       </div>
-    </div>
+    </>
   )
+}
+
+
+
+
+
+function Greetings() {
+  const profile = useFarcasterProfile()
+  return <p className="font-bold text-[15px]">Hi {` ${profile.data?.user.displayName || ""}`},</p>
 }
