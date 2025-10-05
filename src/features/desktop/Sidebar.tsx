@@ -28,7 +28,7 @@ export function Sidebar() {
                         className={cn("my-2 px-4 py-2 rounded-md hover:bg-primary hover:text-white hover:text-foreground flex",
                             val.isActive && "bg-primary text-foreground")}>
                         <Icon className={cn("mr-4 text-muted", val.isActive && "text-foreground")} size={20} />
-                        <p className={cn("text-muted  hover:text-foreground", val.isActive && "text-foreground")}>{val.title}</p>
+                        <p className={cn("text-muted  hover:text-foreground text-[13px]", val.isActive && "text-foreground")}>{val.title}</p>
                     </Link>
                 )
             })}
