@@ -11,6 +11,7 @@ export function Sidebar() {
     const path = usePathname()
     const drawerItems: { title: string; href: string; Icon: IconType; isActive: boolean }[] = [
         { title: "Dashboard", href: "/dashboard", Icon: MdDashboard, isActive: path === "/dashboard" },
+        { title: "Invoice", href: "/invoice", Icon: MdDashboard, isActive: path === "/invoice" },
         { title: "Bills & Payments", href: "/bills", Icon: FaDollarSign, isActive: path === "/bills" },
         { title: "Exchange", href: "/exchange", Icon: RiExchange2Fill, isActive: path === "/exchange" },
         { title: "Swap", href: "/swap", Icon: MdWallet, isActive: path === "/swap" },

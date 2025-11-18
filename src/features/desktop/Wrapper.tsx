@@ -15,7 +15,7 @@ export default function DesktopWrapper(props: { children: ReactNode }) {
                         <Sidebar />
                     </div>
                     <div className='w-full justify-center flex md:py-8 py-3' >
-                        <div className='md:w-[50%] w-[90%] h-full'>
+                        <div className='md:w-[80%] w-[90%] h-full'>
                             {props.children}
                         </div>
                     </div>
