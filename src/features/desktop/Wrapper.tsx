@@ -32,7 +32,7 @@ export function AuthChecker(props: { children: ReactNode }) {
 
     useEffect(() => {
         if (!activeAccount) {
-            void route.push("/login")
+            // void route.push("/login")
         }
     }, [activeAccount, route]);
 

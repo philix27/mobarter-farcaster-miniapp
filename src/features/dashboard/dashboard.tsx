@@ -1,55 +1,52 @@
 import React from 'react'
 import DesktopWrapper from '../desktop/Wrapper';
-import { WalletBalance } from './WalletBalances';
 import { TokensSection } from './TokensList';
-import { IconType } from 'react-icons';
-import { BsPerson, BsPhone } from 'react-icons/bs';
-import { MdSavings, } from 'react-icons/md';
-import { FaDollarSign } from 'react-icons/fa6';
-import { RiExchange2Fill } from 'react-icons/ri';
-import { useRouter } from 'next/router';
+import { QuickActions } from './QuickActions';
+import { TransactionsHistorySection } from './TransactionsHistory';
 
 export default function DashboardPage() {
     return (
         <DesktopWrapper>
-            <div className='w-full  h-full flex flex-col items-center'>
-                <WalletBalance />
+            <div className='w-full  h-full flex flex-col items-center space-y-8'>
+                <div className='w-full flex items-center md:gap-x-5 gap-y-4 flex-col md:flex-row'>
+                    <div className='md:w-[50%] w-full h-[100px] bg-card rounded-md'>
+                        <CryptoBalance />
+                    </div>
+                    <div className='md:w-[50%] w-full h-[100px] bg-card rounded-md'>
+                        <BankAccount />
+                    </div>
+                </div>
                 <QuickActions />
-                <TokensSection />
-            </div>
+                <div className='w-full flex items-center md:gap-x-5   flex-col md:flex-row'>
+                    <div className='md:w-[50%] w-full h-full bg-card rounded-md'>
+                        <TokensSection />
+                    </div>
+                    <div className='md:w-[50%] w-full h-full bg-card rounded-md'>
+                        <TransactionsHistorySection />
+                    </div>
+
+                </div>
+            </div>    
         </DesktopWrapper>
     )
 }
 
 
-export function QuickActions() {
-    const router = useRouter()
-    const actions: { Icon: IconType; title: string; href: string }[] = [
-        { title: "TopUp", href: "/bills", Icon: BsPhone, },
-        { title: "Bills", href: "/bills", Icon: FaDollarSign, },
-        { title: "Exchange", href: "/exchange", Icon: RiExchange2Fill, },
-        { title: "Savings", href: "/savings", Icon: MdSavings, },
-        { title: "Settings", href: "/profile", Icon: BsPerson, },
-    ]
 
+export function CryptoBalance() {
     return (
-        <div className='flex items-center justify-around w-full md:mb-10 mb-5 md:hidden'>
-            {actions.map((item, i) => {
-                const Icon = item.Icon;
-                return (
-                    <div key={i} className='flex flex-col items-center justify-center'
-                        onClick={() => {
-                            void router.push(item.href )
-                        }}
-                    >
-                        <div className='bg-primary p-3 rounded-md mb-1'>
-                            <Icon className='text-white' />
-                        </div>
+        <div className='bg-card rounded-md py-3 px-5 '>
+            <p className='font-light text-[12px] text-muted '>Total Balance</p>
+            <p className='font-semibold text-foreground text-[33px] mt-2 '>$28,457.00 <span className='text-[15px] text-muted font-medium '>USD</span></p>
+        </div>
+    )
+}
 
-                        <p className='text-[10.4px] text-muted'>{item.title}</p>
-                    </div>
-                )
-            })}
+export function BankAccount() {
+    return (
+        <div className='bg-card rounded-md py-3 px-5  '>
+            <p className='font-light text-[12px] text-muted '>Total Balance</p>
+            <p className='font-semibold text-foreground text-[33px] mt-2 '>$28,457.00 <span className='text-[15px] text-muted font-medium '>USD</span></p>
         </div>
     )
 }

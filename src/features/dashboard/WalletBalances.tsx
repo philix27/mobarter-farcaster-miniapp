@@ -2,7 +2,7 @@ export function WalletBalance() {
     const cardSections: { title: string; subtitle?: string; amount: string }[] = [
         { title: "Total Balance", amount: "100 USD" },
         { title: "Locked Savings", amount: "100 USD" },
-        { title: "Total Balance", amount: "100 USD" },
+        // { title: "Total Balance", amount: "100 USD" },
     ]
     return (
         <div className='w-full flex md:flex-row flex-col justify-around md:space-x-4 space-y-2 md:space-y-0 mb-5 md:mb-10'>

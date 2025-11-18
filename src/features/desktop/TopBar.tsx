@@ -5,7 +5,7 @@ import { Sidebar } from "./Sidebar";
 import { Wallet } from "lucide-react";
 import QRCode from "react-qr-code";
 import React, { useState } from "react";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import { useActiveAccount } from "thirdweb/react";
 import { Button } from "@/components/Button";
 import { toast } from "sonner";
