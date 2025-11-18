@@ -37,7 +37,7 @@ export function useSendToken() {
 
     // Generate Divvi referral tag
     const dataSuffix = divvi.getReferralTag({
-      user: address!, // The user address making the transaction
+      user: address! as `0x${string}`, // The user address making the transaction
       consumer: appAddresses.divvi as `0x${string}`, // Your Divvi consumer address
     })
 

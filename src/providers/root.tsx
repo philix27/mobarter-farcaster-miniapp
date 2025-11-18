@@ -9,6 +9,7 @@ import { Spinner } from '@/components/Spinner';
 import { WagmiPosthog } from './providers';
 import { Analytics } from '@vercel/analytics/next';
 import umami from '@umami/node';
+import { ThirdwebProvider } from 'thirdweb/react';
 
 
 const apollo = (token: string) => {
@@ -35,31 +36,33 @@ export function Root(props: PropsWithChildren) {
     });
 
   }, [])
-  
+
   const didMount = useDidMount()
   if (!didMount) return <Spinner />
 
 
   return (
     <WagmiPosthog>
-      <ApolloProvider client={apollo(store.token)!}>
-        <MiniKitProvider
-          apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
-          chain={base}
-          config={{
-            appearance: {
-              mode: "auto",
-              theme: "mini-app-theme",
-              name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
-              logo: process.env.NEXT_PUBLIC_ICON_URL,
-            },
-          }}
-        >
-          {props.children}
-        </MiniKitProvider>
-        <Analytics />
-        <Toaster richColors position="top-center" expand={false} closeButton duration={2000} />
-      </ApolloProvider>
+      <ThirdwebProvider>
+        <ApolloProvider client={apollo(store.token)!}>
+          <MiniKitProvider
+            apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
+            chain={base}
+            config={{
+              appearance: {
+                mode: "auto",
+                theme: "mini-app-theme",
+                name: process.env.NEXT_PUBLIC_ONCHAINKIT_PROJECT_NAME,
+                logo: process.env.NEXT_PUBLIC_ICON_URL,
+              },
+            }}
+          >
+            {props.children}
+          </MiniKitProvider>
+          <Analytics />
+          <Toaster richColors position="top-center" expand={false} closeButton duration={2000} />
+        </ApolloProvider>
+      </ThirdwebProvider>
     </WagmiPosthog>
   )
 }

@@ -1,9 +1,14 @@
-import { Button } from '@/components/Button'
 import React, { useEffect } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
+import { TR } from '../features/thirdweb'
+import { Button } from '@/components/Button'
 import { BsGoogle } from 'react-icons/bs'
-
+import { client } from '../features/thirdweb/client'
+import { inAppWallet } from 'thirdweb/wallets'
+import { celo } from 'thirdweb/chains'
+import { useRouter } from 'next/router'
+// import { createWallet } from 'thirdweb/wallets'
 
 export default function Page() {
   return (
@@ -15,9 +20,19 @@ export default function Page() {
 }
 
 function FormField() {
+  const { connect, isConnecting } = TR.useConnect()
+  const activeAccount = TR.useActiveAccount()
+  const route = useRouter()
+
+  useEffect(() => {
+    if (activeAccount) {
+      void route.push("/dashboard")
+    }
+  }, [activeAccount, route]);
+
   return (
-    <div className='w-full md:w-1/3  h-full flex flex-col items-center justify-center p-5'>
-      <div className='md:w-[75%] w-full h-full flex flex-col items-center  space-y-5'>
+    <div className='w-full md:w-1/2  h-full flex flex-col items-center justify-center p-5'>
+      <div className='md:w-765%] w-full h-full flex flex-col items-center  space-y-5'>
         <div className='h-[30vh] flex items-center justify-center'>
           <img src="/logo.png" className='size-[100px]' />
         </div>
@@ -35,13 +50,38 @@ function FormField() {
 
         <Button btnName='singInWithGoogle'
           className='space-x-2 md:py-3'
-          onClick={() => {
-            window.location.href = '/dashboard'
+          isLoading={isConnecting}
+          onClick={async () => {
+            await connect(async () => {
+              const wallet = inAppWallet({
+                "auth": {
+                  "options": ["google"],
+                  "mode": "popup",
+                  "defaultSmsCountryCode": "NG"
+                }
+              })
+
+              await wallet.connect({
+                strategy: "google",
+                client: client,
+                "mode": "popup",
+                "chain": celo,
+              });
+
+              return wallet;
+            })
+
+            if (activeAccount) {
+              void route.push("/dashboard")
+            }
           }}
         >
           <BsGoogle />
           <span className='pl-2'>Sign in with Google</span>
         </Button>
+
+
+        {/* <ThirdWebConnectBtn /> */}
 
         <div className='w-[60%]'>
           <p style={{ lineHeight: 2 }} className='md:text-[14px] text-[11px] text-gray-500 mt-5 text-center'>By signing in you agree to our
@@ -63,6 +103,7 @@ function Slides() {
     { title: 'Slide 2', subtitle: 'This is slide 2', img: '/login/trend2.jpg' },
     { title: 'Slide 3', subtitle: 'This is slide 3', img: '/login/trend3.jpg' },
   ]
+
   return (
     <div className='w-2/3 h-full flex  p-0 m-0 md:block hidden'>
       <EmblaCarousel slides={slides} />

@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactNode, useCallback, useMemo, useState } from "react";
+import { type ReactNode, useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 import {
   Transaction,
@@ -166,7 +166,7 @@ export function Home({ setActiveTab }: HomeProps) {
           This is a minimalistic Mini App built with OnchainKit components.
         </p>
         <Button
-        
+
           onClick={() => setActiveTab("features")}
           icon={<Icon name="arrow-right" size="sm" />}
         >
@@ -352,11 +352,10 @@ function TodoList() {
                   type="button"
                   id={`todo-${todo.id}`}
                   onClick={() => toggleTodo(todo.id)}
-                  className={`w-5 h-5 rounded-full border flex items-center justify-center ${
-                    todo.completed
-                      ? "bg-[var(--app-accent)] border-[var(--app-accent)]"
-                      : "border-[var(--app-foreground-muted)] bg-transparent"
-                  }`}
+                  className={`w-5 h-5 rounded-full border flex items-center justify-center ${todo.completed
+                    ? "bg-[var(--app-accent)] border-[var(--app-accent)]"
+                    : "border-[var(--app-foreground-muted)] bg-transparent"
+                    }`}
                 >
                   {todo.completed && (
                     <Icon
@@ -393,15 +392,15 @@ function TransactionCard() {
   const { address } = useAccount();
 
   // Example transaction call - sending 0 ETH to self
-  const calls = useMemo(() => address
-    ? [
-        {
-          to: address,
-          data: "0x" as `0x${string}`,
-          value: BigInt(0),
-        },
-      ]
-    : [], [address]);
+  // const calls = useMemo(() => address
+  //   ? [
+  //       {
+  //         to: address,
+  //         data: "0x" as `0x${string}`,
+  //         value: BigInt(0),
+  //       },
+  //     ]
+  //   : [], [address]);
 
   const sendNotification = useNotification();
 
@@ -435,7 +434,7 @@ function TransactionCard() {
         <div className="flex flex-col items-center">
           {address ? (
             <Transaction
-              calls={calls}
+              // calls={calls}
               onSuccess={handleSuccess}
               onError={(error: TransactionError) =>
                 logger.error("Transaction failed:", error)

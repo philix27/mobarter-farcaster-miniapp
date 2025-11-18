@@ -13,11 +13,14 @@ export function Sidebar() {
         { title: "Dashboard", href: "/dashboard", Icon: MdDashboard, isActive: path === "/dashboard" },
         { title: "Bills & Payments", href: "/bills", Icon: FaDollarSign, isActive: path === "/bills" },
         { title: "Exchange", href: "/exchange", Icon: RiExchange2Fill, isActive: path === "/exchange" },
+        { title: "Swap", href: "/swap", Icon: MdWallet, isActive: path === "/swap" },
         { title: "Wallet", href: "/wallet", Icon: MdWallet, isActive: path === "/wallet" },
+        // { title: "Invoice", href: "/wallet", Icon: MdWallet, isActive: path === "/wallet" },
         { title: "Savings", href: "/savings", Icon: MdSavings, isActive: path === "/savings" },
         { title: "Bank Account", href: "/bank-account", Icon: BsBank, isActive: path === "/bank-account" },
         { title: "Profile", href: "/profile", Icon: BsPerson, isActive: path === "/profile" },
     ]
+
     return <div className='md:w-[275px] w-full bg-card h-full py-4 px-3 bg-card'>
         <div>
             {drawerItems.map((val, i) => {
