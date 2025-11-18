@@ -8,70 +8,85 @@
   :root {
     --safe-area-inset-bottom: calc(100vh - var(--tg-viewport-stable-height, 100vh));
    
-    --background: #eaedee;
-    --foreground: #494a4a;
+    --background: #e6e9ec;
+    --foreground: #3a3a3a;
 
-    --muted: #8f8f8f;
-    --muted-foreground: #cecece;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --popover-foreground: 0 0% 3.9%;
 
-    --card: #fefefe;
-    --card-foreground: #0e151d;
+    --card:  #f0efef;
+    --card-foreground: 0 0% 3.9%;
 
-    --primary: #ff6719;
-    --primary-foreground: #fff;
+    --primary:  #ff6719;
+    --primary-foreground: #ffffff;
 
-    --secondary: #c1d0d5;
-    --secondary-foreground: #19232f;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
 
-    --accent: #ffffff;
-    --accent-foreground: #f8f8f8;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
 
-    --destructive: #d00000;
-    --destructive-foreground: #ffffff;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
 
-    --ring: #4c4847;
-    --border: #3b3b3b;
-    --input: #ff3300;
+    --ring: 0 0% 3.9%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
 
     --radius: 0.5rem;
+
+    --chart-1: 12 76% 61%;
+
+    --chart-2: 173 58% 39%;
+
+    --chart-3: 197 37% 24%;
+
+    --chart-4: 43 74% 66%;
+
+    --chart-5: 27 87% 67%;
   }
 
   .dark {
-    --background: #2a2c30;
-    /* --background: #18222e; */
-    --foreground: #ffffff;
+    /* --background: 0 0% 3.9%; */
+    --background: #18222e;
+    --foreground: #eeeded;
 
-    --muted: #717171;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted:  #9ba2aa;
+    --muted-foreground: 0 0% 63.9%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --card: #1f1f1f;
-    /* --card: #181818; */
-    --card-foreground: #ffff;
+    /* --card: 0 0% 3.9%; */
+    --card: #293542;
+    --card-foreground: 0 0% 98%;
 
-    /* --primary: #ff6719; */
     --primary: #ff6719;
-    --primary-foreground: #fff;
+    /* --primary: 0 0% 98%; */
+    --primary-foreground:  #ffffff;
 
-    --secondary: #282828;
-    --secondary-foreground: #f8f8f8;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
 
-    --accent: #222525;
-    --accent-foreground: #f8f8f8;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: #d00000;
-    --destructive-foreground: #ffffff;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
 
-    --ring: #2a333c;
-    --border: #2a333c;
-    --input: #151718;
+    --ring: 0 0% 83.1%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
     --tw-shadow: #545353;
     --radius: 0.5rem;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
   body {
     font-family: 'Inter', sans-serif;
@@ -130,5 +145,16 @@ body {
   .no-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
