@@ -1,11 +1,11 @@
 import React from 'react'
 import DesktopWrapper from '../features/desktop/Wrapper'
-import { TopUpSection } from '../features/topup/TopUpSection'
+import BillsSection from '../features/bills/BillsSection'
 
 export default function Page() {
     return (
         <DesktopWrapper>
-            <TopUpSection />
+            <BillsSection />
         </DesktopWrapper>
     )
 }

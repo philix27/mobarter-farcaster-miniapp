@@ -1,12 +1,12 @@
+import { TabsComp } from "@/components/tab";
 import TokenBalanceDisplay from "../pay/TokenBalance";
 import { payTokens } from "../pay/tokens";
-import { TabsDemo } from "./tab";
 
 export function TokensSection() {
 
     return (
         <div className='w-full bg-card  flex justify-center  '>
-            <TabsDemo
+            <TabsComp
                 defaultValue="celo"
                 list={[
                     {
@@ -34,7 +34,7 @@ export function TokensSection() {
 
 export function _TokensList() {
     return (
-        <div className="w-full h-[300px] overflow-y-scroll ">
+        <div className="w-full h-[400px] overflow-y-scroll no-scrollbar">
             {payTokens.map((val, i) => (
                 <div key={i} className='rounded-md p-2 flex w-full items-center justify-between  border-b-background border-b'>
                     <div className='flex items-center mr-3 '>

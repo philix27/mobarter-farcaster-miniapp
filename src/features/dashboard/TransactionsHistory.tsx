@@ -22,7 +22,7 @@ export function TransactionsHistorySection() {
             <div className='bg-background px-2 py-1 rounded-sm'>
                 <h4 className='text-muted font-semibold text-[14px]'>Transactions History</h4>
             </div>
-            <div className='w-full flex flex-col space-y-1 h-[300px] overflow-y-scroll scroll-hide'>
+            <div className='w-full flex flex-col space-y-1 h-[400px] overflow-y-scroll scroll-hide no-scrollbar'>
                 {history.map((val, i) => (
                     <div key={i} className='p-2 flex w-full items-center justify-between border-b-background border-b'>
                         <div className='flex items-center mr-3 '>

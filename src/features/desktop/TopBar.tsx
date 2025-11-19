@@ -18,7 +18,7 @@ export function TopBar() {
     const activeAccount = useActiveAccount()
 
     return (
-        <div className='w-full h-[45px] md:px-[50px] px-[15px] flex items-center justify-between py-2 border-b-muted border-b-1 '>
+        <div className='w-full h-[45px] md:px-[50px] px-[15px] flex items-center justify-between py-2 border-border border-b-[1px] '>
             <div>
                 <p className="font-bold text-[18px] hidden md:block">Mobarter</p>
                 {showSideBar ? <MdClose className="md:hidden" onClick={() => {
