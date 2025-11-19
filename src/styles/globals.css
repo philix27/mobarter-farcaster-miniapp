@@ -9,9 +9,9 @@
     --safe-area-inset-bottom: calc(100vh - var(--tg-viewport-stable-height, 100vh));
    
     --background: #e4e4e4;
-    --foreground: #3a3a3a;
+    --foreground: #494949;
 
-    --muted: 0 0% 96.1%;
+    --muted:   #6b6b6b;
     --muted-foreground: 0 0% 45.1%;
 
     --popover: 0 0% 100%;

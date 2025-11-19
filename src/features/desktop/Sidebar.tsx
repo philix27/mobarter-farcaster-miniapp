@@ -2,7 +2,6 @@ import { cn } from "@/src/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IconType } from "react-icons";
-import { BsBank, } from "react-icons/bs";
 import { FaDollarSign } from "react-icons/fa6";
 import { MdDashboard, MdLogout, MdSavings, MdSettings, } from "react-icons/md";
 import { RiExchange2Fill } from "react-icons/ri";
@@ -18,14 +17,14 @@ export function Sidebar() {
         { title: "Bills & Payments", href: "/bills", Icon: FaDollarSign, isActive: path === "/bills" },
         { title: "Exchange", href: "/exchange", Icon: RiExchange2Fill, isActive: path === "/exchange" },
         { title: "Orders", href: "/orders", Icon: RiExchange2Fill, isActive: path === "/orders" },
+        { title: "Savings", href: "/savings", Icon: MdSavings, isActive: path === "/savings" },
+        // { title: "Bank Account", href: "/bank-account", Icon: BsBank, isActive: path === "/bank-account" },
+        { title: "Settings", href: "/profile", Icon: MdSettings, isActive: path === "/profile" },
         // { title: "Swap", href: "/swap", Icon: MdWallet, isActive: path === "/swap" },
         // { title: "Wallet", href: "/wallet", Icon: MdWallet, isActive: path === "/wallet" },
         // { title: "Invoice", href: "/invoice", Icon: MdWallet, isActive: path === "/invoice" },
         // { title: "Card", href: "/card", Icon: MdWallet, isActive: path === "/card" },
         // { title: "Support", href: "/support", Icon: MdWallet, isActive: path === "/support" },
-        { title: "Savings", href: "/savings", Icon: MdSavings, isActive: path === "/savings" },
-        { title: "Bank Account", href: "/bank-account", Icon: BsBank, isActive: path === "/bank-account" },
-        { title: "Settings", href: "/profile", Icon: MdSettings, isActive: path === "/profile" },
     ]
 
     return (

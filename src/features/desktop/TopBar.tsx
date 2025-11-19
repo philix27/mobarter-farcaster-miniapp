@@ -9,7 +9,7 @@ import { useActiveAccount } from "thirdweb/react";
 import { Button } from "@/components/Button";
 import { toast } from "sonner";
 import { copyTextToClipboard, } from "@/src/lib/utils";
-import { DrawerComp, } from "@/components/Drawer";
+import { DrawerSideContent, } from "@/components/Drawer";
 
 
 export function TopBar() {
@@ -35,17 +35,24 @@ export function TopBar() {
 
             </div>
             <div className="flex space-x-6 items-center">
-                <DrawerComp
+                <DrawerSideContent
+                    open={showSideBar}
                     title={"Wallet Address"}
+                    onClose={() => {
+                        setShowSidebar(!showSideBar)
+                    }}
                     trigger={<Wallet
                         size={20}
+                        onClick={() => {
+                            setShowSidebar(!showSideBar)
+                        }}
                     />}
                     body={
                         <div className="flex flex-col items-center bg-background space-y-5 rounded-lg p-4 mb-5">
                             <QRCode
                                 value={activeAccount?.address || "No wallet"}
-                                size={256}
-                                style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                                size={150}
+                                style={{ height: "auto", maxWidth: "70%", width: "70%" }}
                                 viewBox={`0 0 256 256`}
                                 bgColor={'#FFFFFF'}
                                 fgColor={'#000000'}
@@ -57,6 +64,7 @@ export function TopBar() {
                                 onClick={async () => {
                                     await copyTextToClipboard(activeAccount?.address || "")
                                     toast.success("Copied")
+                                    setShowSidebar(!showSideBar)
                                 }}>Copy</Button>
                         </div>
                     }

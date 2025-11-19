@@ -10,33 +10,29 @@ export default function OrderSection() {
   const tabItems: ITab[] = [
     {
       title: "SELL",
-      isActive: store.tabs === "SELL",
-      onClick: () => {
-        store.update({ tabs: "SELL" });
-      }
+      value: "SELL",
+      comp: <OrderSell />,
+    },
+    {
+      title: "BUY",
+      value: "BUY",
+      comp: <BuyOrder />,
     },
     {
       title: "HISTORY",
-      isActive: store.tabs === "HISTORY",
-      onClick: () => {
-        store.update({ tabs: "HISTORY" });
-      }
+      value: "HISTORY",
+      comp: <OrderHistory />,
+
     },
-    // {
-    //   title: "BUY",
-    //   isActive: store.tabs === "BUY",
-    //   onClick: () => {
-    //     store.update({ tabs: "BUY" });
-    //   }
-    // },
   ]
   return (
-    <div>
-      <div className='bg-card rounded-lg py-2'>
-      <Tabs tabs={tabItems} />
-        {store.tabs === "SELL" && <OrderSell />}
-        {store.tabs === "HISTORY" && <OrderHistory />}
-        {store.tabs === "BUY" && <BuyOrder />}
+    <div className='w-full flex items-center justify-center'>
+      <div className='md:w-[40%] w-full bg-card rounded-lg py-2'>
+        <Tabs
+          onClick={(v: any) => {
+            store.update({ tabs: v });
+          }}
+          activeValue={store.tabs} tabs={tabItems} />
       </div>
     </div>
   )

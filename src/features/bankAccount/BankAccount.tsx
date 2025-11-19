@@ -6,39 +6,41 @@ import { useBankAccountGetAll } from '@/src/lib/mongodb/bank/hook';
 import { Spinner } from '@/components/Spinner';
 import { AdsRow, Card, Label } from '@/components/comps';
 
-  
+
 export default function BankAccounts() {
   const [showAddAccount, setShowAddAccount] = useState(false)
 
   return (
-    <div className='w-full'>
-      <div className='bg-card rounded-lg mt-4 px-2 py-2'>
-        <div className='flex justify-between items-center mb-2'>
-          <Label>Bank Accounts</Label>
-          {/* <div className='p-1 bg-background flex justify-center items-center rounded-full'
+    <div className='w-full flex items-center justify-center'>
+      <div className='md:w-[40%] w-full'>
+        <div className='bg-card rounded-lg mt-4 px-2 py-2'>
+          <div className='flex justify-between items-center mb-2'>
+            <Label>Bank Accounts</Label>
+            {/* <div className='p-1 bg-background flex justify-center items-center rounded-full'
             onClick={() => {
               setShowAddAccount(true)
             }}>
             <MdAddCircle size={16} className='text-primary' />
           </div> */}
-        </div>
-        {/* <hr className='border-1 border-muted w-full mb-1' /> */}
-        <AccountList setShowAddAccount={setShowAddAccount} />
+          </div>
+          {/* <hr className='border-1 border-muted w-full mb-1' /> */}
+          <AccountList setShowAddAccount={setShowAddAccount} />
 
-        <BottomModal showSheet={showAddAccount}
-          onClose={() => {
-            setShowAddAccount(false)
-          }}>
-          <AddBankAccount onClose={() => {
-            setShowAddAccount(false)
-          }} />
-        </BottomModal>
+          <BottomModal showSheet={showAddAccount}
+            onClose={() => {
+              setShowAddAccount(false)
+            }}>
+            <AddBankAccount onClose={() => {
+              setShowAddAccount(false)
+            }} />
+          </BottomModal>
+        </div>
+        <Button btnName='add-bank-account'
+          onClick={() => {
+            setShowAddAccount(true)
+          }}
+        >Add Bank Account</Button>
       </div>
-      <Button btnName='add-bank-account'
-        onClick={() => {
-          setShowAddAccount(true)
-        }}
-      >Add Bank Account</Button>
     </div>
   )
 }
