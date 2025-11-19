@@ -8,11 +8,6 @@ export default function DashboardPage() {
     return (
         <DesktopWrapper>
             <div className='w-full  h-full flex flex-col items-center space-y-8'>
-
-                <div className='flex items-start '>
-                    <p>Hello</p>
-                </div>
-
                 <div className='w-full flex items-center md:gap-x-5 gap-y-4 flex-col md:flex-row'>
                     <div className='md:w-[50%] w-full h-[100px] bg-card rounded-md'>
                         <CryptoBalance />
@@ -22,14 +17,13 @@ export default function DashboardPage() {
                     </div>
                 </div>
                 <QuickActions />
-                <div className='w-full flex items-center md:gap-x-5   flex-col md:flex-row'>
+                <div className='w-full flex items-center md:gap-x-5 gap-y-5 flex-col md:flex-row'>
                     <div className='md:w-[50%] w-full h-full bg-card rounded-md'>
                         <TokensSection />
                     </div>
                     <div className='md:w-[50%] w-full h-full bg-card rounded-md'>
                         <TransactionsHistorySection />
                     </div>
-
                 </div>
             </div>
         </DesktopWrapper>

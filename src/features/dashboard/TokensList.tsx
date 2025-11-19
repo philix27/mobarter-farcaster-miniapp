@@ -1,19 +1,52 @@
 import TokenBalanceDisplay from "../pay/TokenBalance";
 import { payTokens } from "../pay/tokens";
+import { TabsDemo } from "./tab";
 
 export function TokensSection() {
 
     return (
-        <div className='w-full bg-card  flex flex-col space-y-1 h-[300px] overflow-y-scroll '>
-            {payTokens.concat(payTokens).map((val, i) => (
+        <div className='w-full bg-card  flex justify-center  '>
+            <TabsDemo
+                defaultValue="celo"
+                list={[
+                    {
+                        heading: "Celo",
+                        value: "celo",
+                        content: < _TokensList />
+                    },
+                    {
+                        heading: "Base",
+                        value: "base",
+                        content: < _TokensList />
+                    },
+                    {
+                        heading: "Ethereum",
+                        value: "ethereum",
+                        content: <div>Ethereum Tokens</div>
+                    },
+                ]}
+            />
+
+        </div>
+    )
+}
+
+
+export function _TokensList() {
+    return (
+        <div className="w-full h-[300px] overflow-y-scroll ">
+            {payTokens.map((val, i) => (
                 <div key={i} className='rounded-md p-2 flex w-full items-center justify-between  border-b-background border-b'>
                     <div className='flex items-center mr-3 '>
-                        <img src={val.token.logo} alt={val.token.symbol} className='md:size-[35px] size-[20px] inline mx-2' />
-                        <p><span className='text-[13px] font-semibold'> {val.token.symbol} </span> <span className='text-[10px] text-muted'>{val.chain.name.toUpperCase()}</span> </p>
+                        <img src={val.token.logo} alt={val.token.symbol} className='md:size-[30px] size-[20px] inline mx-2' />
+                        <p className="ml-4">
+                            <span className='text-[13px] font-semibold'> {val.token.symbol} </span>
+                            <span className='text-[10px] text-muted'>{val.chain.name.toUpperCase()}</span>
+                        </p>
                     </div>
                     <TokenBalanceDisplay tokenAddress={val.token.address as `0x${string}`} chainId={val.chain.chainId} />
                 </div>
             ))}
         </div>
     )
-}
+}   

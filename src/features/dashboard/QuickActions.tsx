@@ -16,11 +16,11 @@ export function QuickActions() {
 
     return (
         <div className="w-full flex items-center justify-center ">
-            <div className='flex items-center justify-around w-full md:w-[70%] space-x-4 bg-card p-3 rounded-md'>
+            <div className='flex items-center justify-around w-full md:w-[70%] space-x-4  p-3 rounded-md'>
                 {actions.map((item, i) => {
                     const Icon = item.Icon;
                     return (
-                        <div key={i} className='flex flex-col items-center hover:cursor-pointer bg-background rounded-md w-full py-2'
+                        <div key={i} className='flex flex-col items-center hover:cursor-pointer bg-card rounded-md w-full py-2 '
                             onClick={() => {
                                 void router.push(item.href)
                             }}
